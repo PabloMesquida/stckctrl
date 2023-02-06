@@ -1,8 +1,31 @@
-import { pool } from "../../config/db.js";
+//import connection from "../../config/db.js";
+import mysql from "mysql2/promise";
 
-export default function handler(req, res) {
-  const result = pool.query("SELECT NOW()");
+export default async function handler(req, res) {
+  const connection = await mysql.createConnection({
+    host: "160.153.72.136",
+    user: "stckctrl_test",
+    password: "g1*fgYpq+2v$",
+    port: "3306",
+    database: "test_db",
+  });
 
-  console.log(result);
-  return <div>TEST: {result}</div>;
+  try {
+    const query = "SELECT full_name FROM usertbl";
+    const values = [];
+    const [data] = await connection.execute(query, values);
+    connection.end();
+    res.status(200).json({ results: data });
+  } catch (error) {
+    // res.status(200).json({ results: data });
+  }
 }
+
+// import { pool } from "../../config/db.js";
+
+// export default function handler(req, res) {
+//   // const result = pool.query("SELECT NOW()");
+//   const result = "hola";
+//   console.log(result);
+//   return <div>TEST: {result}</div>;
+// }
