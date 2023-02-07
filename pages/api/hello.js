@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     // port: process.env.DB_PORT,
     // database: process.env.DB_NAME,
 
-    host: "160.153.72.136",
+    host: process.env.DB_HOST,
     user: "stckctrl_test",
     password: "6tfVBjtQ6mX",
     port: 3306,
