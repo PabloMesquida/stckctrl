@@ -8,6 +8,7 @@ import { register_validate } from "@/lib/validate.js";
 
 export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false });
+
   const formik = useFormik({
     initialValues: { username: "", email: "", password: "", cpassword: "" },
     validate: register_validate,
@@ -30,7 +31,13 @@ export default function Register() {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-            <div className={styles.input_group}>
+            <div
+              className={`${styles.input_group} ${
+                formik.errors.username && formik.touched.username
+                  ? "border-red-600"
+                  : ""
+              }`}
+            >
               <input
                 className={styles.input_text}
                 type="text"
@@ -41,13 +48,19 @@ export default function Register() {
               <span className="icon flex items-center px-4">
                 <HiOutlineUser size={25} />
               </span>
-              {formik.errors.username && formik.touched.username ? (
+              {/* {formik.errors.username && formik.touched.username ? (
                 <span className="text-red-600">{formik.errors.username}</span>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
-            <div className={styles.input_group}>
+            <div
+              className={`${styles.input_group} ${
+                formik.errors.email && formik.touched.email
+                  ? "border-red-600"
+                  : ""
+              }`}
+            >
               <input
                 className={styles.input_text}
                 type="email"
@@ -58,13 +71,20 @@ export default function Register() {
               <span className="icon flex items-center px-4">
                 <HiAtSymbol size={25} />
               </span>
-              {formik.errors.email && formik.touched.email ? (
+              {/* {formik.errors.email && formik.touched.email ? (
                 <span className="text-red-600">{formik.errors.email}</span>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
-            <div className={styles.input_group}>
+
+            <div
+              className={`${styles.input_group} ${
+                formik.errors.password && formik.touched.password
+                  ? "border-red-600"
+                  : ""
+              }`}
+            >
               <input
                 className={styles.input_text}
                 type={`${show.password ? "text" : "password"}`}
@@ -78,14 +98,19 @@ export default function Register() {
               >
                 <HiFingerPrint size={25} />
               </span>
-              {formik.errors.password && formik.touched.password ? (
+              {/* {formik.errors.password && formik.touched.password ? (
                 <span className="text-red-600">{formik.errors.password}</span>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
-
-            <div className={styles.input_group}>
+            <div
+              className={`${styles.input_group} ${
+                formik.errors.cpassword && formik.touched.cpassword
+                  ? "border-red-600"
+                  : ""
+              }`}
+            >
               <input
                 className={styles.input_text}
                 type={`${show.cpassword ? "text" : "password"}`}
@@ -99,11 +124,11 @@ export default function Register() {
               >
                 <HiFingerPrint size={25} />
               </span>
-              {formik.errors.cpassword && formik.touched.cpassword ? (
+              {/* {formik.errors.cpassword && formik.touched.cpassword ? (
                 <span className="text-red-600">{formik.errors.cpassword}</span>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
 
             <div>
