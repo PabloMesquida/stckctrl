@@ -9,26 +9,25 @@ export default async function handler(req, res) {
     const { username, email, password } = req.body;
 
     // Check duplicate users
-    const query = `SELECT * FROM usertbl WHERE email = "${email}"`;
-    const values = "";
-    const data = await executeQuery({ query, values });
+    const data = await executeQuery({
+      query: `SELECT * FROM usertbl WHERE email = "${email}"`,
+      value: [],
+    });
 
-    if (data.length > 0) {
+    if (data.length)
       return res.status(422).json({ message: "User alaready exist." });
+
+    const passwordHash = await hash(password, 12);
+    const restultsCreate = await executeQuery({
+      query: `INSERT INTO usertbl(username, email, password) VALUES(?, ?, ?)`,
+      values: [username, email, passwordHash],
+    });
+
+    if (restultsCreate) {
+      return res.status(200).json({ status: true, user: restultsCreate });
+    } else {
+      return res.status(404).json({ message: "Error" });
     }
-
-    return res.status(200).json({ results: data });
-
-    // // Hash password
-    // const passwordHash = await hash(password, 12);
-    // const queryCreate = `INSERT INTO usertbl (username, email, password) VALUES (?, ?, ?)`;
-    // const restultsCreate = await executeQuery(queryCreate, [
-    //   username,
-    //   email,
-    //   passwordHash,
-    // ]);
-    // console.log("r", restultsCreate);
-    // return res.status(200).json({ status: true });
   } else {
     res
       .status(500)
