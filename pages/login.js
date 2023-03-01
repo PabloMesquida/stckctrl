@@ -1,21 +1,33 @@
 import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import AuthLayout from "@/layout/AuthLayout.js";
 import styles from "../styles/Form.module.css";
 import { HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useFormik } from "formik";
 import login_validate from "@/lib/validate.js";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [show, setShow] = useState(false);
+  const router = useRouter();
   const formik = useFormik({
     initialValues: { user: "", password: "" },
     validate: login_validate,
     onSubmit,
   });
 
-  async function onSubmit(values) {}
+  async function onSubmit(values) {
+    const status = await signIn("credentials", {
+      redirect: false,
+      email: values.user,
+      password: values.password,
+      callbackUrl: "/",
+    });
+    console.log(status);
+    if (status.ok) console.log(status);
+    // router.push(status.url);
+  }
 
   return (
     <AuthLayout>
@@ -50,11 +62,7 @@ export default function Login() {
                 <HiOutlineUser size={25} />
               </span>
             </div>
-            {/* {formik.errors.user && formik.touched.user ? (
-              <span className="text-red-600">{formik.errors.user}</span>
-            ) : (
-              <></>
-            )} */}
+
             <div
               className={`${styles.input_group} ${
                 formik.errors.password && formik.touched.password
@@ -76,11 +84,7 @@ export default function Login() {
                 <HiFingerPrint size={25} />
               </span>
             </div>
-            {/* {formik.errors.password && formik.touched.password ? (
-              <span className="text-red-600">{formik.errors.password}</span>
-            ) : (
-              <></>
-            )} */}
+
             <div>
               <button type="submit" className={styles.button}>
                 Login

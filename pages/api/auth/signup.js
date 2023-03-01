@@ -1,5 +1,5 @@
 import { executeQuery } from "@/config/db";
-import { hash } from "bcryptjs";
+const bcrypt = require("bcrypt");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     if (data.length)
       return res.status(422).json({ message: "User alaready exist." });
 
-    const passwordHash = await hash(password, 12);
+    // const passwordHash = await hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 5);
     const restultsCreate = await executeQuery({
       query: `INSERT INTO usertbl(username, email, password) VALUES(?, ?, ?)`,
       values: [username, email, passwordHash],
