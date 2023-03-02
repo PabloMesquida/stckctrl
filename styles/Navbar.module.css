@@ -1,0 +1,23 @@
+.header {
+  @apply grow mx-auto px-2 sm:px-4  py-2.5 flex fixed w-full z-20  justify-between max-w-7xl;
+}
+
+.logo {
+  @apply font-geo text-3xl grow-0 text-th-accent-dark;
+}
+
+.nav_container {
+  @apply flex grow justify-end items-center h-10 align-middle;
+}
+
+.ul {
+  @apply flex flex-col text-th-primary-medium md:p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm font-semibold md:font-medium md:border-0;
+}
+
+.button_container {
+  @apply flex-col md:flex-row pb-6 md:pb-0 w-full;
+}
+
+.dark_toggle_button {
+  @apply rounded-xl hover:bg-th-primary-light p-2 mx-4 w-8 h-8 inline-flex items-center text-sm text-th-primary-dark  md:hidden focus:outline-none;
+}

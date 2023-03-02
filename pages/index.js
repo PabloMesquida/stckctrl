@@ -1,6 +1,7 @@
-import { getSession, useSession, signOut } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import { getSession, useSession, signOut } from "next-auth/react";
+import Navbar from "@/components/navbar/Nabvar.js";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -28,9 +29,10 @@ export default function Home() {
 
 function Guest() {
   return (
-    <main className="container mx-auto text-center py-20">
-      <h3 className="text-4xl font-bold">Guest Homepage</h3>
-      <div className="flex justify-center">
+    <main className="container mx-auto text-center h-screen max-w-7xl flex flex-col items-center bg-th-background">
+      <Navbar />
+      <h3 className="text-4xl font-bold mt-40">Guest Homepage</h3>
+      <div className="flex justify-center ">
         <Link
           href={"/login"}
           className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50"
@@ -43,7 +45,6 @@ function Guest() {
 }
 
 function AuthUser({ session, handleSignOut }) {
-  console.log(session);
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize Homepage</h3>
@@ -65,8 +66,8 @@ function AuthUser({ session, handleSignOut }) {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
-  if (!session) {
-    return { redirect: { destination: "/login", permanent: false } };
-  }
+  // if (!session) {
+  //   return { redirect: { destination: "/login", permanent: false } };
+  // }
   return { props: { session } };
 }
