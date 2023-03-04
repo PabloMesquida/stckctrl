@@ -23,12 +23,11 @@ const Navbar = () => {
                 <NavBtn link="#">Contact</NavBtn>
               </li>
             </ul>
-            <div className={navStyles.button_container}></div>
           </div>
         </div>
         <button
           type="button"
-          className={navStyles.dark_toggle_button}
+          className={navStyles.menu_toggle_button}
           onClick={() => {
             menu
               ? document.getElementById("menu").classList.remove("hidden")

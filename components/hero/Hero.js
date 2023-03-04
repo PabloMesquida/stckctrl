@@ -5,7 +5,7 @@ import Login from "./Login.js";
 export const Hero = () => {
   return (
     <div className="h-screen w-full flex flex-row">
-      <div className="w-1/2">
+      <div className="hidden  md:flex md:w-1/2">
         <Canvas
           className="w-full"
           camera={{
@@ -18,7 +18,7 @@ export const Hero = () => {
           <Experience />
         </Canvas>
       </div>
-      <div className="flex justify-center items-center w-1/2">
+      <div className="flex justify-center items-center w-full md:w-1/2 ">
         <div>
           <Login />
         </div>

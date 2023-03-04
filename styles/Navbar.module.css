@@ -1,13 +1,17 @@
 .header {
-  @apply grow mx-auto px-2 sm:px-4  py-6 flex fixed w-full z-20  justify-between max-w-7xl;
+  @apply grow mx-auto px-12  border-b border-th-primary-light py-6 flex fixed w-full z-20  justify-between;
 }
 
 .logo {
-  @apply font-geo text-3xl grow-0 text-th-accent-dark;
+  @apply font-geo text-4xl grow-0 text-th-accent-dark;
 }
 
 .nav_container {
   @apply flex grow justify-end items-center h-10 align-middle;
+}
+
+.nav {
+  @apply flex mx-5 justify-between grow-0 text-sm;
 }
 
 .ul {
@@ -18,6 +22,6 @@
   @apply flex-col md:flex-row pb-6 md:pb-0 w-full;
 }
 
-.dark_toggle_button {
-  @apply rounded-xl hover:bg-th-primary-light p-2 mx-4 w-8 h-8 inline-flex items-center text-sm text-th-primary-dark  md:hidden focus:outline-none;
+.menu_toggle_button {
+  @apply py-2 px-11 mx-4 w-12 h-12  items-center text-xl text-th-primary-dark  md:hidden focus:outline-none;
 }
