@@ -18,7 +18,7 @@ body {
 
 :root {
   --background: theme("colors.slate.200");
-  --background-secondary: theme("colors.slate.500");
+  --background-secondary: theme("colors.slate.300");
   --background-tertiary: theme("colors.slate.800");
 
   --primary-dark: theme("colors.gray.900");

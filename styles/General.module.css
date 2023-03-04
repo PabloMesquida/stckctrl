@@ -3,7 +3,11 @@
 }
 
 .button_sm {
-  @apply my-2 flex justify-center items-center text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md md:rounded-lg text-sm px-5 py-0 text-center md:mr-0 h-10 w-20;
+  @apply my-2 flex justify-center items-center text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-xl text-sm px-5 py-0 text-center md:mr-0 h-10 w-20;
+}
+
+.button_xl {
+  @apply my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md md:rounded-lg  px-5 py-4 px-6  text-center md:mr-0  w-full max-w-lg;
 }
 
 .button_nofill {
@@ -12,4 +16,26 @@
 
 .button_nofill_sm {
   @apply my-2 flex justify-center items-center text-th-primary-dark hover:text-white border border-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md md:rounded-lg text-sm px-5 py-0 text-center md:mr-0 h-10 w-20;
+}
+
+/* //////////////////// */
+
+.input_group {
+  @apply flex border-2 rounded-xl relative;
+}
+
+.input_text {
+  @apply w-full py-4 px-6 border-2 rounded-xl bg-th-background text-th-primary-dark focus:outline-none border-none;
+}
+
+.input_text + * {
+  @apply text-th-primary-medium;
+}
+
+.input_text:focus + * {
+  @apply text-th-accent-medium;
+}
+
+.input_text:not([name="user"]) ~ span:hover * {
+  @apply text-th-accent-dark cursor-pointer;
 }

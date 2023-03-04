@@ -1,5 +1,5 @@
 .header {
-  @apply grow mx-auto px-2 sm:px-4  py-2.5 flex fixed w-full z-20  justify-between max-w-7xl;
+  @apply grow mx-auto px-2 sm:px-4  py-6 flex fixed w-full z-20  justify-between max-w-7xl;
 }
 
 .logo {

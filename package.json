@@ -19,6 +19,7 @@
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "formik": "^2.2.9",
+    "gltfjsx": "^6.1.4",
     "mysql2": "^3.1.0",
     "next": "13.1.6",
     "next-auth": "^4.19.1",

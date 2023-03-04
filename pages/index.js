@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
 import Navbar from "@/components/navbar/Nabvar.js";
+import { Hero } from "@/components/hero/Hero";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -31,15 +31,7 @@ function Guest() {
   return (
     <main className="container mx-auto text-center h-screen max-w-7xl flex flex-col items-center bg-th-background">
       <Navbar />
-      <h3 className="text-4xl font-bold mt-40">Guest Homepage</h3>
-      <div className="flex justify-center ">
-        <Link
-          href={"/login"}
-          className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50"
-        >
-          Sing In
-        </Link>
-      </div>
+      <Hero />
     </main>
   );
 }
