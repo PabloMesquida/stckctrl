@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import AuthLayout from "@/layout/AuthLayout.js";
-import styles from "../styles/Form.module.css";
+import stylesGeneral from "../styles/General.module.css";
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useFormik } from "formik";
 import { register_validate } from "@/lib/validate.js";
@@ -43,14 +43,14 @@ export default function Register() {
 
           <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
             <div
-              className={`${styles.input_group} ${
+              className={`${stylesGeneral.input_group} ${
                 formik.errors.username && formik.touched.username
                   ? "border-red-600"
                   : ""
               }`}
             >
               <input
-                className={styles.input_text}
+                className={stylesGeneral.input_text}
                 type="text"
                 name="username"
                 placeholder="Nombre de usuario"
@@ -61,14 +61,14 @@ export default function Register() {
               </span>
             </div>
             <div
-              className={`${styles.input_group} ${
+              className={`${stylesGeneral.input_group} ${
                 formik.errors.email && formik.touched.email
                   ? "border-red-600"
                   : ""
               }`}
             >
               <input
-                className={styles.input_text}
+                className={stylesGeneral.input_text}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -80,14 +80,14 @@ export default function Register() {
             </div>
 
             <div
-              className={`${styles.input_group} ${
+              className={`${stylesGeneral.input_group} ${
                 formik.errors.password && formik.touched.password
                   ? "border-red-600"
                   : ""
               }`}
             >
               <input
-                className={styles.input_text}
+                className={stylesGeneral.input_text}
                 type={`${show.password ? "text" : "password"}`}
                 name="password"
                 placeholder="Clave"
@@ -101,14 +101,14 @@ export default function Register() {
               </span>
             </div>
             <div
-              className={`${styles.input_group} ${
+              className={`${stylesGeneral.input_group} ${
                 formik.errors.cpassword && formik.touched.cpassword
                   ? "border-red-600"
                   : ""
               }`}
             >
               <input
-                className={styles.input_text}
+                className={stylesGeneral.input_text}
                 type={`${show.cpassword ? "text" : "password"}`}
                 name="cpassword"
                 placeholder="Confirmar contraseña"
@@ -123,7 +123,7 @@ export default function Register() {
             </div>
 
             <div>
-              <button type="submit" className={styles.button}>
+              <button type="submit" className={stylesGeneral.button}>
                 Registrarse
               </button>
             </div>
