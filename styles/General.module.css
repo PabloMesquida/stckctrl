@@ -7,7 +7,7 @@
 }
 
 .button_xl {
-  @apply my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md md:rounded-lg  px-5 py-4 px-6  text-center md:mr-0  w-full max-w-lg;
+  @apply my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md md:rounded-lg  py-4 px-6  text-center md:mr-0  w-full max-w-lg;
 }
 
 .button_nofill {

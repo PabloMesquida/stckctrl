@@ -18,7 +18,7 @@ export const Hero = () => {
           <Experience />
         </Canvas>
       </div>
-      <div className="flex justify-center items-center w-full md:w-1/2 ">
+      <div className="flex justify-center items-center  w-full md:w-1/2 ">
         <div>
           <Login />
         </div>
