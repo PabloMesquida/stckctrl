@@ -26,7 +26,7 @@ export default function Login() {
   }
 
   return (
-    <div className="w-full flex flex-col bg-th-background-secondary p-8 rounded-xl shadow ">
+    <div className="w-full flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border ">
       <span className="text-th-accent-medium text-3xl font-bold mb-8">
         Inicia sesión
         <br />

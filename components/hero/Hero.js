@@ -1,6 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience.js";
 import Login from "./Login.js";
+import * as THREE from "three";
+
+THREE.ColorManagement.enabled = true;
 
 export const Hero = () => {
   return (
