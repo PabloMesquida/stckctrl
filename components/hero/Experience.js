@@ -68,7 +68,7 @@ export default function Experience() {
               args={[20, 0.1, 20]}
               position={[0, -2.35, 0]}
               restitution={0}
-              friction={1}
+              friction={0.5}
             />
           </RigidBody>
         </group>

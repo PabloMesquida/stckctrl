@@ -15,7 +15,7 @@ export default function Model({ type }) {
 
   console.log("TYPE", type);
 
-  const impulseForce = 0.8;
+  const impulseForce = 0.83;
 
   useFrame(() => {
     const bodyPosition = body.current.translation();
@@ -23,7 +23,10 @@ export default function Model({ type }) {
     if (bodyPosition.y < 0.08 && bodyPosition.z > -0.05) {
       body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
     } else if (bodyPosition.z < -0.05) {
-      body.current.applyImpulse({ x: impulseForce, y: 0, z: 0 });
+      type === 0 && body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
+      type === 1 && body.current.applyImpulse({ x: impulseForce, y: 0, z: 0 });
+      type === 2 && body.current.applyImpulse({ x: -impulseForce, y: 0, z: 0 });
+
       //impulse = { x: 0.18, y: 0, z: 0 };
     }
   });
@@ -98,7 +101,7 @@ export default function Model({ type }) {
           geometry={nodes.Cube_4.geometry}
           material={materials.InfoMaterial}
         />
-        <CuboidCollider args={[0.5, 0.5, 0.5]} restitution={0} friction={0} />
+        <CuboidCollider args={[0.5, 0.5, 0.5]} restitution={0} friction={0.1} />
       </group>
     </RigidBody>
   );
