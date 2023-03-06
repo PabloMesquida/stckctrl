@@ -2,9 +2,9 @@ import BoxModel from "./BoxStck.js";
 import Stckctrl from "./Stckctrl.js";
 import Pallet from "./Pallet.js";
 import Lights from "./Lights.js";
-import { PresentationControls, Environment, Text3D } from "@react-three/drei";
+import { Environment, Text3D } from "@react-three/drei";
 import { Physics, Debug, RigidBody, CuboidCollider } from "@react-three/rapier";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Experience() {
   const [instances, setInstances] = useState([]);
@@ -30,13 +30,6 @@ export default function Experience() {
 
       <Lights />
 
-      {/* <PresentationControls
-        global
-        rotation={[0, 0, 0]}
-        polar={[0, 0]}
-        azimuth={[-1, 0.75]}
-        config={{ mass: 2, tension: 400 }}
-      > */}
       <Physics>
         {/* <Debug /> */}
         <group scale={0.2}>
