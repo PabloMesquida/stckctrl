@@ -9,9 +9,10 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider, Debug } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 
-export default function Model({ type, setIsAreaActive }) {
+export default function Model({ type, setIsAreaActive, setIsLightActive }) {
   const [active, setActive] = useState(true);
   const [spin, setSpin] = useState(false);
+  const [lightControl, setLightControl] = useState(false);
 
   const { nodes, materials } = useGLTF("/models/box.glb");
 
@@ -48,24 +49,67 @@ export default function Model({ type, setIsAreaActive }) {
     }
   }, [spin]);
 
-  const rotation = new THREE.Quaternion();
+  useEffect(() => {
+    let light;
+    switch (type) {
+      case 0:
+        light = "square";
+        break;
+      case 1:
+        light = "circle";
+        break;
+      case 2:
+        light = "triangle";
+        break;
+      default:
+        light = null;
+    }
+    if (light) {
+      setIsLightActive((prev) => ({ ...prev, [light]: true }));
+      const timer = setTimeout(() => {
+        setIsLightActive((prev) => ({ ...prev, [light]: false }));
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [lightControl]);
 
   useFrame((state, delta) => {
     const bodyPosition = body.current.translation();
 
+    if (bodyPosition.z < 1.5 && bodyPosition.z > center) {
+      //  console.log("TRUE");
+      setLightControl(true);
+    } else {
+      // console.log("FALSE");
+      setLightControl(false);
+    }
+
+    // console.log(bodyPosition.z);
     if (bodyPosition.y < 0.08) {
       if (bodyPosition.z > center) {
         body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce * delta });
       } else {
         switch (type) {
           case 0:
-            body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce * delta });
+            body.current.applyImpulse({
+              x: 0,
+              y: 0,
+              z: -impulseForce * delta,
+            });
             break;
           case 1:
-            body.current.applyImpulse({ x: impulseForce * delta, y: 0, z: 0 });
+            body.current.applyImpulse({
+              x: impulseForce * delta,
+              y: 0,
+              z: 0,
+            });
             break;
           case 2:
-            body.current.applyImpulse({ x: -impulseForce * delta, y: 0, z: 0 });
+            body.current.applyImpulse({
+              x: -impulseForce * delta,
+              y: 0,
+              z: 0,
+            });
             break;
         }
       }
@@ -78,7 +122,7 @@ export default function Model({ type, setIsAreaActive }) {
     <>
       <group visible={active} dispose={null}>
         <RigidBody
-          position={[0, 10, 9]}
+          position={[0, 5, 9]}
           rotation={[0, -Math.PI / 2, 0]}
           ref={body}
           mass={1}

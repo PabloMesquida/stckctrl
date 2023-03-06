@@ -6,10 +6,10 @@ Command: npx gltfjsx@6.1.4 stckctrl.glb --shadows
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 
-export default function Model(props) {
+export default function Model({ isLightActive }) {
   const { nodes, materials } = useGLTF("/models/stckctrl.glb");
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <group position={[0, 4, 0]}>
         <mesh
           castShadow
@@ -36,8 +36,14 @@ export default function Model(props) {
           castShadow
           receiveShadow
           geometry={nodes.Cylinder002.geometry}
-          material={materials.SimbolMaterial03}
-        />
+          // material={materials.SimbolMaterial03}
+        >
+          <meshStandardMaterial
+            color={"purple"}
+            emissive={"purple"}
+            emissiveIntensity={isLightActive.triangle ? "2" : "0"}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
@@ -56,74 +62,32 @@ export default function Model(props) {
           castShadow
           receiveShadow
           geometry={nodes.Cylinder003_1.geometry}
-          material={materials.SimbolMaterial01}
-        />
+          //  material={materials.SimbolMaterial01}
+        >
+          <meshStandardMaterial
+            color={"green"}
+            emissive={"green"}
+            emissiveIntensity={isLightActive.square ? "2" : "0"}
+          />
+        </mesh>
       </group>
       <group position={[1.89, 4.14, -0.95]} scale={[0.7, 0.15, 0.7]}>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Cylinder005.geometry}
-          material={materials.SimbolMaterial02}
-        />
+          // material={materials.SimbolMaterial02}
+        >
+          <meshStandardMaterial
+            color={"orange"}
+            emissive={"orange"}
+            emissiveIntensity={isLightActive.circle ? "2" : "0"}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Cylinder005_1.geometry}
-          material={materials.WallMaterial}
-        />
-      </group>
-      <group
-        position={[4.08, 1.65, -0.59]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-        scale={[0.35, 0.07, 0.35]}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder006.geometry}
-          material={materials.SimbolMaterial02}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder006_1.geometry}
-          material={materials.WallMaterial}
-        />
-      </group>
-      <group
-        position={[0, 1.65, -3.72]}
-        rotation={[Math.PI / 2, 0, Math.PI]}
-        scale={[0.35, 0.07, 0.35]}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder007.geometry}
-          material={materials.SimbolMaterial01}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder007_1.geometry}
-          material={materials.WallMaterial}
-        />
-      </group>
-      <group
-        position={[-4.12, 1.65, -0.59]}
-        rotation={[Math.PI / 2, 0, Math.PI / 2]}
-        scale={[0.35, 0.07, 0.35]}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder008.geometry}
-          material={materials.SimbolMaterial03}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder008_1.geometry}
           material={materials.WallMaterial}
         />
       </group>

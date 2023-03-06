@@ -2,8 +2,8 @@ import { useTheme } from "next-themes";
 
 export default function Lights() {
   const { theme } = useTheme();
-  const ambientIntensity = theme === "dark" ? 0 : 1;
-  const directionalIntensity = theme === "dark" ? 1 : 1.5;
+  const ambientIntensity = theme === "dark" ? 0 : 0.5;
+  const directionalIntensity = theme === "dark" ? 0.5 : 1;
 
   return (
     <>

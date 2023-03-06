@@ -16,6 +16,12 @@ export default function Experience() {
     triangle: false,
   });
 
+  const [isLightActive, setIsLightActive] = useState({
+    circle: false,
+    square: false,
+    triangle: false,
+  });
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setInstances((prev) => [
@@ -49,12 +55,13 @@ export default function Experience() {
             stckctrl
             <meshStandardMaterial />
           </Text3D>
-          {/* <Stckctrl rotation={[0, 0, 0]} /> */}
+          <Stckctrl rotation={[0, 0, 0]} isLightActive={isLightActive} />
           {instances.map((instance, i) => (
             <BoxModel
               key={i}
               type={instance.type}
               setIsAreaActive={setIsAreaActive}
+              setIsLightActive={setIsLightActive}
             />
           ))}
           {/* PALLET */}

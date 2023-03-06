@@ -15,7 +15,7 @@ export const Hero = () => {
             fov: 45,
             near: 0.1,
             far: 2000,
-            position: [5, 3, -5],
+            position: [5, 3.2, -5],
           }}
         >
           <Experience />
