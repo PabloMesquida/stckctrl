@@ -9,7 +9,7 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider, Debug } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 
-export default function Model({ type }) {
+export default function Model({ type, setIsAreaActive }) {
   const [active, setActive] = useState(true);
   const [spin, setSpin] = useState(false);
 
@@ -17,52 +17,61 @@ export default function Model({ type }) {
 
   const body = useRef();
 
-  const impulseForce = 0.45;
+  const impulseForce = 28; // 0.45
   const center = 0.32;
 
   useEffect(() => {
     if (spin) {
-      const timer = setTimeout(() => {
-        body.current.setTranslation([0, -500, 0]); // Remove Rigidbody ?
-        setActive(false);
-      }, 4000);
-      return () => clearTimeout(timer);
+      let area;
+      switch (type) {
+        case 0:
+          area = "square";
+          break;
+        case 1:
+          area = "circle";
+          break;
+        case 2:
+          area = "triangle";
+          break;
+        default:
+          area = null;
+      }
+      if (area) {
+        setIsAreaActive((prev) => ({ ...prev, [area]: true }));
+        const timer = setTimeout(() => {
+          body.current.setTranslation([0, -500, 0]); // Remove Rigidbody ?
+          setIsAreaActive((prev) => ({ ...prev, [area]: false }));
+          setActive(false);
+        }, 4000);
+        return () => clearTimeout(timer);
+      }
     }
   }, [spin]);
 
   const rotation = new THREE.Quaternion();
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const bodyPosition = body.current.translation();
 
     if (bodyPosition.y < 0.08) {
       if (bodyPosition.z > center) {
-        body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
+        body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce * delta });
       } else {
         switch (type) {
           case 0:
-            body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
+            body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce * delta });
             break;
           case 1:
-            body.current.applyImpulse({ x: impulseForce, y: 0, z: 0 });
+            body.current.applyImpulse({ x: impulseForce * delta, y: 0, z: 0 });
             break;
           case 2:
-            body.current.applyImpulse({ x: -impulseForce, y: 0, z: 0 });
+            body.current.applyImpulse({ x: -impulseForce * delta, y: 0, z: 0 });
             break;
         }
       }
     }
 
     if (Math.abs(bodyPosition.x) > 1.9 || bodyPosition.z < -1.9) setSpin(true);
-
-    if (spin) {
-      const time = state.clock.getElapsedTime();
-
-      rotation.setFromEuler(new THREE.Euler(0, time * 2, 0));
-
-      body.current.setNextKinematicRotation(rotation);
-      // body.current.setRotation(rotation);
-    }
   });
 
   return (

@@ -6,9 +6,15 @@ import Stckctrl from "./Stckctrl.js";
 import Pallet from "./Pallet.js";
 import Lights from "./Lights.js";
 import BoundsWalls from "./BoundsWalls.js";
+import Areas from "./Areas.js";
 
 export default function Experience() {
   const [instances, setInstances] = useState([]);
+  const [isAreaActive, setIsAreaActive] = useState({
+    circle: false,
+    square: false,
+    triangle: false,
+  });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -43,9 +49,13 @@ export default function Experience() {
             stckctrl
             <meshStandardMaterial />
           </Text3D>
-          <Stckctrl rotation={[0, 0, 0]} />
+          {/* <Stckctrl rotation={[0, 0, 0]} /> */}
           {instances.map((instance, i) => (
-            <BoxModel key={i} type={instance.type} />
+            <BoxModel
+              key={i}
+              type={instance.type}
+              setIsAreaActive={setIsAreaActive}
+            />
           ))}
           {/* PALLET */}
           <RigidBody
@@ -66,6 +76,7 @@ export default function Experience() {
             />
           </RigidBody>
           <BoundsWalls />
+          <Areas isAreaActive={isAreaActive} />
         </group>
       </Physics>
       {/* </PresentationControls> */}
