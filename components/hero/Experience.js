@@ -1,10 +1,11 @@
+import { Environment, Text3D } from "@react-three/drei";
+import { Physics, Debug, RigidBody, CuboidCollider } from "@react-three/rapier";
+import { useEffect, useState } from "react";
 import BoxModel from "./BoxStck.js";
 import Stckctrl from "./Stckctrl.js";
 import Pallet from "./Pallet.js";
 import Lights from "./Lights.js";
-import { Environment, Text3D } from "@react-three/drei";
-import { Physics, Debug, RigidBody, CuboidCollider } from "@react-three/rapier";
-import { useEffect, useState } from "react";
+import BoundsWalls from "./BoundsWalls.js";
 
 export default function Experience() {
   const [instances, setInstances] = useState([]);
@@ -61,9 +62,10 @@ export default function Experience() {
               args={[20, 0.1, 20]}
               position={[0, -2.35, 0]}
               restitution={0}
-              friction={0.5}
+              friction={0}
             />
           </RigidBody>
+          <BoundsWalls />
         </group>
       </Physics>
       {/* </PresentationControls> */}

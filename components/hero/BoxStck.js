@@ -4,52 +4,70 @@ Command: npx gltfjsx@6.1.4 box.glb --shadows
 */
 
 import React, { useState, useRef, useEffect } from "react";
+import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider, Debug } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 
 export default function Model({ type }) {
   const [active, setActive] = useState(true);
+  const [spin, setSpin] = useState(false);
+
   const { nodes, materials } = useGLTF("/models/box.glb");
-
-  useEffect(() => {
-    console.log("isVisible:", active);
-  }, [active]);
-
-  //if (!active) return null;
 
   const body = useRef();
 
-  const impulseForce = 0.45; //0.83
-  const center = 0.25; // -0.05
+  const impulseForce = 0.45;
+  const center = 0.32;
 
-  useFrame(() => {
+  useEffect(() => {
+    if (spin) {
+      const timer = setTimeout(() => {
+        body.current.setTranslation([0, -500, 0]); // Remove Rigidbody ?
+        setActive(false);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [spin]);
+
+  const rotation = new THREE.Quaternion();
+
+  useFrame((state) => {
     const bodyPosition = body.current.translation();
 
-    if (bodyPosition.y < 0.08 && bodyPosition.z > center) {
-      body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
-    } else if (bodyPosition.z < center) {
-      type === 0 && body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
-      type === 1 && body.current.applyImpulse({ x: impulseForce, y: 0, z: 0 });
-      type === 2 && body.current.applyImpulse({ x: -impulseForce, y: 0, z: 0 });
+    if (bodyPosition.y < 0.08) {
+      if (bodyPosition.z > center) {
+        body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
+      } else {
+        switch (type) {
+          case 0:
+            body.current.applyImpulse({ x: 0, y: 0, z: -impulseForce });
+            break;
+          case 1:
+            body.current.applyImpulse({ x: impulseForce, y: 0, z: 0 });
+            break;
+          case 2:
+            body.current.applyImpulse({ x: -impulseForce, y: 0, z: 0 });
+            break;
+        }
+      }
     }
 
-    if (bodyPosition.x > 2) {
-      setActive(false);
-    }
-    if (bodyPosition.x < -2) {
-      setActive(false);
-    }
-    if (bodyPosition.z < -2) {
-      setActive(false);
-    }
+    if (Math.abs(bodyPosition.x) > 1.9 || bodyPosition.z < -1.9) setSpin(true);
 
-    //console.log(bodyPosition);
+    if (spin) {
+      const time = state.clock.getElapsedTime();
+
+      rotation.setFromEuler(new THREE.Euler(0, time * 2, 0));
+
+      body.current.setNextKinematicRotation(rotation);
+      // body.current.setRotation(rotation);
+    }
   });
 
   return (
     <>
-      <group visible={active}>
+      <group visible={active} dispose={null}>
         <RigidBody
           position={[0, 10, 9]}
           rotation={[0, -Math.PI / 2, 0]}
