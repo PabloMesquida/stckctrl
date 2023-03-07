@@ -134,29 +134,47 @@ export default function Model({ type, setIsAreaActive, setIsLightActive }) {
               castShadow
               receiveShadow
               geometry={nodes.Simbol_01.geometry}
-              material={materials.SimbolMaterial01}
+              //   material={materials.SimbolMaterial01}
               scale={[0.45, 0.45, 1.05]}
-            />
+            >
+              <meshStandardMaterial
+                color={"green"}
+                emissive={"green"}
+                emissiveIntensity={"0"}
+              />
+            </mesh>
 
             <mesh
               visible={type === 1}
               castShadow
               receiveShadow
               geometry={nodes.Simbol_02.geometry}
-              material={materials.SimbolMaterial02}
+              //material={materials.SimbolMaterial02}
               rotation={[Math.PI / 2, 0, 0]}
               scale={[0.45, 1.05, 0.45]}
-            />
+            >
+              <meshStandardMaterial
+                color={"yellow"}
+                emissive={"yellow"}
+                emissiveIntensity={"0"}
+              />
+            </mesh>
 
             <mesh
               visible={type === 2}
               castShadow
               receiveShadow
               geometry={nodes.Simbol_03.geometry}
-              material={materials.SimbolMaterial03}
+              //  material={materials.SimbolMaterial03}
               rotation={[Math.PI / 2, 0, 0]}
               scale={[0.5, 1.05, 0.5]}
-            />
+            >
+              <meshStandardMaterial
+                color={"purple"}
+                emissive={"purple"}
+                emissiveIntensity={"0"}
+              />
+            </mesh>
 
             <mesh
               castShadow

@@ -4,6 +4,7 @@ Command: npx gltfjsx@6.1.4 pallet.glb --shadows
 */
 
 import React from "react";
+import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
@@ -14,10 +15,12 @@ export default function Model(props) {
         castShadow
         receiveShadow
         geometry={nodes.Floor.geometry}
-        material={materials.FloorMaterial}
+        //  material={materials.FloorMaterial}
         position={[0, -1.96, 0]}
         scale={1.14}
-      />
+      >
+        <meshStandardMaterial color={"#7f4d94"} side={THREE.DoubleSide} />
+      </mesh>
     </group>
   );
 }
