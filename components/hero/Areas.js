@@ -28,25 +28,40 @@ const Areas = ({ isAreaActive }) => {
         receiveShadow
       >
         <ringBufferGeometry args={[2, 1, 32]} />
-        <meshStandardMaterial color="red" side={THREE.DoubleSide} />
+        <meshStandardMaterial
+          color="red"
+          emissive="red"
+          emissiveIntensity="1"
+          side={THREE.DoubleSide}
+        />
       </mesh>
       <mesh
         ref={triangleRef}
         position={[-10, -2.4, -0.5]}
-        rotation={[-Math.PI / 2, 0, Math.PI]}
+        rotation={[Math.PI / 2, 0, Math.PI]}
         receiveShadow
       >
         <ringBufferGeometry args={[2, 1, 3]} />
-        <meshStandardMaterial color="red" side={THREE.DoubleSide} />
+        <meshStandardMaterial
+          color="red"
+          emissive="red"
+          emissiveIntensity="1"
+          side={THREE.DoubleSide}
+        />
       </mesh>
       <mesh
         ref={squareRef}
         position={[0, -2.4, -9.5]}
-        rotation={[-Math.PI / 2, 0, Math.PI / 4]}
+        rotation={[Math.PI / 2, 0, Math.PI / 4]}
         receiveShadow
       >
         <ringBufferGeometry args={[2, 1, 4]} />
-        <meshStandardMaterial color="red" side={THREE.DoubleSide} />
+        <meshStandardMaterial
+          color="red"
+          emissive="red"
+          emissiveIntensity="1"
+          side={THREE.DoubleSide}
+        />
       </mesh>
     </>
   );

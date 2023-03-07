@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import stylesGeneral from "@/styles/General.module.css";
-import { HiFingerPrint, HiOutlineUser } from "react-icons/hi";
+import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
 import login_validate from "@/lib/validate.js";
-import { signIn } from "next-auth/react";
+import stylesHero from "@/styles/Hero.module.css";
+import stylesGeneral from "@/styles/General.module.css";
+import { HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 
 export default function Login() {
   const [show, setShow] = useState(false);
@@ -26,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <div className="w-full flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border ">
+    <div className={stylesHero.hero_login_container}>
       <span className="text-th-accent-medium text-3xl font-bold mb-8">
         Inicia sesión
         <br />

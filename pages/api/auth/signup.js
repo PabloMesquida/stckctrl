@@ -1,36 +1,53 @@
 import { executeQuery } from "@/config/db";
 const bcrypt = require("bcrypt");
 
+const HTTP_METHOD_NOT_ALLOWED = 405;
+const BAD_REQUEST = 400;
+const UNPROCESSABLE_ENTITY = 422;
+const INTERNAL_SERVER_ERROR = 500;
+const SUCCESS = 200;
+
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    if (!req.body)
-      return res.status(404).json({ error: "Don't have form data" });
+  try {
+    if (req.method !== "POST") {
+      return res.status(HTTP_METHOD_NOT_ALLOWED).json({
+        message: "HTTP method not valid only POST accepted",
+      });
+    }
 
     const { username, email, password } = req.body;
 
-    // Check duplicate users
+    if (!username || !email || !password) {
+      return res
+        .status(BAD_REQUEST)
+        .json({ error: "Username, email and password are required." });
+    }
+
     const data = await executeQuery({
       query: `SELECT * FROM usertbl WHERE email = "${email}"`,
-      value: [],
+      values: [],
     });
 
-    if (data.length)
-      return res.status(422).json({ message: "User alaready exist." });
+    if (data.length) {
+      return res
+        .status(UNPROCESSABLE_ENTITY)
+        .json({ message: "User already exists." });
+    }
 
     const passwordHash = await bcrypt.hash(password, 5);
-    const restultsCreate = await executeQuery({
+    const results = await executeQuery({
       query: `INSERT INTO usertbl(name, email, password) VALUES(?, ?, ?)`,
       values: [username, email, passwordHash],
     });
 
-    if (restultsCreate) {
-      return res.status(200).json({ status: true, user: restultsCreate });
+    if (results) {
+      return res.status(SUCCESS).json({ status: true, user: results });
     } else {
-      return res.status(404).json({ message: "Error" });
+      return res.status(BAD_REQUEST).json({ message: "Error" });
     }
-  } else {
-    res
-      .status(500)
-      .json({ message: "HTTP method not valid only POST accepted" });
+  } catch (error) {
+    return res
+      .status(INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 }

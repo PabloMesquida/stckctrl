@@ -1,6 +1,7 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { executeQuery } from "@/config/db";
+import { findOne } from "@/helpers/db";
 import bcrypt from "bcrypt";
 
 export default NextAuth({
@@ -9,27 +10,76 @@ export default NextAuth({
       name: "Credentials",
 
       async authorize(credentials, req) {
-        executeQuery().catch((error) => {
-          error: "Connection failed.";
-        });
+        try {
+          const { email, password } = credentials;
 
-        const user = await executeQuery({
-          query: `SELECT * FROM usertbl WHERE email = "${credentials.email}"`,
-          value: [],
-        });
+          // Validar que el correo electrónico y la contraseña estén presentes
+          if (!email || !password) {
+            throw new Error("Missing credentials.");
+          }
 
-        if (!user) throw new Error("No user found.");
-        const checkPassword = await bcrypt.compare(
-          credentials.password,
-          user[0].password
-        );
+          // Validar que el correo electrónico tenga un formato válido
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            throw new Error("Invalid email format.");
+          }
 
-        if (!checkPassword || user[0].email !== credentials.email) {
-          throw new Error("Username or Password doesn't match");
+          // Validar que la contraseña tenga al menos 6 caracteres
+          if (password.length < 6) {
+            throw new Error("Password must be at least 6 characters long.");
+          }
+
+          const user = await findOne("usertbl", {
+            column: "email",
+            value: email,
+          });
+
+          if (!user) {
+            throw new Error("User not found.");
+          }
+
+          const passwordMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordMatch) {
+            throw new Error("Password doesn't match");
+          }
+
+          return user;
+        } catch (error) {
+          throw new Error("Connection failed.");
         }
-
-        return user[0];
       },
     }),
   ],
 });
+
+// export default NextAuth({
+//   providers: [
+//     CredentialsProvider({
+//       name: "Credentials",
+
+//       async authorize(credentials, req) {
+//         executeQuery().catch((error) => {
+//           error: "Connection failed.";
+//         });
+
+//         const user = await executeQuery({
+//           query: `SELECT * FROM usertbl WHERE email = "${credentials.email}"`,
+//           value: [],
+//         });
+
+//         if (!user) throw new Error("No user found.");
+//         const checkPassword = await bcrypt.compare(
+//           credentials.password,
+//           user[0].password
+//         );
+
+//         if (!checkPassword || user[0].email !== credentials.email) {
+//           throw new Error("Username or Password doesn't match");
+//         }
+
+//         return user[0];
+//       },
+//     }),
+//   ],
+// });

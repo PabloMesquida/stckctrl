@@ -138,9 +138,9 @@ export default function Model({ type, setIsAreaActive, setIsLightActive }) {
               scale={[0.45, 0.45, 1.05]}
             >
               <meshStandardMaterial
-                color={"green"}
-                emissive={"green"}
-                emissiveIntensity={"0"}
+                color="green"
+                emissive="green"
+                emissiveIntensity="0"
               />
             </mesh>
 
@@ -154,9 +154,9 @@ export default function Model({ type, setIsAreaActive, setIsLightActive }) {
               scale={[0.45, 1.05, 0.45]}
             >
               <meshStandardMaterial
-                color={"yellow"}
-                emissive={"yellow"}
-                emissiveIntensity={"0"}
+                color="yellow"
+                emissive="yellow"
+                emissiveIntensity="0"
               />
             </mesh>
 
@@ -170,9 +170,9 @@ export default function Model({ type, setIsAreaActive, setIsLightActive }) {
               scale={[0.5, 1.05, 0.5]}
             >
               <meshStandardMaterial
-                color={"purple"}
-                emissive={"purple"}
-                emissiveIntensity={"0"}
+                color="purple"
+                emissive="purple"
+                emissiveIntensity="0"
               />
             </mesh>
 

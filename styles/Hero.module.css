@@ -1,0 +1,15 @@
+.hero_container {
+  @apply h-screen w-full flex flex-row;
+}
+
+.hero_col1 {
+  @apply hidden md:flex md:w-1/2;
+}
+
+.hero_col2 {
+  @apply flex justify-center items-center w-full md:w-1/2;
+}
+
+.hero_login_container {
+  @apply w-screen md:w-full h-screen md:h-auto justify-center flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border;
+}
