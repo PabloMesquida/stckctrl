@@ -1,8 +1,8 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { executeQuery } from "@/config/db";
 import { findOne } from "@/helpers/db";
 import bcrypt from "bcrypt";
+import { parse } from "json5";
 
 export default NextAuth({
   providers: [
@@ -12,14 +12,12 @@ export default NextAuth({
       async authorize(credentials, req) {
         const { email, password } = credentials;
 
-        // Validar que el correo electrónico y la contraseña estén presentes
         if (!email || !password) {
           throw new Error(
             "¡Ups! Parece que falta la información necesaria para continuar."
           );
         }
 
-        // Validar que el correo electrónico tenga un formato válido
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
           throw new Error(
@@ -27,7 +25,6 @@ export default NextAuth({
           );
         }
 
-        // Validar que la contraseña tenga al menos 6 caracteres
         if (password.length < 6) {
           throw new Error("La contraseña debe tener al menos 6 caracteres.");
         }
@@ -51,4 +48,5 @@ export default NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
 });
