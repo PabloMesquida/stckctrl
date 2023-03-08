@@ -30,6 +30,9 @@ body {
   --accent-light: theme("colors.indigo.300");
 
   --background-title: theme("colors.gray.300");
+
+  --error: theme("colors.red.600");
+  --warning: theme("colors.yellow.500");
 }
 
 [data-theme="dark"] {
@@ -46,4 +49,7 @@ body {
   --accent-light: theme("colors.indigo.700");
 
   --background-title: theme("colors.gray.800");
+
+  --error: theme("colors.red.600");
+  --warning: theme("colors.yellow.500");
 }

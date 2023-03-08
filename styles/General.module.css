@@ -21,11 +21,11 @@
 /* //////////////////// */
 
 .input_group {
-  @apply flex border-2 rounded-xl relative;
+  @apply flex border-2 rounded-md relative;
 }
 
 .input_text {
-  @apply w-full py-4 px-6 border-2 rounded-xl bg-th-background text-th-primary-dark focus:outline-none border-none;
+  @apply w-full py-4 px-6 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none;
 }
 
 .input_text + * {
@@ -38,4 +38,14 @@
 
 .input_text:not([name="user"]) ~ span:hover * {
   @apply text-th-accent-dark cursor-pointer;
+}
+
+/* //////////////////// */
+
+.msg_container {
+  @apply border-2 rounded-md p-4 text-th-primary-dark flex;
+}
+
+.msg_text_container {
+  @apply text-left font-normal text-sm border-l pl-4 flex items-center;
 }

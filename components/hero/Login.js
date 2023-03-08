@@ -5,8 +5,8 @@ import { useFormik } from "formik";
 import login_validate from "@/helpers/validate.js";
 import stylesHero from "@/styles/Hero.module.css";
 import stylesGeneral from "@/styles/General.module.css";
-import { HiFingerPrint, HiOutlineUser } from "react-icons/hi";
-import Message from "../messages/Message";
+import { MdFingerprint, MdFace } from "react-icons/md";
+import Message from "../messages/Message.js";
 
 export default function Login() {
   const [show, setShow] = useState(false);
@@ -65,7 +65,7 @@ export default function Login() {
             {...formik.getFieldProps("user")}
           />
           <span className="icon flex items-center px-4">
-            <HiOutlineUser size={25} />
+            <MdFace size={25} />
           </span>
         </div>
 
@@ -87,7 +87,7 @@ export default function Login() {
             className="icon flex items-center px-4"
             onClick={() => setShow(!show)}
           >
-            <HiFingerPrint size={25} />
+            <MdFingerprint size={25} />
           </span>
         </div>
 

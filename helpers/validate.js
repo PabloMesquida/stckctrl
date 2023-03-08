@@ -2,17 +2,18 @@ export default function login_validate(values) {
   const errors = {};
 
   if (!values.user) {
-    errors.user = "Required";
+    errors.user = "Parece que falta el nombre de usuario.";
   } else if (values.user.length > 15) {
-    errors.user = "Must be 15 characters or less";
+    errors.user = "El nombre de usuario debe tener 15 caracteres o menos.";
   }
 
   if (!values.password) {
-    errors.password = "Required";
+    errors.password = "Parece que falta la contraseña.";
   } else if (values.password.length < 6 || values.password.length > 20) {
-    errors.password = "Must be greater than 6 and less than 20 characters long";
+    errors.password = "La contraseña debe tener entre 6 y 20 caracteres.";
   } else if (values.password.includes(" ")) {
-    errors.password = "Invalid password";
+    errors.password =
+      "Parece que la contraseña no es válida. Por favor, revisa y vuelve a intentar.";
   }
 
   return errors;
