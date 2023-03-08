@@ -2,13 +2,19 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
-import login_validate from "@/lib/validate.js";
+import login_validate from "@/helpers/validate.js";
 import stylesHero from "@/styles/Hero.module.css";
 import stylesGeneral from "@/styles/General.module.css";
 import { HiFingerPrint, HiOutlineUser } from "react-icons/hi";
+import Message from "../messages/Message";
 
 export default function Login() {
   const [show, setShow] = useState(false);
+  const [message, setMessage] = useState({
+    status: false,
+    type: null,
+    text: null,
+  });
   const router = useRouter();
   const formik = useFormik({
     initialValues: { user: "", password: "" },
@@ -23,7 +29,16 @@ export default function Login() {
       password: values.password,
       callbackUrl: "/",
     });
-    if (status.ok) router.push(status.url);
+    if (status.ok) {
+      router.push(status.url);
+    } else {
+      setMessage((prev) => ({
+        ...prev,
+        status: true,
+        type: "error",
+        text: status.error,
+      }));
+    }
   }
 
   return (
@@ -80,6 +95,19 @@ export default function Login() {
           <button type="submit" className={stylesGeneral.button_xl}>
             Login
           </button>
+        </div>
+        <div>
+          {["user", "password"].map(
+            (field) =>
+              formik.errors[field] &&
+              formik.touched[field] && (
+                <Message
+                  key={field}
+                  message={{ type: "warning", text: formik.errors[field] }}
+                />
+              )
+          )}
+          {message.status && <Message message={message} />}
         </div>
       </form>
     </div>

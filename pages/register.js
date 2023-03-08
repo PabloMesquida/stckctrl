@@ -5,7 +5,7 @@ import AuthLayout from "@/layout/AuthLayout.js";
 import stylesGeneral from "../styles/General.module.css";
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useFormik } from "formik";
-import { register_validate } from "@/lib/validate.js";
+import { register_validate } from "@/helpers/validate.js";
 
 export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false });
