@@ -2,7 +2,6 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { findOne } from "@/helpers/db";
 import bcrypt from "bcrypt";
-import { parse } from "json5";
 
 export default NextAuth({
   providers: [
@@ -48,5 +47,5 @@ export default NextAuth({
       },
     }),
   ],
-  secret: "LlKq6ZtYbr+hTaSDV5v3vfhSGFsFo4hrfCx5mLg=",
+  secret: "LfRasDvyOPLsdV+hTaSDV5v3vfhSGFs=Fo4hrfCx5mLg",
 });

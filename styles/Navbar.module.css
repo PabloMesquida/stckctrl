@@ -1,13 +1,13 @@
 .header {
-  @apply bg-th-background grow mx-auto px-4 md:px-12  border-b border-th-primary-light py-6 flex fixed w-full z-20  justify-between;
+  @apply bg-th-background grow mx-auto px-4 md:px-12 border-b border-th-primary-light py-4 md:py-6 flex fixed w-full z-20 justify-between items-center;
 }
 
 .logo {
-  @apply font-geo text-4xl grow-0 text-th-accent-dark;
+  @apply font-geo text-3xl md:text-4xl grow-0 text-th-accent-dark;
 }
 
 .nav_container {
-  @apply flex grow justify-end items-center h-10 align-middle;
+  @apply flex grow justify-end items-center h-8 md:h-10;
 }
 
 .nav {
@@ -15,7 +15,7 @@
 }
 
 .ul {
-  @apply flex flex-col text-th-primary-medium md:p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm font-semibold md:font-medium md:border-0;
+  @apply flex flex-col text-th-primary-medium md:p-4 mt-4 md:mt-0 mr-4 md:flex-row md:space-x-8 md:text-sm font-semibold md:font-medium md:border-0;
 }
 
 .button_container {
@@ -24,4 +24,12 @@
 
 .menu_toggle_button {
   @apply py-2 px-11 mx-4 w-12 h-12  items-center text-xl text-th-primary-dark  md:hidden focus:outline-none;
+}
+
+.menu_toggle_button_container {
+  @apply flex justify-center items-center align-middle text-sm text-th-primary-dark;
+}
+
+.menu_toggle_icon {
+  @apply w-8 h-8 flex justify-center items-center hover:text-th-accent-dark;
 }

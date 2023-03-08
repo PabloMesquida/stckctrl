@@ -6,7 +6,7 @@ import stylesHero from "@/styles/Hero.module.css";
 
 THREE.ColorManagement.enabled = true;
 
-export const Hero = () => {
+const Hero = () => {
   return (
     <div className={stylesHero.hero_container}>
       <div className={stylesHero.hero_col1}>
@@ -30,3 +30,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export default Hero;

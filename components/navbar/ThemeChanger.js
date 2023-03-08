@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { MdOutlineWbSunny, MdNightlightRound } from "react-icons/md";
+import navStyles from "@/styles/Navbar.module.css";
 
 const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
@@ -14,17 +15,17 @@ const ThemeChanger = () => {
   if (!mounted) return null;
 
   return (
-    <div className=" flex justify-center items-center align-middle pl-3 text-sm text-th-primary-dark">
+    <div className={navStyles.menu_toggle_button_container}>
       {theme === "dark" ? (
         <button
-          className=" pl-2 mx-4 w-8 h-8 flex justify-center items-center hover:text-th-accent-dark"
+          className={navStyles.menu_toggle_icon}
           onClick={() => setTheme("light")}
         >
-          <MdOutlineWbSunny size={20} />
+          <MdOutlineWbSunny size={18} />
         </button>
       ) : (
         <button
-          className="pl-2 mx-4 w-8 h-8 flex justify-center items-center hover:text-th-accent-dark"
+          className={navStyles.menu_toggle_icon}
           onClick={() => setTheme("dark")}
         >
           <MdNightlightRound size={14} />

@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { getSession, useSession, signOut } from "next-auth/react";
 import Navbar from "@/components/navbar/Nabvar.js";
-import { Hero } from "@/components/hero/Hero";
+import Hero from "@/components/hero/Hero.js";
+import CtrlPanel from "@/components/dashboard/CtrlPanel.js";
+import stylesGeneral from "@/styles/General.module.css";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -18,39 +20,25 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {session ? (
-        <AuthUser session={session} handleSignOut={handleSignOut} />
-      ) : (
-        <Guest />
-      )}
+      <Navbar />
+      {session ? <AuthUser session={session} /> : <Guest />}
     </>
   );
 }
 
 function Guest() {
   return (
-    <main className="container mx-auto text-center h-screen max-w-7xl flex flex-col items-center bg-th-background">
-      <Navbar />
+    <main className={stylesGeneral.main_container}>
       <Hero />
     </main>
   );
 }
 
-function AuthUser({ session, handleSignOut }) {
+function AuthUser({ session }) {
   return (
-    <main className="container mx-auto text-center py-20">
-      <h3 className="text-4xl font-bold">Authorize Homepage</h3>
-      <div className="details">
-        <h5>Nombre: {session.user.name}</h5>
-      </div>
-      <div className="flex justify-center">
-        <button
-          onClick={handleSignOut}
-          className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50"
-        >
-          LogOut
-        </button>
-      </div>
+    <main className={stylesGeneral.main_container}>
+      <CtrlPanel />
+      <h5>Nombre: {session.user.name}</h5>
     </main>
   );
 }
@@ -58,8 +46,8 @@ function AuthUser({ session, handleSignOut }) {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
-  // if (!session) {
-  //   return { redirect: { destination: "/login", permanent: false } };
-  // }
+  if (!session) {
+    return { redirect: { destination: "/login", permanent: false } };
+  }
   return { props: { session } };
 }
