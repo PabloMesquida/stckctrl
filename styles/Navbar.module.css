@@ -1,29 +1,37 @@
 .header {
-  @apply bg-th-background grow mx-auto px-4 md:px-12 border-b border-th-primary-light py-4 md:py-6 flex fixed w-full z-20 justify-between items-center;
+  @apply bg-th-background grow mx-auto px-4 sm:px-12 border-b border-th-primary-light py-4 sm:py-6 flex fixed w-full z-20 justify-between items-center;
 }
 
 .logo {
-  @apply font-geo text-3xl md:text-4xl grow-0 text-th-accent-dark;
+  @apply font-geo text-3xl sm:text-4xl grow-0 text-th-accent-dark;
 }
 
 .nav_container {
-  @apply flex grow justify-end items-center h-8 md:h-10;
+  @apply flex grow justify-end items-center h-8 sm:h-10;
 }
 
 .nav {
   @apply flex mx-5 justify-between grow-0 text-sm;
 }
 
+.nav_btn {
+  @apply block py-2 p-2 h-10 sm:h-auto rounded hover:bg-th-accent-medium sm:hover:bg-transparent sm:hover:text-th-accent-dark hover:text-white sm:p-0;
+}
+
+.nav_btns_container {
+  @apply p-4 sm:p-0 backdrop-blur-2xl fixed sm:backdrop-blur-none min-h-screen sm:min-h-full top-16 left-0 sm:static w-full justify-end sm:w-auto sm:flex sm:justify-center sm:items-center text-center sm:bg-transparent hidden;
+}
+
 .ul {
-  @apply flex flex-col text-th-primary-medium md:p-4 mt-4 md:mt-0 mr-4 md:flex-row md:space-x-8 md:text-sm font-semibold md:font-medium md:border-0;
+  @apply flex flex-col text-th-primary-medium sm:p-4 mt-4 sm:mt-0 mr-4 sm:flex-row sm:space-x-8 sm:text-sm font-semibold sm:font-medium sm:border-0;
 }
 
 .button_container {
-  @apply flex-col md:flex-row pb-6 md:pb-0 w-full;
+  @apply flex-col sm:flex-row pb-6 sm:pb-0 w-full;
 }
 
 .menu_toggle_button {
-  @apply py-2 px-11 mx-4 w-12 h-12  items-center text-xl text-th-primary-dark  md:hidden focus:outline-none;
+  @apply py-2 px-11 mx-4 w-12 h-12  items-center text-xl text-th-primary-dark  sm:hidden focus:outline-none;
 }
 
 .menu_toggle_button_container {
@@ -31,5 +39,9 @@
 }
 
 .menu_toggle_icon {
-  @apply w-8 h-8 flex justify-center items-center hover:text-th-accent-dark;
+  @apply w-8 h-8 justify-center items-center hover:text-th-accent-dark mr-4;
+}
+
+.nav_aside {
+  @apply fixed top-0 left-0 z-10 w-64 h-screen pt-20 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700;
 }
