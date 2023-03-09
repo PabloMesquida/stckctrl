@@ -2,10 +2,10 @@ import { useSession, signOut } from "next-auth/react";
 import NavBtn from "./NavBtn.js";
 import NavPanel from "./NavPanel.js";
 import NavUser from "./NavUser.js";
+import Logout from "./Logout.js";
 import navStyles from "@/styles/Navbar.module.css";
 import ThemeChanger from "./ThemeChanger.js";
 import { MdMenu } from "react-icons/md";
-import Logout from "./Logout.js";
 
 const Navbar = () => {
   const { data: session } = useSession();
