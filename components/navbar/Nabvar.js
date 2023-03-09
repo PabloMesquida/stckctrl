@@ -49,7 +49,9 @@ const Navbar = () => {
         } transition-transform -translate-x-full sm:translate-x-0`}
         aria-label="Sidebar"
       >
-        {session && <Navpanel session={session} />}
+        {session && (
+          <Navpanel session={session} handleSignOut={handleSignOut} />
+        )}
       </aside>
     </>
   );

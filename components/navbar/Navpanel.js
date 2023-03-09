@@ -1,6 +1,6 @@
 import navStyles from "@/styles/Navbar.module.css";
 
-const Navpanel = ({ session }) => {
+const Navpanel = ({ session, handleSignOut }) => {
   return (
     <>
       <div className="bg-orange-500">
