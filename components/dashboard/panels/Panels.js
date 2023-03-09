@@ -1,7 +1,7 @@
 import React from "react";
 
 const Panels = () => {
-  return <div>Panels</div>;
+  return <div className="p-4 sm:ml-64">Panels</div>;
 };
 
 export default Panels;

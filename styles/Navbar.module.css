@@ -42,6 +42,12 @@
   @apply w-8 h-8 justify-center items-center hover:text-th-accent-dark mr-4;
 }
 
+/* //////////////////// */
+
 .nav_aside {
-  @apply fixed top-0 left-0 z-10 w-64 h-screen pt-20 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+  @apply fixed top-8 mt-8 sm:mt-14 left-0 z-10 w-64 h-screen pt-20 bg-th-primary-light border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+}
+
+.nav_ul_container {
+  @apply h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800;
 }

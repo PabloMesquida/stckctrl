@@ -8,10 +8,6 @@ import stylesGeneral from "@/styles/General.module.css";
 export default function Home() {
   const { data: session } = useSession();
 
-  function handleSignOut() {
-    signOut();
-  }
-
   return (
     <>
       <Head>
@@ -46,8 +42,8 @@ function AuthUser({ session }) {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
-  if (!session) {
-    return { redirect: { destination: "/login", permanent: false } };
-  }
+  // if (!session) {
+  //   return { redirect: { destination: "/", permanent: false } };
+  // }
   return { props: { session } };
 }
