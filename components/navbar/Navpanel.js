@@ -8,7 +8,7 @@ import {
   MdGroup,
 } from "react-icons/md";
 
-const NavPanel = () => {
+const Navpanel = () => {
   return (
     <div className={navStyles.nav_ul_container}>
       <ul className="space-y-2 my-4">
@@ -53,4 +53,4 @@ const NavPanel = () => {
   );
 };
 
-export default NavPanel;
+export default Navpanel;

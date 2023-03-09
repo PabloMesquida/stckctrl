@@ -1,6 +1,6 @@
 import { useSession, signOut } from "next-auth/react";
 import NavBtn from "./NavBtn.js";
-import NavPanel from "./NavPanel.js";
+import Navpanel from "./NavPanel.js";
 import NavUser from "./NavUser.js";
 import Logout from "./Logout.js";
 import navStyles from "@/styles/Navbar.module.css";
@@ -54,7 +54,7 @@ const Navbar = () => {
         {session && (
           <div className={navStyles.nav_aside_container}>
             <NavUser session={session} />
-            <NavPanel />
+            <Navpanel />
             <Logout handleSignOut={handleSignOut} />
           </div>
         )}
