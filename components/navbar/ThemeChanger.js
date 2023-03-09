@@ -16,21 +16,16 @@ const ThemeChanger = () => {
 
   return (
     <div className={navStyles.menu_toggle_button_container}>
-      {theme === "dark" ? (
-        <button
-          className={navStyles.menu_toggle_icon}
-          onClick={() => setTheme("light")}
-        >
+      <button
+        className={navStyles.menu_toggle_icon}
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      >
+        {theme === "dark" ? (
           <MdOutlineWbSunny size={18} />
-        </button>
-      ) : (
-        <button
-          className={navStyles.menu_toggle_icon}
-          onClick={() => setTheme("dark")}
-        >
+        ) : (
           <MdNightlightRound size={14} />
-        </button>
-      )}
+        )}
+      </button>
     </div>
   );
 };
