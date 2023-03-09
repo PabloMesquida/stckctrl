@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { getSession, useSession, signOut } from "next-auth/react";
-import Navbar from "@/components/navbar/Nabvar.js";
+import Navbar from "@/components/navbar/NavBar.js";
 import Hero from "@/components/hero/Hero.js";
 import CtrlPanel from "@/components/dashboard/CtrlPanel.js";
 import stylesGeneral from "@/styles/General.module.css";
@@ -34,7 +34,6 @@ function AuthUser({ session }) {
   return (
     <main className={stylesGeneral.main_container}>
       <CtrlPanel />
-      <h5>Nombre: {session.user.name}</h5>
     </main>
   );
 }

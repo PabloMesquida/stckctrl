@@ -1,9 +1,11 @@
 import { useSession, signOut } from "next-auth/react";
 import NavBtn from "./NavBtn.js";
+import NavPanel from "./NavPanel.js";
+import NavUser from "./NavUser.js";
 import navStyles from "@/styles/Navbar.module.css";
 import ThemeChanger from "./ThemeChanger.js";
 import { MdMenu } from "react-icons/md";
-import Navpanel from "./Navpanel.js";
+import Logout from "./Logout.js";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -50,7 +52,11 @@ const Navbar = () => {
         aria-label="Sidebar"
       >
         {session && (
-          <Navpanel session={session} handleSignOut={handleSignOut} />
+          <div className={navStyles.nav_aside_container}>
+            <NavUser session={session} />
+            <NavPanel />
+            <Logout handleSignOut={handleSignOut} />
+          </div>
         )}
       </aside>
     </>

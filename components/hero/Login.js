@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import login_validate from "@/helpers/validate.js";
 import stylesHero from "@/styles/Hero.module.css";
 import stylesGeneral from "@/styles/General.module.css";
-import { MdFingerprint, MdFace } from "react-icons/md";
+import { MdFingerprint, MdFace, MdLogin } from "react-icons/md";
 import Message from "../messages/Message.js";
 
 export default function Login() {
@@ -93,7 +93,7 @@ export default function Login() {
 
         <div>
           <button type="submit" className={stylesGeneral.button_xl}>
-            Login
+            <MdLogin size={24} className="mr-4" /> Login
           </button>
         </div>
         <div>

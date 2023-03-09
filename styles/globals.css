@@ -8,6 +8,7 @@ html,
 body {
   height: 100%;
   font-family: "Poppins", sans-serif;
+  letter-spacing: 0.025em;
 }
 
 #__next {
@@ -40,8 +41,8 @@ body {
   --background-secondary: theme("colors.slate.800");
   --background-tertiary: theme("colors.slate.700");
 
-  --primary-dark: theme("colors.gray.200");
-  --primary-medium: theme("colors.gray.300");
+  --primary-dark: theme("colors.gray.100");
+  --primary-medium: theme("colors.gray.400");
   --primary-light: theme("colors.gray.700");
 
   --accent-dark: theme("colors.indigo.300");

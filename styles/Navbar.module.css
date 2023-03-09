@@ -45,9 +45,30 @@
 /* //////////////////// */
 
 .nav_aside {
-  @apply fixed top-8 mt-8 sm:mt-14 left-0 z-10 w-64 h-screen pt-20 bg-th-primary-light border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+  @apply fixed left-0 z-10 w-64 h-screen pt-16 sm:pt-24 bg-th-background-secondary;
+}
+
+.nav_aside_container {
+  @apply flex-col h-full;
 }
 
 .nav_ul_container {
-  @apply h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800;
+  @apply flex-grow px-4 py-4 bg-th-background-secondary max-h-full;
+}
+
+.nav_aside_user_container {
+  @apply flex pl-4 py-8 sm:pb-10 items-start border-b border-th-primary-light;
+}
+
+.nav_aside_logout_container {
+  @apply flex px-4 py-8 border-t border-th-primary-light;
+}
+
+.nav_aside_link,
+.nav_aside_link_featured {
+  @apply flex items-center p-2 text-base font-medium text-th-primary-medium rounded-md hover:bg-th-accent-medium hover:text-th-background;
+}
+
+.nav_aside_link_featured {
+  @apply font-bold tracking-wider text-th-primary-dark;
 }
