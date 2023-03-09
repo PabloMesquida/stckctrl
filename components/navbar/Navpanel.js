@@ -8,10 +8,10 @@ import {
   MdGroup,
 } from "react-icons/md";
 
-const Navpanel = () => {
+const NavPanel = () => {
   return (
     <div className={navStyles.nav_ul_container}>
-      <ul className="space-y-2 my-4">
+      <ul className="space-y-4 my-4">
         <li>
           <a href="#" className={navStyles.nav_aside_link_featured}>
             <MdAttachMoney size={24} className="text-th-accent-dark" />
@@ -53,4 +53,4 @@ const Navpanel = () => {
   );
 };
 
-export default Navpanel;
+export default NavPanel;
