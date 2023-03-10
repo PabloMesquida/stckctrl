@@ -1,3 +1,4 @@
+import Link from "next/link";
 import navStyles from "@/styles/Navbar.module.css";
 import {
   MdAttachMoney,
@@ -6,6 +7,7 @@ import {
   MdCardGiftcard,
   MdLayers,
   MdGroup,
+  MdDashboard,
 } from "react-icons/md";
 
 const NavMenu = () => {
@@ -13,10 +15,16 @@ const NavMenu = () => {
     <div className={navStyles.nav_ul_container}>
       <ul className="space-y-4 my-4">
         <li>
-          <a href="#" className={navStyles.nav_aside_link_featured}>
+          <Link href="/" className={navStyles.nav_aside_link_featured}>
+            <MdDashboard size={24} className="text-th-accent-dark ml-1" />
+            <span className="ml-4">DASHBOARD</span>
+          </Link>
+        </li>
+        <li>
+          <Link href="#" className={navStyles.nav_aside_link_featured}>
             <MdAttachMoney size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">Ventas</span>
-          </a>
+          </Link>
         </li>
         <li>
           <a href="#" className={navStyles.nav_aside_link}>
@@ -37,10 +45,10 @@ const NavMenu = () => {
           </a>
         </li>
         <li>
-          <a href="#" className={navStyles.nav_aside_link_featured}>
+          <Link href="/stock" className={navStyles.nav_aside_link_featured}>
             <MdLayers size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">Stock</span>
-          </a>
+          </Link>
         </li>
         <li>
           <a href="#" className={navStyles.nav_aside_link}>

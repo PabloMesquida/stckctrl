@@ -1,12 +1,14 @@
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
+import CardProducts from "./panels/stock/CardProducts";
+import stylesGeneral from "@/styles/General.module.css";
 
 const CtrlPanel = () => {
   const widthNavigator = useWidthNavigator();
   return (
-    <div className="sm:pl-68 pt-21 sm:pt-26 pb-4 px-4 w-full h-full">
-      <div className="grid grid-cols-10 grid-rows-6 gap-4 h-full">
+    <section className={stylesGeneral.section_container}>
+      <div className={stylesGeneral.panel_grid}>
         <div
-          className="bg-red-500 min-h-fit"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "1 / 1 / 5 / 7" : "1 / 1 / 2 / 11",
@@ -16,16 +18,16 @@ const CtrlPanel = () => {
         </div>
 
         <div
-          className="bg-green-500"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "1 / 7 / 4 / 11" : "2 / 1 / 3 / 11",
           }}
         >
-          STOCK
+          <CardProducts />
         </div>
         <div
-          className="bg-blue-500"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "5 / 1 / 7 / 4" : "3 / 1 / 4 / 11",
@@ -34,7 +36,7 @@ const CtrlPanel = () => {
           CAMBIOS
         </div>
         <div
-          className="bg-purple-500"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "5 / 4 / 7 / 7" : "4 / 1 / 5 / 11",
@@ -43,7 +45,7 @@ const CtrlPanel = () => {
           VALES
         </div>
         <div
-          className="bg-yellow-500"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "4 / 7 / 7 / 9" : "5 / 1 / 6 / 11",
@@ -52,7 +54,7 @@ const CtrlPanel = () => {
           SEÑA
         </div>
         <div
-          className="bg-pink-500"
+          className={stylesGeneral.panel_card}
           style={{
             gridArea:
               widthNavigator > 1100 ? "4 / 9 / 7 / 11" : "6 / 1 / 7 / 11",
@@ -61,7 +63,7 @@ const CtrlPanel = () => {
           PROVEEDORES
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

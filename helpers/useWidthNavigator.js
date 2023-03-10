@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 
 export function useWidthNavigator() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(9999999);
 
   useEffect(() => {
-    const widthUpdate = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", widthUpdate);
+    setWidth(window.innerWidth);
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", widthUpdate);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
