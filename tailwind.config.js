@@ -11,6 +11,11 @@ module.exports = {
       fontFamily: {
         geo: ['"Geo"', "sans-serif"],
       },
+      padding: {
+        21: "5.25rem",
+        26: "6.5rem",
+        68: "17rem",
+      },
       colors: {
         "th-background": "var(--background)",
         "th-background-secondary": "var(--background-secondary)",

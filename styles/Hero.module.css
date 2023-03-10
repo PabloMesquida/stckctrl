@@ -11,5 +11,5 @@
 }
 
 .hero_login_container {
-  @apply w-screen sm:w-full h-screen sm:h-auto justify-center flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border;
+  @apply text-start w-screen sm:w-full h-screen sm:h-auto justify-center flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border;
 }

@@ -9,11 +9,11 @@
 }
 
 .button_sm {
-  @apply flex my-2 h-10 w-full justify-center items-center text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md text-sm px-5 py-0 text-center sm:mr-0;
+  @apply flex my-2 h-10 w-full justify-start items-center text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md text-sm px-5 py-0 text-center sm:mr-0;
 }
 
 .button_xl {
-  @apply flex justify-center items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md sm:rounded-md  py-4 px-6  text-center sm:mr-0  w-full max-w-lg;
+  @apply flex justify-start items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md sm:rounded-md  py-4 px-6  text-center sm:mr-0  w-full max-w-lg;
 }
 
 .button_nofill {
