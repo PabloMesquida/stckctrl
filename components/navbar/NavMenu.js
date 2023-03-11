@@ -13,7 +13,7 @@ import {
 const NavMenu = () => {
   return (
     <div className={navStyles.nav_ul_container}>
-      <ul className="space-y-4 my-4">
+      <ul className="space-y-2 sm:space-y-4 my-2 sm:my-4">
         <li>
           <Link href="/" className={navStyles.nav_aside_link_featured} shallow>
             <MdDashboard size={24} className="text-th-accent-dark ml-1" />
