@@ -15,7 +15,7 @@ const NavMenu = () => {
     <div className={navStyles.nav_ul_container}>
       <ul className="space-y-4 my-4">
         <li>
-          <Link href="/" className={navStyles.nav_aside_link_featured}>
+          <Link href="/" className={navStyles.nav_aside_link_featured} shallow>
             <MdDashboard size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">DASHBOARD</span>
           </Link>
@@ -45,7 +45,11 @@ const NavMenu = () => {
           </a>
         </li>
         <li>
-          <Link href="/stock" className={navStyles.nav_aside_link_featured}>
+          <Link
+            href="/stock"
+            className={navStyles.nav_aside_link_featured}
+            shallow
+          >
             <MdLayers size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">Stock</span>
           </Link>

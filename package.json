@@ -18,8 +18,6 @@
     "bcrypt": "^5.1.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
-    "flowbite": "^1.6.3",
-    "flowbite-react": "^0.4.2",
     "formik": "^2.2.9",
     "gltfjsx": "^6.1.4",
     "mysql2": "^3.1.0",

@@ -1,14 +1,22 @@
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
+import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import NavBtn from "./NavBtn.js";
 import NavUser from "./NavUser.js";
 import NavMenu from "./NavMenu.js";
-import navStyles from "@/styles/Navbar.module.css";
 import ThemeChanger from "./ThemeChanger.js";
-import { MdMenu } from "react-icons/md";
 import Logout from "./Logout.js";
+import navStyles from "@/styles/Navbar.module.css";
+import { MdMenu } from "react-icons/md";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const [isVisible, setIsVisible] = useState(false);
+  const widthNavigator = useWidthNavigator();
+
+  useEffect(() => {
+    setIsVisible(widthNavigator > 640);
+  }, [widthNavigator]);
 
   function handleSignOut() {
     signOut();
@@ -18,15 +26,19 @@ const Navbar = () => {
     <>
       <nav className={navStyles.header}>
         <button
-          data-drawer-target="logo-sidebar"
-          data-drawer-toggle="logo-sidebar"
-          aria-controls="logo-sidebar"
           type="button"
-          className={`${navStyles.menu_toggle_icon} inline-flex sm:hidden`}
+          className={`${navStyles.menu_toggle_icon} inline-flex sm:hidden ${
+            !session && "hidden"
+          }`}
+          onClick={() => {
+            setIsVisible(!isVisible);
+          }}
         >
           <MdMenu />
         </button>
-        <div className={navStyles.logo}>stckctrl</div>
+        <div className={`${navStyles.logo} ${!session && "ml-4"}`}>
+          stckctrl
+        </div>
         <div className={navStyles.nav_container}>
           <div className={navStyles.nav}>
             <div id="menu" className={navStyles.nav_btns_container}>
@@ -44,11 +56,21 @@ const Navbar = () => {
           <ThemeChanger />
         </div>
       </nav>
+      {widthNavigator < 640 && isVisible && (
+        <div
+          className="backdrop-blur-sm bg-black/30 fixed inset-0 z-30"
+          onClick={() => {
+            setIsVisible(!isVisible);
+          }}
+        ></div>
+      )}
       <aside
         id="logo-sidebar"
         className={`${navStyles.nav_aside} ${
           !session && "sm:hidden"
-        } transition-transform -translate-x-full sm:translate-x-0`}
+        } transition-transform -translate-x-full sm:translate-x-0 ${
+          isVisible ? "translate-x-0" : "-translate-x-full"
+        }`}
         aria-label="Sidebar"
       >
         {session && (

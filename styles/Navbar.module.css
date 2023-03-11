@@ -1,5 +1,5 @@
 .header {
-  @apply bg-th-background grow mx-auto px-4 sm:px-12 border-b border-th-primary-light py-4 sm:py-6 flex fixed w-full z-20 justify-between items-center;
+  @apply bg-th-background grow mx-auto px-4 sm:px-12 border-b border-th-primary-light py-4 sm:py-6 flex fixed w-full z-50 justify-between items-center;
 }
 
 .logo {
@@ -45,7 +45,7 @@
 /* //////////////////// */
 
 .nav_aside {
-  @apply fixed left-0 z-10 w-64 h-screen pt-16 sm:pt-24 bg-th-background-secondary;
+  @apply fixed left-0 z-40 w-64 h-screen pt-16 sm:pt-24 bg-th-background-secondary;
 }
 
 .nav_aside_container {
