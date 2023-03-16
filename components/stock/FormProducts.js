@@ -25,13 +25,13 @@ const FormProducts = () => {
       body: JSON.stringify(values),
     };
 
-    const URL = window.location.protocol + "//" + window.location.host;
+    // const URL = window.location.protocol + "//" + window.location.host;
 
-    // await fetch(`${URL}/api/auth/signup`, options)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data) router.push(URL);
-    //   });
+    // // await fetch(`${URL}/api/auth/signup`, options)
+    // //   .then((res) => res.json())
+    // //   .then((data) => {
+    // //     if (data) router.push(URL);
+    // //   });
   }
 
   return (

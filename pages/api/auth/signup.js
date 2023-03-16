@@ -1,11 +1,12 @@
 import { executeQuery } from "@/config/db";
+import {
+  BAD_REQUEST,
+  HTTP_METHOD_NOT_ALLOWED,
+  INTERNAL_SERVER_ERROR,
+  SUCCESS,
+  UNPROCESSABLE_ENTITY,
+} from "@/status";
 const bcrypt = require("bcrypt");
-
-const HTTP_METHOD_NOT_ALLOWED = 405;
-const BAD_REQUEST = 400;
-const UNPROCESSABLE_ENTITY = 422;
-const INTERNAL_SERVER_ERROR = 500;
-const SUCCESS = 200;
 
 export default async function handler(req, res) {
   try {

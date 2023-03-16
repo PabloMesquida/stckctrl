@@ -5,6 +5,6 @@ import reducer from "@/reducers";
 
 const store = configureStore({ reducer, middeleware: applyMiddleware(thunk) });
 
-//store.subscribe(() => console.log(store));
+store.subscribe(() => console.log(store));
 
 export default store;

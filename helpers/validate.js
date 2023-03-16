@@ -53,4 +53,5 @@ export function register_validate(values) {
 
 export function add_product_validate(values) {
   const errors = {};
+  return errors;
 }
