@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
 const getProducts = async (req, res) => {
   try {
-    const results = await executeQuery("SELECT * FROM productos");
+    const results = await executeQuery({query: "SELECT * FROM productos",   values: []});
     return res.status(SUCCESS).json(results);
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({ error });

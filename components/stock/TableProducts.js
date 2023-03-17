@@ -4,19 +4,18 @@ import { getProductsData } from "@/actions/productsActions";
 import axios from "axios";
 
 const TableProducts = () => {
-  const productsData = useSelector((state) => state?.products?.productsData);
+  const products = useSelector((state) => state?.products.productsData);
   const dispatch = useDispatch();
 
   const fetchProducts = async () => {
     await axios.get("./api/stock").then((res) => {
       dispatch(getProductsData(res.data));
-      console.log(res.data);
     });
   };
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <table className="min-w-full table-auto">
@@ -61,6 +60,22 @@ const TableProducts = () => {
         </tr>
       </thead>
       <tbody>
+        {products && products.length > 0 ? (
+          products.map((product) => (
+            <tr>
+              <td>
+                <img src="" alt="" />
+              </td>
+              <td>
+                <span>{product.id}</span>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td>No Data</td>
+          </tr>
+        )}
         <tr>
           <td>
             <img src="" alt="" />

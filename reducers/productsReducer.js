@@ -1,5 +1,5 @@
 const initialState = {
-  products: [],
+  productsData: [],
   loading: true,
 };
 
@@ -8,38 +8,34 @@ export default function productsReducer(state = initialState, action) {
     case "GET_PRODUCTS": {
       return {
         ...state,
-
-        products: action.payload.map((data) => data),
+        productsData: action.payload.map((data) => data),
         loading: false,
       };
     }
 
     case "GET_PRODUCT": {
-      console.log(action.payload);
       return {
         ...state,
-        products: action.payload,
+        productsData: action.payload,
         loading: false,
       };
     }
 
     case "CREATE_PRODUCT": {
-      console.log(action.payload);
       return {
         ...state,
-        products: [...state.db, action.payload],
+        productsData: [...state.db, action.payload],
         loading: false,
       };
     }
 
     case "UPDATE_PRODUCT": {
-      console.log(action.payload);
       let newData = state.db.map((el) =>
         el.id === action.payload.id ? action.payload : el
       );
       return {
         ...state,
-        products: newData,
+        productsData: newData,
         loading: false,
       };
     }
@@ -49,7 +45,7 @@ export default function productsReducer(state = initialState, action) {
 
       return {
         ...state,
-        products: newData,
+        productsData: newData,
         loading: false,
       };
     }
