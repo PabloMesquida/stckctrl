@@ -5,6 +5,7 @@ import {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   GET_CATEGORIES,
+  GET_CATEGORY,
 } from "../types";
 
 export const getProductsData = (data) => {
@@ -14,10 +15,10 @@ export const getProductsData = (data) => {
   };
 };
 
-export const getProductData = (id) => {
+export const getProductData = (data) => {
   return {
     type: "GET_PRODUCT",
-    payload: id,
+    payload: data,
   };
 };
 
@@ -45,6 +46,13 @@ export const deleteProduct = (id) => {
 export const getCategories = (data) => {
   return {
     type: GET_CATEGORIES,
+    payload: data,
+  };
+};
+
+export const getCategory = (data) => {
+  return {
+    type: GET_CATEGORY,
     payload: data,
   };
 };

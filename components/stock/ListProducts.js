@@ -17,6 +17,7 @@ const ListProducts = () => {
 
   useEffect(() => {
     fetchProducts();
+    // fetchCategories();
   }, [dispatch]);
 
   return (

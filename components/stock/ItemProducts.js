@@ -2,6 +2,7 @@ import stylesGeneral from "@/styles/General.module.css";
 import { MdImage } from "react-icons/md";
 
 const ItemProducts = ({ product }) => {
+  console.log(product);
   return (
     <div className={stylesGeneral.item_container}>
       <div className="bg-th-background rounded-md mr-2">
@@ -13,7 +14,7 @@ const ItemProducts = ({ product }) => {
             <span>{product.codigo}</span>
           </div>
           <div>
-            <span>{product.id_cat}</span>
+            <span>{product.categoria}</span>
           </div>
           <div>
             <span>{product.nombre}</span>
@@ -21,10 +22,10 @@ const ItemProducts = ({ product }) => {
         </div>
         <div className="flex flex-row w-full">
           <div>
-            <span>{product.id_prov}</span>
+            <span>{product.proveedor}</span>
           </div>
           <div>
-            <span>{product.id_gen}</span>
+            <span>{product.genero}</span>
           </div>
         </div>
       </div>
