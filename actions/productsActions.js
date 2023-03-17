@@ -4,6 +4,7 @@ import {
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
+  GET_CATEGORIES,
 } from "../types";
 
 export const getProductsData = (data) => {
@@ -38,5 +39,12 @@ export const deleteProduct = (id) => {
   return {
     type: "DELETE_PRODUCT",
     payload: id,
+  };
+};
+
+export const getCategories = (data) => {
+  return {
+    type: GET_CATEGORIES,
+    payload: data,
   };
 };

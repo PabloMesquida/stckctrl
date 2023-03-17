@@ -69,3 +69,25 @@
 .panel_card {
   @apply border border-th-primary-light rounded-md p-4 bg-th-background-secondary;
 }
+
+/* ////////////////// */
+
+.head_container {
+  @apply flex justify-end items-center;
+}
+
+.section_title {
+  @apply text-3xl sm:text-4xl font-semibold tracking-wider mr-4;
+}
+
+.icon_stats_container {
+  @apply flex justify-start items-end grow;
+}
+
+.filter_container {
+  @apply border h-32 my-4 p-4 rounded-md bg-th-background-tertiary border-th-primary-light;
+}
+
+.item_container {
+  @apply flex flex-row bg-th-background-secondary my-2 rounded-md p-2;
+}

@@ -20,7 +20,10 @@ export default async function handler(req, res) {
 
 const getProducts = async (req, res) => {
   try {
-    const results = await executeQuery({query: "SELECT * FROM productos",   values: []});
+    const results = await executeQuery({
+      query: "SELECT * FROM productos WHERE activo = ?",
+      values: [1],
+    });
     return res.status(SUCCESS).json(results);
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({ error });

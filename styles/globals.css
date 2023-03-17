@@ -20,7 +20,7 @@ body {
 :root {
   --background: theme("colors.slate.50");
   --background-secondary: theme("colors.slate.200");
-  --background-tertiary: theme("colors.slate.600");
+  --background-tertiary: theme("colors.slate.300");
 
   --primary-dark: theme("colors.gray.900");
   --primary-medium: theme("colors.gray.500");
