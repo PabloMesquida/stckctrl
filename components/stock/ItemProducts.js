@@ -12,7 +12,7 @@ const ItemProducts = ({ product }) => {
     <div className={stylesGeneral.item_container}>
       <div className="flex grow">
         <div>
-          <div className="bg-th-background rounded-md mr-2">
+          <div className="bg-th-background rounded-md mr-4">
             <MdImage className="w-16 h-16 sm:w-20 sm:h-20 text-th-background-tertiary" />
           </div>
         </div>
