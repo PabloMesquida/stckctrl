@@ -13,7 +13,7 @@ const ItemProducts = ({ product }) => {
       <div className="flex grow">
         <div>
           <div className="bg-th-background rounded-md mr-2">
-            <MdImage className="w-10 h-10 sm:w-20 sm:h-20 text-th-background-tertiary" />
+            <MdImage className="w-16 h-16 sm:w-20 sm:h-20 text-th-background-tertiary" />
           </div>
         </div>
         <div className="flex flex-col w-full">
