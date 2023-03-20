@@ -58,6 +58,22 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
+    case "GET_GENDERS": {
+      return {
+        ...state,
+        genders: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_SUPPLIERS": {
+      return {
+        ...state,
+        suppliers: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
     default:
       return state;
   }

@@ -6,6 +6,8 @@ import {
   DELETE_PRODUCT,
   GET_CATEGORIES,
   GET_CATEGORY,
+  GET_GENDERS,
+  GET_SUPPLIERS,
 } from "../types";
 
 export const getProductsData = (data) => {
@@ -17,7 +19,7 @@ export const getProductsData = (data) => {
 
 export const getProductData = (data) => {
   return {
-    type: "GET_PRODUCT",
+    type: GET_PRODUCT,
     payload: data,
   };
 };
@@ -31,14 +33,14 @@ export const createProduct = (data) => {
 
 export const updateProduct = (data) => {
   return {
-    type: "UPDATE_PRODUCT",
+    type: UPDATE_PRODUCT,
     payload: data,
   };
 };
 
 export const deleteProduct = (id) => {
   return {
-    type: "DELETE_PRODUCT",
+    type: DELETE_PRODUCT,
     payload: id,
   };
 };
@@ -53,6 +55,20 @@ export const getCategories = (data) => {
 export const getCategory = (data) => {
   return {
     type: GET_CATEGORY,
+    payload: data,
+  };
+};
+
+export const getGenders = (data) => {
+  return {
+    type: GET_GENDERS,
+    payload: data,
+  };
+};
+
+export const getSuppliers = (data) => {
+  return {
+    type: GET_SUPPLIERS,
     payload: data,
   };
 };

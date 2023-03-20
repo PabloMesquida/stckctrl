@@ -1,18 +1,19 @@
 import { useFormik } from "formik";
 import { add_product_validate } from "@/helpers/validate.js";
+import SelectOptions from "@/components/forms/SelectOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 
 const FormProducts = () => {
   const formik = useFormik({
     initialValues: {
-      nombre: "",
-      idprov: "",
+      id_categories: "",
+      id_genders: "",
+      id_suppliers: "",
+      name: "",
       description: "",
-      idcat: "",
-      idgen: "",
-      costprice: "",
+      cost_price: "",
       price: "",
-      liqprice: "",
+      clearance_price: "",
     },
     validate: add_product_validate,
     onSubmit,
@@ -24,6 +25,7 @@ const FormProducts = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     };
+    console.log(values);
 
     // const URL = window.location.protocol + "//" + window.location.host;
 
@@ -37,31 +39,14 @@ const FormProducts = () => {
   return (
     <div>
       <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-        <div
-          className={`${stylesGeneral.input_group} ${
-            formik.errors.idcat && formik.touched.idcat ? "border-red-600" : ""
-          }`}
-        >
-          <input
-            className={stylesGeneral.input_text}
-            type="text"
-            name="idcat"
-            placeholder="Tipo"
-            {...formik.getFieldProps("idcat")}
-          />
+        <div>
+          <SelectOptions formik={formik} name="categories" text="Categoría" />
         </div>
-        <div
-          className={`${stylesGeneral.input_group} ${
-            formik.errors.idgen && formik.touched.idgen ? "border-red-600" : ""
-          }`}
-        >
-          <input
-            className={stylesGeneral.input_text}
-            type="text"
-            name="idgen"
-            placeholder="Género"
-            {...formik.getFieldProps("idgen")}
-          />
+        <div>
+          <SelectOptions formik={formik} name="genders" text="Género" />
+        </div>
+        <div>
+          <SelectOptions formik={formik} name="suppliers" text="Proveerdor" />
         </div>
         <div
           className={`${stylesGeneral.input_group} ${
@@ -71,14 +56,23 @@ const FormProducts = () => {
           <input
             className={stylesGeneral.input_text}
             type="text"
-            name="name"
+            name="nombre"
             placeholder="Nombre"
-            {...formik.getFieldProps("name")}
+            {...formik.getFieldProps("nombre")}
           />
+        </div>
+        <div>
+          <textarea
+            className={stylesGeneral.input_text}
+            placeholder="Descripción"
+            name="description"
+            rows="5"
+            cols="20"
+          ></textarea>
         </div>
         <div
           className={`${stylesGeneral.input_group} ${
-            formik.errors.costprice && formik.touched.costprice
+            formik.errors.cost_price && formik.touched.cost_price
               ? "border-red-600"
               : ""
           }`}
@@ -86,9 +80,9 @@ const FormProducts = () => {
           <input
             className={stylesGeneral.input_text}
             type="text"
-            name="costprice"
-            placeholder="Costo"
-            {...formik.getFieldProps("costprice")}
+            name="cost_price"
+            placeholder="Precio de costo"
+            {...formik.getFieldProps("cost_price")}
           />
         </div>
         <div
@@ -100,13 +94,13 @@ const FormProducts = () => {
             className={stylesGeneral.input_text}
             type="text"
             name="price"
-            placeholder="Precio de lista"
+            placeholder="Precio"
             {...formik.getFieldProps("price")}
           />
         </div>
         <div
           className={`${stylesGeneral.input_group} ${
-            formik.errors.liqprice && formik.touched.liqprice
+            formik.errors.clearance_price && formik.touched.clearance_price
               ? "border-red-600"
               : ""
           }`}
@@ -114,18 +108,9 @@ const FormProducts = () => {
           <input
             className={stylesGeneral.input_text}
             type="text"
-            name="liqprice"
+            name="clearance_price"
             placeholder="Precio de liquidación"
-            {...formik.getFieldProps("liqprice")}
-          />
-        </div>
-        <div className={`${stylesGeneral.input_group}`}>
-          <input
-            className={stylesGeneral.input_text}
-            type="text"
-            name="description"
-            placeholder="Descripción"
-            {...formik.getFieldProps("description")}
+            {...formik.getFieldProps("clearance_price")}
           />
         </div>
         <div>
