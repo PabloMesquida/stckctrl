@@ -1,4 +1,5 @@
 import stylesGeneral from "@/styles/General.module.css";
+import Link from "next/link";
 import { MdBarChart, MdLibraryAdd } from "react-icons/md";
 
 const HeadProducts = () => {
@@ -9,9 +10,11 @@ const HeadProducts = () => {
         <MdBarChart size={30} className="text-th-accent-dark" />
       </div>
       <div>
-        <button className={stylesGeneral.button_sm}>
-          <MdLibraryAdd size={24} className="mr-4" /> Agregar
-        </button>
+        <Link href="./stock/nuevo">
+          <button className={stylesGeneral.button_sm}>
+            <MdLibraryAdd size={24} className="mr-4" /> Nuevo
+          </button>
+        </Link>
       </div>
     </div>
   );

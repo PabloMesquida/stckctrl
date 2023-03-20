@@ -21,7 +21,7 @@ const ListProducts = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <FilterProducts />
       <div className="min-w-full table-auto">
         {products && products.length > 0 ? (
@@ -32,7 +32,7 @@ const ListProducts = () => {
           <div>No Data</div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
