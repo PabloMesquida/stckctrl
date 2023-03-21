@@ -2,7 +2,8 @@ import { useFormik, FieldArray } from "formik";
 import { add_product_validate } from "@/helpers/validate.js";
 import SelectOptions from "@/components/forms/SelectOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
-import CheckOptions from "@/components/forms/CheckSizes.js";
+import CheckSizes from "@/components/forms/CheckSizes.js";
+import CheckColors from "@/components/forms/CheckColors.js";
 
 const FormProducts = () => {
   const formik = useFormik({
@@ -16,6 +17,7 @@ const FormProducts = () => {
       price: "",
       clearance_price: "",
       sizes: [],
+      colors: [],
     },
     validate: add_product_validate,
     onSubmit,
@@ -117,7 +119,10 @@ const FormProducts = () => {
           />
         </div>
         <div>
-          <CheckOptions formik={formik} name="sizes" text="Talles" />
+          <CheckSizes formik={formik} />
+        </div>
+        <div>
+          <CheckColors formik={formik} />
         </div>
 
         <div>
