@@ -56,9 +56,9 @@ const FormProducts = () => {
           <input
             className={stylesGeneral.input_text}
             type="text"
-            name="nombre"
+            name="name"
             placeholder="Nombre"
-            {...formik.getFieldProps("nombre")}
+            {...formik.getFieldProps("name")}
           />
         </div>
         <div>
@@ -68,6 +68,7 @@ const FormProducts = () => {
             name="description"
             rows="5"
             cols="20"
+            {...formik.getFieldProps("description")}
           ></textarea>
         </div>
         <div

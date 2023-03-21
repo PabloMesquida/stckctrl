@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCategories,
@@ -12,36 +12,27 @@ const SelectOptions = ({ formik, name, text }) => {
   const options = useSelector((state) => state?.products[name]);
   const dispatch = useDispatch();
 
-  const fetchOptions = async () => {
-    await axios
-      .get(`../../api/${name}`)
-      .then((res) => {
-        switch (name) {
-          case "categories":
-            dispatch(getCategories(res.data));
-            break;
-          case "genders":
-            dispatch(getGenders(res.data));
-            break;
-          case "suppliers":
-            dispatch(getSuppliers(res.data));
-            break;
-          default:
-            break;
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          console.log("ERROR");
-        } else {
-          // Manejar otros errores aquí
-        }
-      });
-  };
+  const fetchOptions = useCallback(async () => {
+    try {
+      const res = await axios.get(`../../api/${name}`);
+      const actions = {
+        categories: getCategories,
+        genders: getGenders,
+        suppliers: getSuppliers,
+      };
+      dispatch(actions[name](res.data));
+    } catch (error) {
+      if (error.response?.status === 404) {
+        console.log("ERROR");
+      } else {
+        // Manejar otros errores aquí
+      }
+    }
+  }, [dispatch, name]);
 
   useEffect(() => {
     fetchOptions();
-  }, [dispatch]);
+  }, [fetchOptions]);
 
   return (
     <select
