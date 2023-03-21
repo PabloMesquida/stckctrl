@@ -8,6 +8,7 @@ import {
   GET_CATEGORY,
   GET_GENDERS,
   GET_SUPPLIERS,
+  GET_SIZES,
 } from "../types";
 
 export const getProductsData = (data) => {
@@ -69,6 +70,13 @@ export const getGenders = (data) => {
 export const getSuppliers = (data) => {
   return {
     type: GET_SUPPLIERS,
+    payload: data,
+  };
+};
+
+export const getSizes = (data) => {
+  return {
+    type: GET_SIZES,
     payload: data,
   };
 };

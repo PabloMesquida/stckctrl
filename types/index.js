@@ -8,6 +8,7 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 export const GET_CATEGORY = "GET_CATEGORY";
 export const GET_GENDERS = "GET_GENDERS";
 export const GET_SUPPLIERS = "GET_SUPPLIERS";
+export const GET_SIZES = "GET_SIZES";
 
 // export const CREATE_DATA_REQUEST = "CREATE_DATA_REQUEST";
 // export const CREATE_DATA_SUCCESS = "CREATE_DATA_SUCCESS";

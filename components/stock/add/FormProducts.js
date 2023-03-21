@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+import { useFormik, Field } from "formik";
 import { add_product_validate } from "@/helpers/validate.js";
 import SelectOptions from "@/components/forms/SelectOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
@@ -114,6 +114,7 @@ const FormProducts = () => {
             {...formik.getFieldProps("clearance_price")}
           />
         </div>
+
         <div>
           <button type="submit" className={stylesGeneral.button}>
             Agregar

@@ -74,6 +74,14 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
+    case "GET_SIZES": {
+      return {
+        ...state,
+        sizes: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
     default:
       return state;
   }

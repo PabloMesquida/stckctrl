@@ -7,17 +7,19 @@ import {
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    return await getSuppliers(req, res);
+    return await getAttribute(req, res);
   } else {
     return res.status(HTTP_METHOD_NOT_ALLOWED).send("HTTP Method not allowed");
   }
 }
 
-const getSuppliers = async (req, res) => {
+const getAttribute = async (req, res) => {
+  const { id } = req.query;
+  const { attribute } = req.query;
   try {
     const results = await executeQuery({
-      query: "SELECT * FROM proveedores WHERE activo = ?",
-      values: [1],
+      query: `SELECT * FROM ${attribute} WHERE id = ?`,
+      values: [id],
     });
     return res.status(SUCCESS).json(results);
   } catch (error) {

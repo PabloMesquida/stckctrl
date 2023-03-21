@@ -14,7 +14,15 @@ const SelectOptions = ({ formik, name, text }) => {
 
   const fetchOptions = useCallback(async () => {
     try {
-      const res = await axios.get(`../../api/${name}`);
+      const tableName = {
+        categories: "categoria",
+        genders: "genero",
+        suppliers: "proveedores",
+        colors: "colores",
+        sizes: "talles",
+      };
+      const res = await axios.get(`../../api/attributes/${tableName[name]}`);
+
       const actions = {
         categories: getCategories,
         genders: getGenders,
