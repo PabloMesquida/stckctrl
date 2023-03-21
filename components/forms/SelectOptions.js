@@ -18,8 +18,6 @@ const SelectOptions = ({ formik, name, text }) => {
         categories: "categoria",
         genders: "genero",
         suppliers: "proveedores",
-        colors: "colores",
-        sizes: "talles",
       };
       const res = await axios.get(`../../api/attributes/${tableName[name]}`);
 
@@ -60,7 +58,7 @@ const SelectOptions = ({ formik, name, text }) => {
           </option>
         ))
       ) : (
-        <span>No Data</span>
+        <option>No Data</option>
       )}
     </select>
   );

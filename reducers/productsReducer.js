@@ -1,5 +1,10 @@
 const initialState = {
   productsData: [],
+  categories: [],
+  genders: [],
+  suppliers: [],
+  sizes: [],
+  colors: [],
   loading: true,
 };
 
@@ -78,6 +83,14 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         sizes: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_COLORS": {
+      return {
+        ...state,
+        colors: action.payload.map((data) => data),
         loading: false,
       };
     }

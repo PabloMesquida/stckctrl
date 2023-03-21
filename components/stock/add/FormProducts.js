@@ -1,7 +1,8 @@
-import { useFormik, Field } from "formik";
+import { useFormik, FieldArray } from "formik";
 import { add_product_validate } from "@/helpers/validate.js";
 import SelectOptions from "@/components/forms/SelectOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
+import CheckOptions from "@/components/forms/CheckSizes.js";
 
 const FormProducts = () => {
   const formik = useFormik({
@@ -14,6 +15,7 @@ const FormProducts = () => {
       cost_price: "",
       price: "",
       clearance_price: "",
+      sizes: [],
     },
     validate: add_product_validate,
     onSubmit,
@@ -113,6 +115,9 @@ const FormProducts = () => {
             placeholder="Precio de liquidación"
             {...formik.getFieldProps("clearance_price")}
           />
+        </div>
+        <div>
+          <CheckOptions formik={formik} name="sizes" text="Talles" />
         </div>
 
         <div>
