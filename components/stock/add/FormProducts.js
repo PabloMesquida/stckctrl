@@ -1,11 +1,16 @@
-import { useFormik, FieldArray } from "formik";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
 import { add_product_validate } from "@/helpers/validate.js";
 import SelectOptions from "@/components/forms/SelectOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 import CheckSizes from "@/components/forms/CheckSizes.js";
 import CheckColors from "@/components/forms/CheckColors.js";
+import { useDispatch } from "react-redux";
+import { createProduct } from "@/actions/productsActions";
 
 const FormProducts = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       id_categories: "",
@@ -18,10 +23,22 @@ const FormProducts = () => {
       clearance_price: "",
       sizes: [],
       colors: [],
+      photo: "",
+      code: "00000000",
     },
     validate: add_product_validate,
     onSubmit,
   });
+
+  // const handleFileChange = (event) => {
+  //   setFile(event.target.files[0]);
+
+  //   const fileReader = new FileReader();
+  //   fileReader.readAsDataURL(event.target.files[0]);
+  //   fileReader.onloadend = () => {
+  //     setPreview(fileReader.result);
+  //   };
+  // };
 
   async function onSubmit(values) {
     const options = {
@@ -31,18 +48,21 @@ const FormProducts = () => {
     };
     console.log(values);
 
-    // const URL = window.location.protocol + "//" + window.location.host;
-
-    // // await fetch(`${URL}/api/auth/signup`, options)
-    // //   .then((res) => res.json())
-    // //   .then((data) => {
-    // //     if (data) router.push(URL);
-    // //   });
+    await fetch("../../api/stock", options)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(createProduct(data));
+        if (data) router.push("/stock");
+      });
   }
 
   return (
     <div>
-      <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={formik.handleSubmit}
+        encType="multipart/form-data"
+      >
         <div>
           <SelectOptions formik={formik} name="categories" text="Categoría" />
         </div>
@@ -124,7 +144,17 @@ const FormProducts = () => {
         <div>
           <CheckColors formik={formik} />
         </div>
-
+        <div>
+          <label> Upload File</label>
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            onChange={(e) =>
+              formik.setFieldValue("photo", e.currentTarget.files[0])
+            }
+          />
+        </div>
         <div>
           <button type="submit" className={stylesGeneral.button}>
             Agregar

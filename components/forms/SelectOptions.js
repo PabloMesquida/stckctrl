@@ -53,7 +53,7 @@ const SelectOptions = ({ formik, name, text }) => {
       </option>
       {options && options.length > 0 ? (
         options.map((el) => (
-          <option vale={el.id} key={el.id}>
+          <option value={el.id} key={el.id}>
             {el.nombre}
           </option>
         ))

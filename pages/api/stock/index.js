@@ -4,6 +4,14 @@ import {
   INTERNAL_SERVER_ERROR,
   SUCCESS,
 } from "@/status";
+import multer from "multer";
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: "./public/uploads",
+    filename: (req, file, cb) => cb(null, file.originalname),
+  }),
+});
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -35,41 +43,51 @@ const getProducts = async (req, res) => {
 const saveProduct = async (req, res) => {
   try {
     const {
-      codigo,
-      nombre,
-      id_prov,
-      descripcion,
-      foto,
-      costo,
-      id_cat,
-      id_gen,
-      activo,
-      precio,
-      precio_liq,
-      fecha,
+      code,
+      name,
+      id_suppliers,
+      description,
+      photo,
+      cost_price,
+      id_categories,
+      id_genders,
+      price,
+      clearance_price,
     } = req.body;
 
-    const result = await executeQuery({
+    const active = 1;
+
+    console.log(req.body);
+
+    const result_product = await executeQuery({
       query:
-        "INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
-        codigo,
-        nombre,
-        id_prov,
-        descripcion,
-        foto,
-        costo,
-        id_cat,
-        id_gen,
-        activo,
-        precio,
-        precio_liq,
-        fecha,
+        code,
+        name,
+        id_suppliers,
+        description,
+        photo,
+        cost_price,
+        id_categories,
+        id_genders,
+        active,
+        price,
+        clearance_price,
       ],
     });
 
-    return res.status(SUCCESS).json({ ...req.body, id: result.insertId });
+    // const [row] = await executeQuery({
+    //   query: "SELECT MAX(id) AS max_id FROM productos",
+    // });
+
+    // const maxId = row.max_id || 0;
+
+    // const result_sizes = await executeQuery();
+
+    return res.status(SUCCESS).json({ data: result_product });
   } catch (error) {
+    console.log(error);
     return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 };
