@@ -15,6 +15,9 @@ module.exports = {
         26: "6.5rem",
         68: "17rem",
       },
+      height: {
+        68: "17rem",
+      },
       colors: {
         "th-background": "var(--background)",
         "th-background-secondary": "var(--background-secondary)",

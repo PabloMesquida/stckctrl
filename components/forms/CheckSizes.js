@@ -26,15 +26,17 @@ const CheckSizes = ({ formik }) => {
   }, [fetchSizes]);
 
   return (
-    <div>
-      {sizes.map((el) => (
-        <div key={el.id}>
-          <label>
+    <div className="flex gap-4 flex-wrap">
+      {sizes.map((el, index) => (
+        <>
+          <div className="w-24">
             <input
+              key={el.id}
               name="idSize"
               type="checkbox"
               value={el.id}
               checked={formik.values.sizes.includes(el.id)}
+              className=" w-4 h-4 red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 "
               onChange={(event) => {
                 const isChecked = event.target.checked;
                 let newOptions = formik.values.sizes;
@@ -46,9 +48,14 @@ const CheckSizes = ({ formik }) => {
                 formik.setFieldValue("sizes", newOptions);
               }}
             />
-            {el.talle}
-          </label>
-        </div>
+            <label className="ml-2"> {el.talle} </label>
+          </div>
+          {(index === 7 || index === 28) && (
+            <div className="w-full">
+              <hr className="bg-th-primary-light h-px border-0 " />
+            </div>
+          )}
+        </>
       ))}
     </div>
   );

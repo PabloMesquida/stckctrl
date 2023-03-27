@@ -41,26 +41,35 @@ const SelectOptions = ({ formik, name, text }) => {
   }, [fetchOptions]);
 
   return (
-    <select
-      name={`id_${name}`}
-      {...formik.getFieldProps(`id_${name}`)}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      style={{ display: "block" }}
+    <div
+      className={`${stylesGeneral.input_group} mb-4 ${
+        formik.errors.clearance_price && formik.touched.clearance_price
+          ? "border-red-600"
+          : ""
+      }`}
     >
-      <option value="" label={`${text}`}>
-        {text}
-      </option>
-      {options && options.length > 0 ? (
-        options.map((el) => (
-          <option value={el.id} key={el.id}>
-            {el.nombre}
-          </option>
-        ))
-      ) : (
-        <option>No Data</option>
-      )}
-    </select>
+      <select
+        name={`id_${name}`}
+        {...formik.getFieldProps(`id_${name}`)}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        style={{ display: "block" }}
+        className={stylesGeneral.input_text}
+      >
+        <option value="" label={`${text}`}>
+          {text}
+        </option>
+        {options && options.length > 0 ? (
+          options.map((el) => (
+            <option value={el.id} key={el.id}>
+              {el.nombre}
+            </option>
+          ))
+        ) : (
+          <option>No Data</option>
+        )}
+      </select>
+    </div>
   );
 };
 

@@ -16,8 +16,11 @@ export default async function handler(req, res) {
 const getAttribute = async (req, res) => {
   const { attribute } = req.query;
   try {
+    const query = `SELECT * FROM ${attribute} WHERE activo = ?${
+      attribute === "sizes" ? " ORDER BY orden ASC" : ""
+    }`;
     const results = await executeQuery({
-      query: `SELECT * FROM ${attribute} WHERE activo = ?`,
+      query,
       values: [1],
     });
     return res.status(SUCCESS).json(results);
