@@ -13,12 +13,6 @@ const UploadImage = ({ setImageSrc, imageSrc }) => {
     const inputs = document.getElementsByTagName("input");
     const fileInput = Array.from(inputs).find((input) => input.name === "file");
 
-    console.log(fileInput);
-
-    // const fileInput = Array.from(form.elements).find(
-    //   ({ name }) => name === "file"
-    // );
-
     const formData = new FormData();
 
     for (const file of fileInput.files) {
@@ -50,7 +44,8 @@ const UploadImage = ({ setImageSrc, imageSrc }) => {
     reader.readAsDataURL(changeEvent.target.files[0]);
   }
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 h-full">
+      <div>Imágen:</div>
       <p>
         <input
           type="file"
@@ -62,7 +57,7 @@ const UploadImage = ({ setImageSrc, imageSrc }) => {
       {imageSrc ? (
         <img src={imageSrc} />
       ) : (
-        <div className="bg-th-background rounded-md flex justify-center items-center h-68">
+        <div className="bg-th-background rounded-md flex justify-center items-center h-full">
           <MdImage className="w-32 h-32 sm:w-40 sm:h-40 text-th-background-tertiary" />
         </div>
       )}

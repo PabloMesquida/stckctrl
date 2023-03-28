@@ -99,55 +99,66 @@ const FormProducts = () => {
                 />
               </div>
             </div>
-            <div
-              className={`${stylesGeneral.panel_card} flex flex-col sm:flex-row gap-4`}
-            >
-              <div
-                className={`${stylesGeneral.input_group} ${
-                  formik.errors.cost_price && formik.touched.cost_price
-                    ? "border-red-600"
-                    : ""
-                }`}
-              >
-                <input
-                  className={stylesGeneral.input_text}
-                  type="text"
-                  name="cost_price"
-                  placeholder="Precio de costo"
-                  {...formik.getFieldProps("cost_price")}
-                />
+            <div className={`${stylesGeneral.panel_card} flex flex-col`}>
+              <div className="mb-4">Precios:</div>
+              <div className="flex flex-row sm:flex-row gap-4">
+                <div
+                  className={`${stylesGeneral.input_group} ${
+                    formik.errors.cost_price && formik.touched.cost_price
+                      ? "border-red-600"
+                      : ""
+                  }`}
+                >
+                  <input
+                    className={stylesGeneral.input_text}
+                    type="text"
+                    name="cost_price"
+                    placeholder="Costo"
+                    {...formik.getFieldProps("cost_price")}
+                  />
+                </div>
+                <div
+                  className={`${stylesGeneral.input_group} ${
+                    formik.errors.price && formik.touched.price
+                      ? "border-red-600"
+                      : ""
+                  }`}
+                >
+                  <input
+                    className={stylesGeneral.input_text}
+                    type="text"
+                    name="price"
+                    placeholder="Venta"
+                    {...formik.getFieldProps("price")}
+                  />
+                </div>
+                <div
+                  className={`${stylesGeneral.input_group} ${
+                    formik.errors.clearance_price &&
+                    formik.touched.clearance_price
+                      ? "border-red-600"
+                      : ""
+                  }`}
+                >
+                  <input
+                    className={stylesGeneral.input_text}
+                    type="text"
+                    name="clearance_price"
+                    placeholder="Liquidación"
+                    {...formik.getFieldProps("clearance_price")}
+                  />
+                </div>
               </div>
-              <div
-                className={`${stylesGeneral.input_group} ${
-                  formik.errors.price && formik.touched.price
-                    ? "border-red-600"
-                    : ""
-                }`}
-              >
-                <input
-                  className={stylesGeneral.input_text}
-                  type="text"
-                  name="price"
-                  placeholder="Precio"
-                  {...formik.getFieldProps("price")}
-                />
-              </div>
-              <div
-                className={`${stylesGeneral.input_group} ${
-                  formik.errors.clearance_price &&
-                  formik.touched.clearance_price
-                    ? "border-red-600"
-                    : ""
-                }`}
-              >
-                <input
-                  className={stylesGeneral.input_text}
-                  type="text"
-                  name="clearance_price"
-                  placeholder="Precio de liquidación"
-                  {...formik.getFieldProps("clearance_price")}
-                />
-              </div>
+            </div>
+            <div className={`${stylesGeneral.panel_card}`}>
+              <textarea
+                className={stylesGeneral.input_text}
+                placeholder="Descripción"
+                name="description"
+                rows="3"
+                cols="20"
+                {...formik.getFieldProps("description")}
+              ></textarea>
             </div>
           </div>
           <div
@@ -156,24 +167,16 @@ const FormProducts = () => {
             <UploadImage setImageSrc={setImageSrc} imageSrc={imageSrc} />
           </div>
         </div>
-        <div className={`${stylesGeneral.panel_card}`}>
-          <textarea
-            className={stylesGeneral.input_text}
-            placeholder="Descripción"
-            name="description"
-            rows="3"
-            cols="20"
-            {...formik.getFieldProps("description")}
-          ></textarea>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className={`${stylesGeneral.panel_card} w-full sm:w-1/2`}>
+            <div className="mb-4">Talles:</div>
+            <CheckSizes formik={formik} />
+          </div>
+          <div className={`${stylesGeneral.panel_card} w-full sm:w-1/2`}>
+            <div className="mb-4">Colores:</div>
+            <CheckColors formik={formik} />
+          </div>
         </div>
-
-        <div className={`${stylesGeneral.panel_card}`}>
-          <CheckSizes formik={formik} />
-        </div>
-        <div className={`${stylesGeneral.panel_card}`}>
-          <CheckColors formik={formik} />
-        </div>
-
         <div>
           <button type="submit" className={stylesGeneral.button}>
             Agregar
