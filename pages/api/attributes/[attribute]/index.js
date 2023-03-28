@@ -16,8 +16,10 @@ export default async function handler(req, res) {
 const getAttribute = async (req, res) => {
   const { attribute } = req.query;
   try {
+    const orderBy =
+      attribute === "talles" ? "orden" : attribute === "colores" ? "color" : "";
     const query = `SELECT * FROM ${attribute} WHERE activo = ?${
-      attribute === "sizes" ? " ORDER BY orden ASC" : ""
+      orderBy ? ` ORDER BY ${orderBy} ASC` : ""
     }`;
     const results = await executeQuery({
       query,
