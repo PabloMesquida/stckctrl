@@ -4,14 +4,6 @@ import {
   INTERNAL_SERVER_ERROR,
   SUCCESS,
 } from "@/status";
-import multer from "multer";
-
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: "./public/uploads",
-    filename: (req, file, cb) => cb(null, file.originalname),
-  }),
-});
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -29,8 +21,9 @@ export default async function handler(req, res) {
 const getProducts = async (req, res) => {
   try {
     const results = await executeQuery({
-      query:
-        "SELECT p.id, p.codigo, p.nombre, p.foto, c.nombre AS categoria, pr.nombre AS proveedor, g.nombre AS genero FROM productos p JOIN categoria c ON p.id_cat = c.id JOIN proveedores pr ON p.id_prov = pr.id JOIN genero AS g ON p.id_gen = g.id WHERE p.activo = ?",
+      // query:
+      //   "SELECT p.id, p.codigo, p.nombre, p.foto, c.nombre AS categoria, pr.nombre AS proveedor, g.nombre AS genero FROM productos p JOIN categoria c ON p.id_cat = c.id JOIN proveedores pr ON p.id_prov = pr.id JOIN genero AS g ON p.id_gen = g.id WHERE p.activo = ?",
+      query: "SELECT id FROM productos WHERE activo = ?",
       values: [1],
     });
 
