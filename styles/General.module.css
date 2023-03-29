@@ -12,16 +12,24 @@
   @apply flex my-2 h-8 sm:h-10 w-full justify-start items-center text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md text-sm px-4 sm:px-5 py-0 text-center sm:mr-0;
 }
 
+.button_sm_nofill {
+  @apply flex my-2 h-10 w-full justify-start items-center text-th-primary-dark border border-th-primary-light hover:bg-th-accent-medium focus:outline-none font-medium rounded-md text-sm px-4 sm:px-5 py-0 text-center sm:mr-0;
+}
+
+/* .button_nofill_sm {
+  @apply my-2 flex justify-center items-center text-th-primary-dark hover:text-white border border-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md sm:rounded-md text-sm px-5 py-0 text-center sm:mr-0 h-10 w-20;
+} */
+
 .button_xl {
   @apply flex justify-start items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md sm:rounded-md  py-4 px-6  text-center sm:mr-0  w-full max-w-lg;
 }
 
-.button_nofill {
-  @apply my-2 text-th-primary-dark hover:text-white border border-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md sm:rounded-md text-sm px-5 py-0 text-center sm:mr-0 h-10 w-full max-w-lg;
+.button_2xl {
+  @apply flex justify-start items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md sm:rounded-md  py-4 px-6  text-center sm:mr-0  w-full;
 }
 
-.button_nofill_sm {
-  @apply my-2 flex justify-center items-center text-th-primary-dark hover:text-white border border-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md sm:rounded-md text-sm px-5 py-0 text-center sm:mr-0 h-10 w-20;
+.button_nofill {
+  @apply my-2 text-th-primary-dark hover:text-white border border-th-accent-medium hover:bg-th-accent-dark focus:outline-none font-medium rounded-md sm:rounded-md text-sm px-5 py-0 text-center sm:mr-0 h-10 w-full max-w-lg;
 }
 
 .button_upload {

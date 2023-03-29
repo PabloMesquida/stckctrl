@@ -178,7 +178,7 @@ const FormProducts = () => {
           </div>
         </div>
         <div>
-          <button type="submit" className={stylesGeneral.button}>
+          <button type="submit" className={stylesGeneral.button_2xl}>
             Agregar
           </button>
         </div>
