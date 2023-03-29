@@ -53,5 +53,14 @@ export function register_validate(values) {
 
 export function add_product_validate(values) {
   const errors = {};
+
+  if (!values.prod_name) {
+    errors.prod_name = "Falta el nombre del producto.";
+  }
+
+  if (!values.id_categories) {
+    errors.id_categories = "Falta elegir categoría.";
+  }
+
   return errors;
 }

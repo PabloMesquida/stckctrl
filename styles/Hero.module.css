@@ -7,9 +7,9 @@
 }
 
 .hero_col2 {
-  @apply flex justify-center items-center w-full sm:w-1/2;
+  @apply flex justify-center items-center w-full sm:w-1/2 sm:max-w-sm;
 }
 
 .hero_login_container {
-  @apply text-start w-screen sm:w-full h-screen sm:h-auto justify-center flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border;
+  @apply text-start w-screen sm:w-96 h-screen sm:h-auto justify-center flex flex-col bg-th-background-secondary p-8 rounded-xl shadow-md border-th-background border;
 }

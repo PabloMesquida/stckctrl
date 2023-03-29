@@ -41,13 +41,7 @@ const SelectOptions = ({ formik, name, text }) => {
   }, [fetchOptions]);
 
   return (
-    <div
-      className={`${stylesGeneral.input_group} mb-4 ${
-        formik.errors.clearance_price && formik.touched.clearance_price
-          ? "border-red-600"
-          : ""
-      }`}
-    >
+    <div className={`${stylesGeneral.input_group} mb-4 w-full`}>
       <select
         name={`id_${name}`}
         {...formik.getFieldProps(`id_${name}`)}

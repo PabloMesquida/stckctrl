@@ -8,10 +8,17 @@ import SelectOptions from "@/components/forms/SelectOptions.js";
 import CheckSizes from "@/components/forms/CheckSizes.js";
 import CheckColors from "@/components/forms/CheckColors.js";
 import UploadImage from "@/components/forms/UploadImage.js";
+import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
+import { MdWarning } from "react-icons/md";
 
 const FormProducts = () => {
   const [imageSrc, setImageSrc] = useState();
+  const [message, setMessage] = useState({
+    status: false,
+    type: null,
+    text: null,
+  });
   const router = useRouter();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -64,11 +71,7 @@ const FormProducts = () => {
         encType="multipart/form-data"
       >
         <div className={stylesGeneral.panel_card}>
-          <div
-            className={`${stylesGeneral.input_group} ${
-              formik.errors.name && formik.touched.name ? "border-red-600" : ""
-            }`}
-          >
+          <div className={`${stylesGeneral.input_group}`}>
             <input
               className={stylesGeneral.input_text}
               type="text"
@@ -76,17 +79,28 @@ const FormProducts = () => {
               placeholder="Nombre"
               {...formik.getFieldProps("prod_name")}
             />
+            {formik.errors.prod_name && formik.touched.prod_name && (
+              <span className="icon flex items-center px-4">
+                <MdWarning size={25} className="text-th-warning" />
+              </span>
+            )}
           </div>
         </div>
         <div className={` flex flex-col sm:flex-row gap-4`}>
           <div className="flex flex-col w-full sm:w-1/2 gap-4">
             <div className={`${stylesGeneral.panel_card} flex flex-col w-full`}>
-              <div>
+              <div className="flex w-full justify-between">
                 <SelectOptions
                   formik={formik}
                   name="categories"
                   text="Categoría"
                 />
+                {formik.errors.id_categories &&
+                  formik.touched.id_categories && (
+                    <span className=" flex items-center px-4 pb-4 ">
+                      <MdWarning size={25} className="text-th-warning" />
+                    </span>
+                  )}
               </div>
               <div>
                 <SelectOptions formik={formik} name="genders" text="Género" />
@@ -176,6 +190,19 @@ const FormProducts = () => {
             <div className="mb-4">Colores:</div>
             <CheckColors formik={formik} />
           </div>
+        </div>
+        <div>
+          {["prod_name", "id_categories"].map(
+            (field) =>
+              formik.errors[field] &&
+              formik.touched[field] && (
+                <Message
+                  key={field}
+                  message={{ type: "warning", text: formik.errors[field] }}
+                />
+              )
+          )}
+          {message.status && <Message message={message} />}
         </div>
         <div>
           <button type="submit" className={stylesGeneral.button_2xl}>
