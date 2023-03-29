@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { MdCircle } from "react-icons/md";
 import { CgBoy, CgGirl } from "react-icons/cg";
 import { RiBearSmileLine } from "react-icons/ri";
+import stylesGeneral from "@/styles/General.module.css";
 
 const useUncheckedIcon = (id, hex) => {
   const getIconUnChecked = useCallback(() => {
@@ -11,11 +12,13 @@ const useUncheckedIcon = (id, hex) => {
           <MdCircle style={{ fill: "url(#multicolor-gradient)" }} size={28} />
         );
       case 26:
-        return <CgBoy className="text-th-primary-medium" size={28} />;
+        return <CgBoy className={stylesGeneral.unchecked_icon} size={28} />;
       case 27:
-        return <CgGirl className="text-th-primary-medium" size={28} />;
+        return <CgGirl className={stylesGeneral.unchecked_icon} size={28} />;
       case 28:
-        return <RiBearSmileLine className="text-th-primary-medium" size={28} />;
+        return (
+          <RiBearSmileLine className={stylesGeneral.unchecked_icon} size={28} />
+        );
       default:
         return <MdCircle style={{ color: hex }} size={28} />;
     }

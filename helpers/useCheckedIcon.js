@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { MdCheckCircle } from "react-icons/md";
 import { CgBoy, CgGirl } from "react-icons/cg";
 import { RiBearSmileLine } from "react-icons/ri";
+import stylesGeneral from "@/styles/General.module.css";
 
 const useCheckedIcon = (id, hex) => {
   const getIconChecked = useCallback(() => {
@@ -12,36 +13,23 @@ const useCheckedIcon = (id, hex) => {
           <MdCheckCircle
             style={{ fill: "url(#multicolor-gradient)" }}
             size={28}
-            className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
+            className={stylesGeneral.checked_icon}
           />
         );
       case 26:
-        return (
-          <CgBoy
-            className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
-            size={28}
-          />
-        );
+        return <CgBoy className={stylesGeneral.checked_icon} size={28} />;
       case 27:
-        return (
-          <CgGirl
-            className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
-            size={28}
-          />
-        );
+        return <CgGirl className={stylesGeneral.checked_icon} size={28} />;
       case 28:
         return (
-          <RiBearSmileLine
-            className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
-            size={28}
-          />
+          <RiBearSmileLine className={stylesGeneral.checked_icon} size={28} />
         );
       default:
         return (
           <MdCheckCircle
             style={{ color: hex }}
             size={28}
-            className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
+            className={stylesGeneral.checked_icon}
           />
         );
     }

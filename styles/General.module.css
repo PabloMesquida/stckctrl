@@ -133,3 +133,13 @@
 .breadcrumb_item {
   @apply text-th-primary-medium hover:text-th-accent-dark;
 }
+
+/* /////////////////// */
+
+.checked_icon {
+  @apply text-th-primary-medium border-2 border-th-primary-medium rounded-full;
+}
+
+.unchecked_icon {
+  @apply text-th-primary-medium;
+}
