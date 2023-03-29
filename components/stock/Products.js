@@ -4,7 +4,7 @@ import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
 
 const Products = () => {
   return (
-    <div>
+    <div className="pb-4">
       <BreadcrumbNav />
       <HeadProducts />
       <ListProducts />

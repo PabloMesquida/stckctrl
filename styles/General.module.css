@@ -1,5 +1,5 @@
 .main_container {
-  @apply mx-auto text-center h-screen flex flex-col items-center bg-th-background;
+  @apply mx-auto text-center h-screen flex flex-col items-center bg-th-background pb-14;
 }
 
 /* //////////////////// */
@@ -143,3 +143,5 @@
 .unchecked_icon {
   @apply text-th-primary-medium;
 }
+
+/* ////////////////////// */

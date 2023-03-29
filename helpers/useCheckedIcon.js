@@ -6,7 +6,6 @@ import stylesGeneral from "@/styles/General.module.css";
 
 const useCheckedIcon = (id, hex) => {
   const getIconChecked = useCallback(() => {
-    console.log("TEST");
     switch (id) {
       case 22:
         return (

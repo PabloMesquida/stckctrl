@@ -1,10 +1,11 @@
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav";
+import Footer from "@/components/navbar/Footer";
 import FormProducts from "./FormProducts";
 import HeadAddProduct from "./HeadAddProduct";
 
 const AddProduct = () => {
   return (
-    <div>
+    <div className="pb-20">
       <BreadcrumbNav />
       <HeadAddProduct />
       <FormProducts />

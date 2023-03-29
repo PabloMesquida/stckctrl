@@ -4,6 +4,7 @@ import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import NavBtn from "./NavBtn.js";
 import NavUser from "./NavUser.js";
 import NavMenu from "./NavMenu.js";
+import Footer from "./Footer.js";
 import ThemeChanger from "./ThemeChanger.js";
 import Logout from "./Logout.js";
 import navStyles from "@/styles/Navbar.module.css";
@@ -81,6 +82,7 @@ const Navbar = () => {
           </div>
         )}
       </aside>
+      <Footer />
     </>
   );
 };
