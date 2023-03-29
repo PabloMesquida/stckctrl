@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { MdCircle } from "react-icons/md";
+import { MdCheckCircle } from "react-icons/md";
 import { CgBoy, CgGirl } from "react-icons/cg";
 import { RiBearSmileLine } from "react-icons/ri";
 
@@ -9,7 +9,7 @@ const useCheckedIcon = (id, hex) => {
     switch (id) {
       case 22:
         return (
-          <MdCircle
+          <MdCheckCircle
             style={{ fill: "url(#multicolor-gradient)" }}
             size={28}
             className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
@@ -38,7 +38,7 @@ const useCheckedIcon = (id, hex) => {
         );
       default:
         return (
-          <MdCircle
+          <MdCheckCircle
             style={{ color: hex }}
             size={28}
             className="text-th-primary-medium border-2 border-th-primary-medium rounded-full"
