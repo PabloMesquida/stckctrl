@@ -5,6 +5,7 @@ import { RiBearSmileLine } from "react-icons/ri";
 
 const useCheckedIcon = (id, hex) => {
   const getIconChecked = useCallback(() => {
+    console.log("TEST");
     switch (id) {
       case 22:
         return (

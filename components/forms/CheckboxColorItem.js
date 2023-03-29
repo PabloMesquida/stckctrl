@@ -1,6 +1,6 @@
 import { useState } from "react";
-import useUncheckedIcon from "@/helpers/useUncheckedIcon";
-import useCheckedIcon from "@/helpers/useCheckedIcon";
+import useUncheckedIcon from "@/helpers/useUncheckedIcon.js";
+import useCheckedIcon from "@/helpers/useCheckedIcon.js";
 
 export function CheckboxColorItem({ formik, id, label, hex }) {
   const [isCheckedIcon, setIsCheckedIcon] = useState(false);
