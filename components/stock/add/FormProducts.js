@@ -14,7 +14,8 @@ import { MdWarning } from "react-icons/md";
 
 const FormProducts = () => {
   const [imageSrc, setImageSrc] = useState();
-  const [message, setMessage] = useState({
+  const [uploadData, setUploadData] = useState();
+  const [message] = useState({
     status: false,
     type: null,
     text: null,
@@ -33,15 +34,16 @@ const FormProducts = () => {
       clearance_price: "",
       sizes: [],
       colors: [],
-      file: imageSrc,
       code: "00000000",
     },
-    validate: add_product_validate,
+    validate: (values) => add_product_validate(values, imageSrc, uploadData),
     onSubmit,
   });
 
   async function onSubmit(values) {
-    values.file = imageSrc;
+    /// console.log("sub", imageSrc);
+    /// values.file = imageSrc;
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -66,7 +68,7 @@ const FormProducts = () => {
   return (
     <div>
       <form
-        className="flex flex-col gap-4"
+        className={stylesGeneral.form}
         onSubmit={formik.handleSubmit}
         encType="multipart/form-data"
       >
@@ -80,7 +82,7 @@ const FormProducts = () => {
               {...formik.getFieldProps("prod_name")}
             />
             {formik.errors.prod_name && formik.touched.prod_name && (
-              <span className="icon flex items-center px-4">
+              <span className="flex items-center px-4">
                 <MdWarning size={25} className="text-th-warning" />
               </span>
             )}
@@ -89,7 +91,7 @@ const FormProducts = () => {
         <div className={` flex flex-col sm:flex-row gap-4`}>
           <div className="flex flex-col w-full sm:w-1/2 gap-4">
             <div className={`${stylesGeneral.panel_card} flex flex-col w-full`}>
-              <div className="flex w-full justify-between">
+              <div className="flex w-full">
                 <SelectOptions
                   formik={formik}
                   name="categories"
@@ -102,27 +104,31 @@ const FormProducts = () => {
                     </span>
                   )}
               </div>
-              <div>
+              <div className="flex w-full">
                 <SelectOptions formik={formik} name="genders" text="Género" />
+                {formik.errors.id_genders && formik.touched.id_genders && (
+                  <span className=" flex items-center px-4 pb-4 ">
+                    <MdWarning size={25} className="text-th-warning" />
+                  </span>
+                )}
               </div>
-              <div>
+              <div className="flex w-full">
                 <SelectOptions
                   formik={formik}
                   name="suppliers"
                   text="Proveerdor"
                 />
+                {formik.errors.id_suppliers && formik.touched.id_suppliers && (
+                  <span className=" flex items-center px-4 pb-4 ">
+                    <MdWarning size={25} className="text-th-warning" />
+                  </span>
+                )}
               </div>
             </div>
             <div className={`${stylesGeneral.panel_card} flex flex-col`}>
               <div className="mb-4">Precios:</div>
               <div className="flex flex-row sm:flex-row gap-4">
-                <div
-                  className={`${stylesGeneral.input_group} ${
-                    formik.errors.cost_price && formik.touched.cost_price
-                      ? "border-red-600"
-                      : ""
-                  }`}
-                >
+                <div className={`${stylesGeneral.input_group} `}>
                   <input
                     className={stylesGeneral.input_text}
                     type="text"
@@ -131,13 +137,8 @@ const FormProducts = () => {
                     {...formik.getFieldProps("cost_price")}
                   />
                 </div>
-                <div
-                  className={`${stylesGeneral.input_group} ${
-                    formik.errors.price && formik.touched.price
-                      ? "border-red-600"
-                      : ""
-                  }`}
-                >
+
+                <div className={`${stylesGeneral.input_group}`}>
                   <input
                     className={stylesGeneral.input_text}
                     type="text"
@@ -145,15 +146,13 @@ const FormProducts = () => {
                     placeholder="Venta"
                     {...formik.getFieldProps("price")}
                   />
+                  {formik.errors.price && formik.touched.price && (
+                    <span className="flex items-center px-4 w-full">
+                      <MdWarning size={25} className="text-th-warning" />
+                    </span>
+                  )}
                 </div>
-                <div
-                  className={`${stylesGeneral.input_group} ${
-                    formik.errors.clearance_price &&
-                    formik.touched.clearance_price
-                      ? "border-red-600"
-                      : ""
-                  }`}
-                >
+                <div className={`${stylesGeneral.input_group}`}>
                   <input
                     className={stylesGeneral.input_text}
                     type="text"
@@ -178,29 +177,67 @@ const FormProducts = () => {
           <div
             className={`${stylesGeneral.panel_card}  flex flex-col w-full sm:w-1/2`}
           >
-            <UploadImage setImageSrc={setImageSrc} imageSrc={imageSrc} />
+            <div className="flex flex-col gap-4 h-full">
+              <div className="flex justify-between">
+                <div>Imagen:</div>
+                {formik.errors.file && (
+                  <span className="icon flex items-center px-4">
+                    <MdWarning size={25} className="text-th-warning" />
+                  </span>
+                )}
+              </div>
+              <UploadImage
+                formik={formik}
+                imageSrc={imageSrc}
+                setImageSrc={setImageSrc}
+                uploadData={uploadData}
+                setUploadData={setUploadData}
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <div className={`${stylesGeneral.panel_card} w-full sm:w-1/2`}>
-            <div className="mb-4">Talles:</div>
+            <div className="flex justify-between">
+              <div className="mb-4">Talles:</div>
+              {formik.errors.sizes && formik.touched.sizes && (
+                <span className=" flex items-center pb-4">
+                  <MdWarning size={25} className="text-th-warning" />
+                </span>
+              )}
+            </div>
             <CheckSizes formik={formik} />
           </div>
           <div className={`${stylesGeneral.panel_card} w-full sm:w-1/2`}>
-            <div className="mb-4">Colores:</div>
+            <div className="flex justify-between">
+              <div className="mb-4">Colores:</div>
+              {formik.errors.colors && formik.touched.colors && (
+                <span className=" flex items-center pb-4">
+                  <MdWarning size={25} className="text-th-warning" />
+                </span>
+              )}
+            </div>
             <CheckColors formik={formik} />
           </div>
         </div>
         <div>
-          {["prod_name", "id_categories"].map(
-            (field) =>
-              formik.errors[field] &&
-              formik.touched[field] && (
-                <Message
-                  key={field}
-                  message={{ type: "warning", text: formik.errors[field] }}
-                />
-              )
+          {[
+            "prod_name",
+            "id_categories",
+            "id_genders",
+            "id_suppliers",
+            "price",
+            "sizes",
+            "colors",
+            "file",
+          ].map((field) =>
+            (formik.errors[field] && formik.touched[field]) ||
+            (field === "file" && formik.errors[field]) ? (
+              <Message
+                key={field}
+                message={{ type: "warning", text: formik.errors[field] }}
+              />
+            ) : null
           )}
           {message.status && <Message message={message} />}
         </div>

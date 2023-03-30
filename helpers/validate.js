@@ -51,15 +51,30 @@ export function register_validate(values) {
   return errors;
 }
 
-export function add_product_validate(values) {
+export function add_product_validate(values, imageSrc, uploadData) {
   const errors = {};
+  const errorMessages = {
+    prod_name: "Falta el nombre del producto.",
+    id_categories: "Falta elegir categoría.",
+    id_genders: "Falta elegir género.",
+    id_suppliers: "Falta elegir proveedor.",
+    price: "Falta el precio de venta.",
+    sizes: "Elije al menos un talle.",
+    colors: "Elije al menos un color.",
+  };
 
-  if (!values.prod_name) {
-    errors.prod_name = "Falta el nombre del producto.";
+  //console.log("valida", imageSrc);
+  if (imageSrc && !uploadData) {
+    console.log("ERROR");
+    errors.file = "Falta subir la imagen seleccionada.";
   }
 
-  if (!values.id_categories) {
-    errors.id_categories = "Falta elegir categoría.";
+  for (const [key, value] of Object.entries(values)) {
+    if (!value) {
+      errors[key] = errorMessages[key];
+    } else if (Array.isArray(value) && value.length === 0) {
+      errors[key] = errorMessages[key];
+    }
   }
 
   return errors;
