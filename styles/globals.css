@@ -34,6 +34,7 @@ body {
 
   --error: theme("colors.red.600");
   --warning: theme("colors.yellow.500");
+  --success: theme("colors.green.500");
 }
 
 [data-theme="dark"] {
@@ -53,4 +54,5 @@ body {
 
   --error: theme("colors.red.600");
   --warning: theme("colors.yellow.500");
+  --success: theme("colors.green.500");
 }

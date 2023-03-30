@@ -31,6 +31,7 @@ module.exports = {
         "th-accent-light": "var(--accent-light)",
         "th-error": "var(--error)",
         "th-warning": "var(--warning)",
+        "th-success": "var(--success)",
       },
     },
   },

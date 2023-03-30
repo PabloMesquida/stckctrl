@@ -1,16 +1,34 @@
 import stylesGeneral from "@/styles/General.module.css";
-import { MdWarning, MdError } from "react-icons/md";
+import { MdWarning, MdError, MdThumbUp } from "react-icons/md";
 
 const Message = ({ message }) => {
-  const isError = message.type === "error";
-  const borderClass = isError ? "border-th-error" : "border-th-warning";
-  const textClass = isError ? "text-th-error" : "text-th-warning";
+  //const isError = message.type === "error";
+  //const borderClass = isError ? "border-th-error" : "border-th-warning";
+  //const textClass = isError ? "text-th-error" : "text-th-warning";
+
+  //const isError = message.type === "error" || message.type === "success";
+
+  const borderClass =
+    message.type === "error"
+      ? "border-th-error"
+      : message.type === "success"
+      ? "border-th-success"
+      : "border-th-warning";
+
+  const textClass =
+    message.type === "error"
+      ? "text-th-error"
+      : message.type === "success"
+      ? "text-th-success"
+      : "text-th-warning";
 
   return (
     <div className={`${stylesGeneral.msg_container} ${borderClass}`}>
       <div className="pr-4">
-        {isError ? (
+        {message.type === "error" ? (
           <MdError size={25} className={textClass} />
+        ) : message.type === "success" ? (
+          <MdThumbUp size={25} className={textClass} />
         ) : (
           <MdWarning size={25} className={textClass} />
         )}

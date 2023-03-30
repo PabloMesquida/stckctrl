@@ -1,5 +1,6 @@
 import { MdImage, MdOutlineFileUpload } from "react-icons/md";
 import stylesGeneral from "@/styles/General.module.css";
+import Message from "../messages/Message";
 
 const UploadImage = ({
   formik,
@@ -57,6 +58,7 @@ const UploadImage = ({
           className={stylesGeneral.button_upload}
         />
       </p>
+
       {imageSrc ? (
         <img src={imageSrc} />
       ) : (
@@ -64,13 +66,22 @@ const UploadImage = ({
           <MdImage className={stylesGeneral.form_icon_image_placeholder} />
         </div>
       )}
-      {imageSrc && !uploadData && (
-        <div className="flex w-full ">
+
+      <div className="flex w-full ">
+        {imageSrc && !uploadData && (
           <button onClick={handleOnSubmit} className={stylesGeneral.button_sm}>
             <MdOutlineFileUpload size={24} className="mr-4" /> Upload Files
           </button>
-        </div>
-      )}
+        )}
+        {imageSrc && uploadData && (
+          <Message
+            message={{
+              type: "success",
+              text: "La imagen se ha cargado correctamente.",
+            }}
+          />
+        )}
+      </div>
     </>
   );
 };
