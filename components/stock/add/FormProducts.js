@@ -232,7 +232,10 @@ const FormProducts = () => {
             "file",
           ].map((field) =>
             (formik.errors[field] && formik.touched[field]) ||
-            (field === "file" && formik.errors[field]) ? (
+            (field === "file" &&
+              formik.errors[field] &&
+              imageSrc &&
+              !uploadData) ? (
               <Message
                 key={field}
                 message={{ type: "warning", text: formik.errors[field] }}
