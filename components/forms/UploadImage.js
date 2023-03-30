@@ -1,6 +1,6 @@
+import Message from "../messages/Message.js";
 import { MdImage, MdOutlineFileUpload } from "react-icons/md";
 import stylesGeneral from "@/styles/General.module.css";
-import Message from "../messages/Message";
 
 const UploadImage = ({
   formik,

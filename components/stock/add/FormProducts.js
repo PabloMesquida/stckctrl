@@ -180,7 +180,7 @@ const FormProducts = () => {
             <div className="flex flex-col gap-4 h-full">
               <div className="flex justify-between">
                 <div>Imagen:</div>
-                {formik.errors.file && (
+                {formik.errors.file && imageSrc && !uploadData && (
                   <span className="icon flex items-center px-4">
                     <MdWarning size={25} className="text-th-warning" />
                   </span>
