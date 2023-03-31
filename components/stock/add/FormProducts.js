@@ -50,7 +50,7 @@ const FormProducts = () => {
     };
 
     await axios
-      .post("./api/stock", options)
+      .post("../../api/stock", options)
       .then((res) => res.json())
       .then((data) => {
         dispatch(createProduct(data));
