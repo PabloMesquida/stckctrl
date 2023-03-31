@@ -35,46 +35,22 @@ const saveProduct = async (req, res) => {
   try {
     const {
       code,
-      name,
+      prod_name,
       id_suppliers,
       description,
-      photo,
+      file,
       cost_price,
       id_categories,
       id_genders,
       price,
       clearance_price,
-    } = req.body;
+    } = req.body.body;
 
     const active = 1;
 
-    console.log(req.body);
-
     const result_product = await executeQuery({
-      query:
-        "INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      values: [
-        code,
-        name,
-        id_suppliers,
-        description,
-        photo,
-        cost_price,
-        id_categories,
-        id_genders,
-        active,
-        price,
-        clearance_price,
-      ],
+      query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
     });
-
-    // const [row] = await executeQuery({
-    //   query: "SELECT MAX(id) AS max_id FROM productos",
-    // });
-
-    // const maxId = row.max_id || 0;
-
-    // const result_sizes = await executeQuery();
 
     return res.status(SUCCESS).json({ data: result_product });
   } catch (error) {

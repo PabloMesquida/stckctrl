@@ -11,6 +11,7 @@ import UploadImage from "@/components/forms/UploadImage.js";
 import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdWarning } from "react-icons/md";
+import axios from "axios";
 
 const FormProducts = () => {
   const [imageSrc, setImageSrc] = useState();
@@ -41,23 +42,15 @@ const FormProducts = () => {
   });
 
   async function onSubmit(values) {
-    /// console.log("sub", imageSrc);
-    /// values.file = imageSrc;
-
+    values.file = imageSrc;
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: values,
     };
-    console.log(values);
 
-    if (response.ok) {
-      console.log("File and text uploaded successfully");
-    } else {
-      console.error("Error uploading file and text");
-    }
-
-    await fetch("../../api/stock", options)
+    await axios
+      .post("./api/stock", options)
       .then((res) => res.json())
       .then((data) => {
         dispatch(createProduct(data));
@@ -233,7 +226,7 @@ const FormProducts = () => {
           ].map((field) =>
             (formik.errors[field] && formik.touched[field]) ||
             (field === "file" &&
-              formik.errors[field] &&
+              formik.errors.file &&
               imageSrc &&
               !uploadData) ? (
               <Message

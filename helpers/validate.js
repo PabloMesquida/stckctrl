@@ -63,14 +63,17 @@ export function add_product_validate(values, imageSrc, uploadData) {
     colors: "Elije al menos un color.",
   };
 
-  //console.log("valida", imageSrc);
   if (imageSrc && !uploadData) {
-    console.log("ERROR");
     errors.file = "Falta subir la imagen seleccionada.";
   }
 
   for (const [key, value] of Object.entries(values)) {
-    if (!value) {
+    if (
+      !value &&
+      key !== "description" &&
+      key !== "clearance_price" &&
+      key !== "cost_price"
+    ) {
       errors[key] = errorMessages[key];
     } else if (Array.isArray(value) && value.length === 0) {
       errors[key] = errorMessages[key];

@@ -31,9 +31,6 @@ const UploadImage = ({
       }
     ).then((r) => r.json());
 
-    formik.setFieldValue("imageSrc", "TEST");
-    formik.setFieldValue("uploadData", "TEST");
-
     setImageSrc(data.secure_url);
     setUploadData(data);
   }
@@ -67,7 +64,7 @@ const UploadImage = ({
         </div>
       )}
 
-      <div className="flex w-full ">
+      <div className="flex w-full">
         {imageSrc && !uploadData && (
           <button onClick={handleOnSubmit} className={stylesGeneral.button_sm}>
             <MdOutlineFileUpload size={24} className="mr-4" /> Upload Files

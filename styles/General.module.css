@@ -61,7 +61,7 @@
 /* //////////////////// */
 
 .msg_container {
-  @apply border-2 rounded-md p-4 text-th-primary-dark flex mb-4;
+  @apply border-2 rounded-md p-4 text-th-primary-dark flex mb-4 w-full;
 }
 
 .msg_text_container {

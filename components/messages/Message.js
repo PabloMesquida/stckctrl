@@ -2,12 +2,6 @@ import stylesGeneral from "@/styles/General.module.css";
 import { MdWarning, MdError, MdThumbUp } from "react-icons/md";
 
 const Message = ({ message }) => {
-  //const isError = message.type === "error";
-  //const borderClass = isError ? "border-th-error" : "border-th-warning";
-  //const textClass = isError ? "text-th-error" : "text-th-warning";
-
-  //const isError = message.type === "error" || message.type === "success";
-
   const borderClass =
     message.type === "error"
       ? "border-th-error"
