@@ -12,6 +12,7 @@ import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdWarning } from "react-icons/md";
 import axios from "axios";
+import FormPrice from "./FormPrice";
 
 const FormProducts = () => {
   const [imageSrc, setImageSrc] = useState();
@@ -119,42 +120,7 @@ const FormProducts = () => {
               </div>
             </div>
             <div className={`${stylesGeneral.panel_card} flex flex-col`}>
-              <div className="mb-4">Precios:</div>
-              <div className="flex flex-row sm:flex-row gap-4">
-                <div className={`${stylesGeneral.input_group} `}>
-                  <input
-                    className={stylesGeneral.input_text}
-                    type="text"
-                    name="cost_price"
-                    placeholder="Costo"
-                    {...formik.getFieldProps("cost_price")}
-                  />
-                </div>
-
-                <div className={`${stylesGeneral.input_group}`}>
-                  <input
-                    className={stylesGeneral.input_text}
-                    type="text"
-                    name="price"
-                    placeholder="Venta"
-                    {...formik.getFieldProps("price")}
-                  />
-                  {formik.errors.price && formik.touched.price && (
-                    <span className="flex items-center px-4 w-full">
-                      <MdWarning size={25} className="text-th-warning" />
-                    </span>
-                  )}
-                </div>
-                <div className={`${stylesGeneral.input_group}`}>
-                  <input
-                    className={stylesGeneral.input_text}
-                    type="text"
-                    name="clearance_price"
-                    placeholder="Liquidación"
-                    {...formik.getFieldProps("clearance_price")}
-                  />
-                </div>
-              </div>
+              <FormPrice formik={formik} />
             </div>
             <div className={`${stylesGeneral.panel_card}`}>
               <textarea
