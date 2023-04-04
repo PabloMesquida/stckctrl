@@ -34,7 +34,6 @@ const getProducts = async (req, res) => {
 const saveProduct = async (req, res) => {
   try {
     const {
-      code,
       prod_name,
       id_suppliers,
       description,
@@ -46,15 +45,29 @@ const saveProduct = async (req, res) => {
       clearance_price,
     } = req.body.body;
 
+    console.log(req.body.body.prod_name);
+
     const active = 1;
+    const code = 10010010;
 
     const result_product = await executeQuery({
       query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
     });
 
-    return res.status(SUCCESS).json({ data: result_product });
+    console.log(result_product);
+
+    if (result_product) {
+      return res.status(SUCCESS).json({
+        status: true,
+        message: "Producto cargado Ok",
+      });
+    } else {
+      return res.status(BAD_REQUEST).json({ message: "Error" });
+    }
   } catch (error) {
     console.log(error);
-    return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+    return res
+      .status(INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };

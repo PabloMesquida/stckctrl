@@ -15,8 +15,14 @@ module.exports = {
         26: "6.5rem",
         68: "17rem",
       },
+      minWidth: {
+        "1/2": "50%",
+      },
       height: {
         68: "17rem",
+      },
+      zIndex: {
+        100: "100",
       },
       colors: {
         "th-background": "var(--background)",

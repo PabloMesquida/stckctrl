@@ -13,11 +13,13 @@ import stylesGeneral from "@/styles/General.module.css";
 import { MdWarning } from "react-icons/md";
 import axios from "axios";
 import FormPrice from "./FormPrice";
+import Modal from "@/components/modal/Modal.js";
 
 const FormProducts = () => {
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
-  const [message] = useState({
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState({
     status: false,
     type: null,
     text: null,
@@ -36,11 +38,18 @@ const FormProducts = () => {
       clearance_price: "",
       sizes: [],
       colors: [],
-      code: "00000000",
     },
     validate: (values) => add_product_validate(values, imageSrc, uploadData),
     onSubmit,
   });
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   async function onSubmit(values) {
     values.file = imageSrc;
@@ -50,17 +59,42 @@ const FormProducts = () => {
       body: values,
     };
 
-    await axios
-      .post("../../api/stock", options)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(createProduct(data));
-        if (data) router.push("/stock");
-      });
+    await axios.post("../../api/stock", options).then((res) => {
+      console.log(res.data.status);
+
+      if (res.data.status) {
+        console.log("ACA");
+        openModal();
+        dispatch(createProduct(values));
+      } //router.push("/stock");
+    });
+
+    //  console.log("STATuS", status);
+
+    // console.log("PRE-OPEN");
+    // if (status) {
+    //   console.log("OPEN");
+    //   openModal();
+    //   setMessage((prev) => ({
+    //     ...prev,
+    //     status: true,
+    //     type: "ok",
+    //     text: status.message,
+    //   }));
+    //   // router.push(res.status.url);
+    // }
   }
 
   return (
     <div>
+      {/* <button
+        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        onClick={openModal}
+      >
+        Abrir ventana modal
+      </button> */}
+      {showModal && <Modal message={message} closemodal={closeModal} />}
+
       <form
         className={stylesGeneral.form}
         onSubmit={formik.handleSubmit}
