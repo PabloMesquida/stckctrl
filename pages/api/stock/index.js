@@ -59,15 +59,20 @@ const saveProduct = async (req, res) => {
     if (result_product) {
       return res.status(SUCCESS).json({
         status: true,
-        message: "Producto cargado Ok",
+        type: "success",
+        message: "¡Listo! El producto ha sido cargado correctamente.",
       });
     } else {
-      return res.status(BAD_REQUEST).json({ message: "Error" });
+      return res.status(BAD_REQUEST).json({
+        status: false,
+        type: "error",
+        message: "Lo siento, algo salió mal y el producto no ha sido cargado.",
+      });
     }
   } catch (error) {
     console.log(error);
     return res
       .status(INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal Server Error" });
+      .json({ status: false, type: "error", message: "Internal Server Error" });
   }
 };

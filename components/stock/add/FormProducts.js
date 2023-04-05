@@ -12,7 +12,7 @@ import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdWarning } from "react-icons/md";
 import axios from "axios";
-import FormPrice from "./FormPrice";
+import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
 
 const FormProducts = () => {
@@ -48,7 +48,7 @@ const FormProducts = () => {
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    router.push("/stock");
   };
 
   async function onSubmit(values) {
@@ -65,6 +65,11 @@ const FormProducts = () => {
       if (res.data.status) {
         console.log("ACA");
         openModal();
+        setMessage({
+          status: res.data.status,
+          type: res.data.type,
+          text: res.data.message,
+        });
         dispatch(createProduct(values));
       } //router.push("/stock");
     });
