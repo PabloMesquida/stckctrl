@@ -43,9 +43,8 @@ const saveProduct = async (req, res) => {
       id_genders,
       price,
       clearance_price,
+      colors,
     } = req.body.body;
-
-    console.log(req.body.body.prod_name);
 
     const active = 1;
 
@@ -81,6 +80,12 @@ const saveProduct = async (req, res) => {
     const result_product = await executeQuery({
       query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
     });
+
+    for (let i = 0; i < colors.length; i++) {
+      const result_color = await executeQuery({
+        query: `INSERT INTO p_colores(id_prod, id_color , activo ) VALUES ("${result_product.insertId}", "${colors[i]}", "1")`,
+      });
+    }
 
     if (result_product) {
       return res.status(SUCCESS).json({
