@@ -44,6 +44,7 @@ const saveProduct = async (req, res) => {
       price,
       clearance_price,
       colors,
+      sizes,
     } = req.body.body;
 
     const active = 1;
@@ -77,29 +78,46 @@ const saveProduct = async (req, res) => {
     code = code.substring(0, 6) + d.substring(2) + code.substring(7);
     code = code.substring(0, 7) + d.substring(3);
 
-    const result_product = await executeQuery({
-      query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
-    });
+    try {
+      // Iniciar la transacción
+      await executeQuery({ query: "START TRANSACTION" });
 
-    for (let i = 0; i < colors.length; i++) {
-      const result_color = await executeQuery({
-        query: `INSERT INTO p_colores(id_prod, id_color , activo ) VALUES ("${result_product.insertId}", "${colors[i]}", "1")`,
+      // Insertar el producto
+      const result_product = await executeQuery({
+        query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
       });
-    }
 
-    if (result_product) {
-      return res.status(SUCCESS).json({
+      // Insertar los colores y tamaños del producto
+      for (let i = 0; i < colors.length; i++) {
+        const result_color = await executeQuery({
+          query: `INSERT INTO p_colores(id_prod, id_color , activo ) VALUES ("${result_product.insertId}", "${colors[i]}", "1")`,
+        });
+
+        for (let k = 0; k < sizes.length; k++) {
+          const result_size = await executeQuery({
+            query: `INSERT INTO p_talles(id_prod_color, id_talle , stock, activo, id_prod ) VALUES ("${result_color.insertId}", "${sizes[k]}", "0", "1","${result_product.insertId}" )`,
+          });
+        }
+      }
+      // Confirmar la transacción
+      await executeQuery({ query: "COMMIT" });
+      res.status(SUCCESS).json({
         status: true,
         type: "success",
         message: "¡Listo! El producto ha sido cargado correctamente.",
       });
-    } else {
-      return res.status(BAD_REQUEST).json({
+    } catch (error) {
+      // Revertir la transacción en caso de error
+      await executeQuery({ query: "ROLLBACK" });
+      res.status(BAD_REQUEST).json({
         status: false,
         type: "error",
         message: "Lo siento, algo salió mal y el producto no ha sido cargado.",
       });
+      throw error;
     }
+
+    return res;
   } catch (error) {
     console.log(error);
     return res
