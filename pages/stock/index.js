@@ -3,8 +3,17 @@ import Head from "next/head";
 import Navbar from "@/components/navbar/NavBar.js";
 import Products from "@/components/stock/Products.js";
 import stylesGeneral from "@/styles/General.module.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getProductsData } from "@/actions/productsActions";
 
-export default function Stock() {
+export default function Stock({ data }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductsData(data));
+  }, [dispatch]);
+
   return (
     <>
       <Head>
@@ -24,5 +33,14 @@ export async function getServerSideProps({ req }) {
   if (!session) {
     return { redirect: { destination: "/", permanent: false } };
   }
-  return { props: { session } };
+
+  let res = await fetch(process.env.BASE_URL + "api/stock/");
+  let data = await res.json();
+
+  return {
+    props: {
+      data,
+      session,
+    },
+  };
 }
