@@ -1,7 +1,11 @@
 import stylesGeneral from "@/styles/General.module.css";
 import IconAlert from "../icons/IconAlert.js";
+import { Waveform } from "@uiball/loaders";
 
 const Modal = ({ message, closemodal }) => {
+  const text = !message.text ? "Cargando..." : message.text;
+  console.log("mensaje", message.text);
+
   return (
     <div
       id="popup-modal"
@@ -11,19 +15,26 @@ const Modal = ({ message, closemodal }) => {
         <div className="relative bg-th-background-tertiary rounded-md shadow-lg shadow-black/50">
           <div className="p-6 text-center">
             <div className="flex justify-center m-4">
-              <IconAlert message={message} size={42} />
+              {message.text ? (
+                <IconAlert message={message} size={42} />
+              ) : (
+                <Waveform size={38} lineWeight={3.5} speed={1} color="white" />
+              )}
             </div>
             <h3 className="my-8 text-lg font-normal text-th-primary-dark">
-              {message.text}
+              {text}
             </h3>
-            <button
-              data-modal-hide="popup-modal"
-              type="button"
-              className={stylesGeneral.button}
-              onClick={closemodal}
-            >
-              Continuar
-            </button>
+            {message.text && (
+              <button
+                data-modal-hide="popup-modal"
+                type="button"
+                className={stylesGeneral.button}
+                onClick={closemodal}
+              >
+                Continuar
+              </button>
+            )}
+
             {/* <button
               data-modal-hide="popup-modal"
               type="button"

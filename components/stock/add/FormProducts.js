@@ -52,6 +52,7 @@ const FormProducts = () => {
   };
 
   async function onSubmit(values) {
+    openModal();
     values.file = imageSrc;
     const options = {
       method: "POST",
@@ -63,7 +64,6 @@ const FormProducts = () => {
       console.log(res.data.status);
 
       if (res.data.status) {
-        openModal();
         setMessage({
           status: res.data.status,
           type: res.data.type,
