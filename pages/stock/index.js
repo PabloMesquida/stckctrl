@@ -34,6 +34,8 @@ export async function getServerSideProps({ req }) {
     return { redirect: { destination: "/", permanent: false } };
   }
 
+  console.log(process.env.BASE_URL + "api/stock/");
+
   let res = await fetch(process.env.BASE_URL + "api/stock/");
   let data = await res.json();
 
