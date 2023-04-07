@@ -36,7 +36,7 @@ export async function getServerSideProps({ req }) {
 
   console.log(process.env.BASE_URL + "api/stock/");
 
-  let res = await fetch(process.env.BASE_URL + "api/stock/");
+  let res = await fetch("https://stckctrl.vercel.app/api/stock/");
   let data = await res.json();
 
   return {
