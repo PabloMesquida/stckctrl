@@ -34,9 +34,15 @@ export async function getServerSideProps({ req }) {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  console.log(process.env.BASE_URL + "api/stock/");
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept",
+  };
 
-  let res = await fetch("https://stckctrl.vercel.app/api/stock/");
+  //console.log(process.env.BASE_URL + "api/stock/");
+
+  let res = await fetch("https://stckctrl.vercel.app/api/stock/", { headers });
   let data = await res.json();
 
   return {
