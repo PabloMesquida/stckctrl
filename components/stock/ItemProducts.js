@@ -1,4 +1,5 @@
 import stylesGeneral from "@/styles/General.module.css";
+import Link from "next/link";
 import {
   MdImage,
   MdAppRegistration,
@@ -36,15 +37,17 @@ const ItemProducts = ({ product }) => {
       </div>
 
       <div className={stylesGeneral.item_icon_container}>
-        <button>
+        <Link href="#" shallow>
           <MdAppRegistration className={stylesGeneral.item_icon} />
-        </button>
-        <button>
+        </Link>
+        <Link href={`stock/${product.id}`} shallow>
           <MdOutlineFindInPage className={stylesGeneral.item_icon} />
-        </button>
+        </Link>
+
         <button>
           <MdModeEdit className={stylesGeneral.item_icon} />
         </button>
+
         <button>
           <MdDeleteForever className={stylesGeneral.item_icon_del} />
         </button>
