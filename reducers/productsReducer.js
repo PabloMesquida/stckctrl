@@ -21,7 +21,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_PRODUCT": {
       return {
         ...state,
-        productsData: action.payload,
+        productData: action.payload,
         loading: false,
       };
     }
@@ -59,6 +59,14 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_CATEGORY": {
+      return {
+        ...state,
+        category: action.payload,
         loading: false,
       };
     }
