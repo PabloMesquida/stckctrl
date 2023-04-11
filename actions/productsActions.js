@@ -7,7 +7,9 @@ import {
   GET_CATEGORIES,
   GET_CATEGORY,
   GET_GENDERS,
+  GET_GENDER,
   GET_SUPPLIERS,
+  GET_SUPPLIER,
   GET_SIZES,
   GET_COLORS,
 } from "../types";
@@ -68,9 +70,23 @@ export const getGenders = (data) => {
   };
 };
 
+export const getGender = (data) => {
+  return {
+    type: GET_GENDER,
+    payload: data,
+  };
+};
+
 export const getSuppliers = (data) => {
   return {
     type: GET_SUPPLIERS,
+    payload: data,
+  };
+};
+
+export const getSupplier = (data) => {
+  return {
+    type: GET_SUPPLIER,
     payload: data,
   };
 };

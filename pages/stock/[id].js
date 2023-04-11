@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/navbar/NavBar.js";
 import stylesGeneral from "@/styles/General.module.css";
-import ProductDetail from "@/components/stock/ProductDetail.js";
+import ProductDetail from "@/components/stock/detail/ProductDetail.js";
 
 function Product({ id }) {
   return (

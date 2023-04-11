@@ -165,3 +165,7 @@
 .form_icon_image_placeholder {
   @apply w-32 h-32 sm:w-40 sm:h-40 text-th-background-tertiary;
 }
+
+.form_icon_image_placeholder_detail {
+  @apply w-72 h-72 sm:w-72 sm:h-72 text-th-background-tertiary;
+}
