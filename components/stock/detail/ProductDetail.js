@@ -22,29 +22,21 @@ const ProductDetail = ({ id }) => {
       const productData = productRes.data;
       dispatch(getProductData(productData));
 
-      const categoryRes = await axios.get(
-        `./../../api/attributes/categoria/${productData.result_info_prod[0].id_cat}`
-      );
+      const [categoryRes, genderRes, supplierRes] = await Promise.all([
+        axios.get(`./../../api/attributes/categoria/${productData[0].id_cat}`),
+        axios.get(`./../../api/attributes/genero/${productData[0].id_gen}`),
+        axios.get(
+          `./../../api/attributes/proveedores/${productData[0].id_prov}`
+        ),
+      ]);
+
       const categoryData = categoryRes.data;
-      dispatch(getCategory(categoryData));
-
-      const genderRes = await axios.get(
-        `./../../api/attributes/genero/${productData.result_info_prod[0].id_gen}`
-      );
       const genderData = genderRes.data;
-      dispatch(getGender(genderData));
-
-      const supplierRes = await axios.get(
-        `./../../api/attributes/proveedores/${productData.result_info_prod[0].id_prov}`
-      );
       const supplierData = supplierRes.data;
-      dispatch(getSupplier(supplierData));
 
-      // const colorsRes = await axios.get(
-      //   `./../../api/attributes/proveedores/${productData.result_info_prod[0].id_prov}`
-      // );
-      // const supplierData = supplierRes.data;
-      // dispatch(getSupplier(supplierData));
+      dispatch(getCategory(categoryData));
+      dispatch(getGender(genderData));
+      dispatch(getSupplier(supplierData));
 
       setIsLoading(false);
     } catch (error) {
@@ -61,7 +53,7 @@ const ProductDetail = ({ id }) => {
       <BreadcrumbNav />
       {!isLoading && product && (
         <>
-          <HeadDetiailProduct name={product.result_info_prod[0].nombre} />
+          <HeadDetiailProduct name={product[0].nombre} />
           <ProductDetailData />
         </>
       )}
