@@ -32,14 +32,27 @@ const getProduct = async (req, res) => {
       query: "SELECT id_color FROM p_colores WHERE id_prod = ? ",
       values: [id],
     });
-    console.log(
-      "colors:",
-      result_info_prod_colors.map(({ id_color }) => id_color)
-    );
+
+    const result_info_prod_sizes = await executeQuery({
+      query: "SELECT id_talle FROM p_talles WHERE id_prod = ? ",
+      values: [id],
+    });
+
+    const uniqueSizes = [];
+    const sizes = result_info_prod_sizes.map(({ id_talle }) => id_talle);
+
+    sizes.forEach((size) => {
+      if (uniqueSizes.indexOf(size) === -1) {
+        uniqueSizes.push(size);
+      }
+    });
+
+    console.log("talles:", uniqueSizes);
 
     return res.status(SUCCESS).json({
       ...result_info_prod,
       colors: result_info_prod_colors.map(({ id_color }) => id_color),
+      sizes: uniqueSizes,
     });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({
