@@ -40,6 +40,12 @@ const ProductDetail = ({ id }) => {
       const supplierData = supplierRes.data;
       dispatch(getSupplier(supplierData));
 
+      // const colorsRes = await axios.get(
+      //   `./../../api/attributes/proveedores/${productData.result_info_prod[0].id_prov}`
+      // );
+      // const supplierData = supplierRes.data;
+      // dispatch(getSupplier(supplierData));
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);

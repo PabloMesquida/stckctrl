@@ -28,7 +28,19 @@ const getProduct = async (req, res) => {
       values: [id],
     });
 
-    return res.status(SUCCESS).json({ result_info_prod });
+    const result_info_prod_colors = await executeQuery({
+      query: "SELECT id_color FROM p_colores WHERE id_prod = ? ",
+      values: [id],
+    });
+    console.log(
+      "colors:",
+      result_info_prod_colors.map(({ id_color }) => id_color)
+    );
+
+    return res.status(SUCCESS).json({
+      ...result_info_prod,
+      colors: result_info_prod_colors.map(({ id_color }) => id_color),
+    });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({
       message: "Se produjo un error al obtener el producto",
