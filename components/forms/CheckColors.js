@@ -28,7 +28,7 @@ const CheckColors = ({ formik }) => {
 
   return (
     <div className="flex gap-4 flex-wrap">
-      {colors.map((el) => (
+      {colors?.map((el) => (
         <div key={el.id} className="w-36">
           <svg width="0" height="0">
             <linearGradient
@@ -49,6 +49,7 @@ const CheckColors = ({ formik }) => {
             id={el.id}
             label={el.color}
             hex={el.hex}
+            size={26}
           />
         </div>
       ))}

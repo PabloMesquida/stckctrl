@@ -4,25 +4,29 @@ import stylesGeneral from "@/styles/General.module.css";
 import ProductDetailDataInfo from "./ProductDetailDataInfo.js";
 import ProductDetailDataPrices from "./ProductDetailDataPrices.js";
 import ProductDetailDataImage from "./ProductDetailDataImage.js";
+import IconColor from "@/components/icons/IconColor.js";
 
 const ProductDetailData = () => {
   const [stockMatrix, setStockMatrix] = useState([]);
   const product = useSelector((state) => state?.products);
 
   const stock = product.productData.stock;
+  const colorsData = product.productData.colors;
 
   const talles = Array.from(new Set(stock.map((item) => item.talle)));
   const colores = Array.from(new Set(stock.map((item) => item.color)));
 
+  console.log("colores", product.productData.colors);
+
   // Crear la matriz de stock
-  const matrixRows = talles.length;
-  const matrixCols = colores.length;
+  const matrixRows = colores.length;
+  const matrixCols = talles.length;
   const newStockMatrix = Array.from(Array(matrixRows), () =>
     Array(matrixCols).fill(0)
   );
   stock.forEach((item) => {
-    const rowIndex = talles.indexOf(item.talle);
-    const colIndex = colores.indexOf(item.color);
+    const rowIndex = colores.indexOf(item.color);
+    const colIndex = talles.indexOf(item.talle);
     newStockMatrix[rowIndex][colIndex] = item.stock;
   });
 
@@ -43,33 +47,24 @@ const ProductDetailData = () => {
         </div>
       </div>
       <div className={stylesGeneral.panel_card}>
-        {/* <div>stock</div>
-        <div className="w-full flex">
-          <div className="max-w-xs min-w-fit w-16 flex justify-center"></div>
-          {product.productData.sizes.map((size) => (
-            <div
-              className="max-w-xs min-w-fit w-16 flex justify-center"
-              key={size}
-            >
-              {size}
-            </div>
-          ))}
-        </div> */}
         <table>
           <thead>
             <tr>
-              <th>Talle</th>
-              {colores.map((color) => (
-                <th key={color}>{color}</th>
+              <th className="flex justify-start">STOCK</th>
+              {talles.map((talle) => (
+                <th key={talle}>{talle}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {talles.map((talle, rowIndex) => (
-              <tr key={talle}>
-                <td>{talle}</td>
-                {colores.map((color, colIndex) => (
-                  <td key={`${talle}-${color}`}>
+            {colorsData.map(({ color, id_color, hex }, rowIndex) => (
+              <tr key={color}>
+                <td className="flex gap-2 items-center">
+                  <IconColor id={id_color} color={hex} size={16} />
+                  {color}
+                </td>
+                {talles.map((talle, colIndex) => (
+                  <td key={`${color}-${talle}`}>
                     {stockMatrix &&
                       stockMatrix[rowIndex] &&
                       stockMatrix[rowIndex][colIndex]}

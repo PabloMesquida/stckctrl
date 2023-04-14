@@ -27,7 +27,7 @@ const CheckSizes = ({ formik }) => {
 
   return (
     <div className="flex gap-4 flex-wrap">
-      {sizes.map((el, index) => (
+      {sizes?.map((el, index) => (
         <React.Fragment key={index}>
           <div className="w-24" key={index}>
             <input
