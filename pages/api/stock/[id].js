@@ -47,12 +47,17 @@ const getProduct = async (req, res) => {
       }
     });
 
-    console.log("talles:", uniqueSizes);
+    const result_info_prod_stock = await executeQuery({
+      query:
+        "SELECT pt.id, pt.id_prod_color, pt.id_talle, pt.stock, c.color, t.talle, c.id AS id_color FROM p_talles AS pt JOIN talles AS t ON t.id = pt.id_talle JOIN p_colores AS pc ON pc.id = pt.id_prod_color JOIN colores AS c ON c.id = pc.id_color WHERE pt.id_prod = ?",
+      values: [id],
+    });
 
     return res.status(SUCCESS).json({
       ...result_info_prod,
       colors: result_info_prod_colors.map(({ id_color }) => id_color),
       sizes: uniqueSizes,
+      stock: result_info_prod_stock,
     });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({

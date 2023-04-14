@@ -3,8 +3,6 @@ const initialState = {
   categories: [],
   genders: [],
   suppliers: [],
-  sizes: [],
-  colors: [],
   loading: true,
 };
 
@@ -118,6 +116,14 @@ export default function productsReducer(state = initialState, action) {
         loading: false,
       };
     }
+
+    // case "GET_STOCK": {
+    //   return {
+    //     ...state,
+    //     stock: action.payload.map((data) => data),
+    //     loading: false,
+    //   };
+    // }
 
     default:
       return state;

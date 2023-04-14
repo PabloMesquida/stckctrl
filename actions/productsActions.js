@@ -104,3 +104,10 @@ export const getColors = (data) => {
     payload: data,
   };
 };
+
+// export const getStock = (data) => {
+//   return {
+//     type: GET_STOCK,
+//     payload: data,
+//   };
+// };
