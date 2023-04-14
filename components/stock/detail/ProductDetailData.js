@@ -5,8 +5,10 @@ import ProductDetailDataInfo from "./ProductDetailDataInfo.js";
 import ProductDetailDataPrices from "./ProductDetailDataPrices.js";
 import ProductDetailDataImage from "./ProductDetailDataImage.js";
 import IconColor from "@/components/icons/IconColor.js";
+import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 
 const ProductDetailData = () => {
+  const widthNavigator = useWidthNavigator();
   const [stockMatrix, setStockMatrix] = useState([]);
   const product = useSelector((state) => state?.products);
 
@@ -15,8 +17,6 @@ const ProductDetailData = () => {
 
   const talles = Array.from(new Set(stock.map((item) => item.talle)));
   const colores = Array.from(new Set(stock.map((item) => item.color)));
-
-  console.log("colores", product.productData.colors);
 
   // Crear la matriz de stock
   const matrixRows = colores.length;
@@ -47,24 +47,27 @@ const ProductDetailData = () => {
         </div>
       </div>
       <div className={stylesGeneral.panel_card}>
-        <table>
+        <table className="bg-th-background min-w-full rounded-md overflow-hidden sm:text-base text-xs ">
           <thead>
-            <tr>
-              <th className="flex justify-start">STOCK</th>
+            <tr className="mb-4 border-b border-th-background-secondary bg-th-background-tertiary">
+              <th className="flex md:m-4 m-2">STOCK</th>
               {talles.map((talle) => (
                 <th key={talle}>{talle}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {colorsData.map(({ color, id_color, hex }, rowIndex) => (
-              <tr key={color}>
-                <td className="flex gap-2 items-center">
+            {colorsData.map(({ color, etiqueta, id_color, hex }, rowIndex) => (
+              <tr
+                className="border-b border-th-background-secondary"
+                key={color}
+              >
+                <td className="flex  md:m-4 m-2 gap-2 items-center">
                   <IconColor id={id_color} color={hex} size={16} />
-                  {color}
+                  {widthNavigator > 640 ? color : etiqueta}
                 </td>
                 {talles.map((talle, colIndex) => (
-                  <td key={`${color}-${talle}`}>
+                  <td className="text-center" key={`${color}-${talle}`}>
                     {stockMatrix &&
                       stockMatrix[rowIndex] &&
                       stockMatrix[rowIndex][colIndex]}
