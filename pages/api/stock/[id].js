@@ -4,7 +4,6 @@ import {
   INTERNAL_SERVER_ERROR,
   SUCCESS,
 } from "@/status";
-import axios from "axios";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -23,7 +22,6 @@ export default async function handler(req, res) {
 
 const deleteProduct = async (req, res) => {
   const { id } = req.query;
-  console.log("DELETE");
   try {
     const result_del_prod = await executeQuery({
       query: "UPDATE productos SET activo = 0 WHERE id = ?",

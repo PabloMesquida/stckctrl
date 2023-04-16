@@ -33,7 +33,7 @@ const getProducts = async (req, res) => {
 
 const saveProduct = async (req, res) => {
   try {
-    const {
+    let {
       prod_name,
       id_suppliers,
       description,
@@ -48,6 +48,8 @@ const saveProduct = async (req, res) => {
     } = req.body.body;
 
     const active = 1;
+
+    file = file || "No Image";
 
     let code = "00000000";
 
@@ -82,9 +84,22 @@ const saveProduct = async (req, res) => {
       // Iniciar la transacción
       await executeQuery({ query: "START TRANSACTION" });
 
-      // Insertar el producto
       const result_product = await executeQuery({
-        query: `INSERT INTO productos(codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES ("${code}", "${prod_name}", "${id_suppliers}", "${description}", "${file}", "${cost_price}","${id_categories}", "${id_genders}", "${active}", "${price}", "${clearance_price}")`,
+        query:
+          "INSERT INTO productos (codigo, nombre, id_prov, descripcion, foto, costo, id_cat, id_gen, activo, precio, precio_liq) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        values: [
+          code,
+          prod_name,
+          id_suppliers,
+          description,
+          file,
+          cost_price,
+          id_categories,
+          id_genders,
+          active,
+          price,
+          clearance_price,
+        ],
       });
 
       // Insertar los colores y tamaños del producto
