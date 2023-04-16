@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 import { add_product_validate } from "@/helpers/validate.js";
-import { createProduct } from "@/actions/productsActions";
 import SelectOptions from "@/components/forms/SelectOptions.js";
 import CheckSizes from "@/components/forms/CheckSizes.js";
 import CheckColors from "@/components/forms/CheckColors.js";
@@ -25,7 +23,6 @@ const FormProducts = () => {
     text: null,
   });
   const router = useRouter();
-  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       id_categories: 0,
@@ -61,15 +58,12 @@ const FormProducts = () => {
     };
 
     await axios.post("../../api/stock", options).then((res) => {
-      console.log(res.data.status);
-
       if (res.data.status) {
         setMessage({
           status: res.data.status,
           type: res.data.type,
           text: res.data.message,
         });
-        dispatch(createProduct(values));
       }
     });
   }
