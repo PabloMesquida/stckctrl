@@ -27,7 +27,7 @@ export default function productsReducer(state = initialState, action) {
     case "CREATE_PRODUCT": {
       return {
         ...state,
-        productsData: [...state.db, action.payload],
+        productsData: [...state.productsData, action.payload],
         loading: false,
       };
     }
@@ -44,8 +44,7 @@ export default function productsReducer(state = initialState, action) {
     }
 
     case "DELETE_PRODUCT": {
-      let newData = state.db.filter((el) => el.id !== action.payload);
-
+      let newData = state.productsData.filter((el) => el.id !== action.payload);
       return {
         ...state,
         productsData: newData,

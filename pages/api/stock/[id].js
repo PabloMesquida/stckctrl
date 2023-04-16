@@ -12,12 +12,28 @@ export default async function handler(req, res) {
       return await getProduct(req, res);
     case "POST":
       return await updateProduct(req, res);
+    case "DELETE":
+      return await deleteProduct(req, res);
     default:
       return res
         .status(HTTP_METHOD_NOT_ALLOWED)
         .send("HTTP Method not allowed");
   }
 }
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.query;
+  console.log("DELETE");
+  try {
+    const result_del_prod = await executeQuery({
+      query: "UPDATE productos SET activo = 0 WHERE id = ?",
+      values: [id],
+    });
+    return res.status(SUCCESS).json({ result_del_prod });
+  } catch (error) {
+    return res.status(INTERNAL_SERVER_ERROR).json({ error });
+  }
+};
 
 const getProduct = async (req, res) => {
   const { id } = req.query;

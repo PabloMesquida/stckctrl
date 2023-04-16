@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getProductsData } from "@/actions/productsActions";
+import { getProductsData, deleteProduct } from "@/actions/productsActions";
 import axios from "axios";
 import ItemProducts from "./ItemProducts.js";
 import FilterProducts from "./FilterProducts.js";
@@ -11,6 +11,7 @@ const ListProducts = () => {
   const products = useSelector((state) => state?.products.productsData);
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
+  const [productId, setProductId] = useState(null);
   const [message, setMessage] = useState({
     status: "",
     type: null,
@@ -18,7 +19,8 @@ const ListProducts = () => {
   });
   const dispatch = useDispatch();
 
-  const warningMessage = (name) => {
+  const warningMessage = (name, id) => {
+    setProductId(id);
     setMessage({
       status: "delete",
       type: "warning",
@@ -33,8 +35,10 @@ const ListProducts = () => {
     openModal();
   };
 
-  const deleteProd = (id) => {
-    console.log("delete", id);
+  const deleteProd = async (id) => {
+    await axios.delete(`./api/stock/${id}`).then((res) => {
+      dispatch(deleteProduct(id));
+    });
     closeModal();
   };
 
@@ -43,6 +47,7 @@ const ListProducts = () => {
   };
 
   const closeModal = () => {
+    setProductId(null);
     setShowModal(false);
     router.push("/stock");
   };
@@ -60,7 +65,11 @@ const ListProducts = () => {
   return (
     <>
       {showModal && (
-        <Modal message={message} firstBtn={deleteProd} secondBtn={closeModal} />
+        <Modal
+          message={message}
+          firstBtn={() => deleteProd(productId)}
+          secondBtn={closeModal}
+        />
       )}
       <FilterProducts />
       <div className="min-w-full table-auto">
@@ -69,7 +78,7 @@ const ListProducts = () => {
             <ItemProducts
               product={product}
               key={product.id}
-              warningMessage={() => warningMessage(product.nombre)}
+              warningMessage={() => warningMessage(product.nombre, product.id)}
             />
           ))
         ) : (
