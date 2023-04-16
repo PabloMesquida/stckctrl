@@ -18,27 +18,28 @@ const ProductDetail = ({ id }) => {
 
   const fetchProducts = async () => {
     try {
+      //console.group("fetchProducts");
       const productRes = await axios.get(`./../../api/stock/${id}`);
       const productData = productRes.data;
-      dispatch(getProductData(productData));
 
-      const [categoryRes, genderRes, supplierRes] = await Promise.all([
+      const [
+        { data: categoryData },
+        { data: genderData },
+        { data: supplierData },
+      ] = await axios.all([
         axios.get(`./../../api/attributes/categoria/${productData[0].id_cat}`),
         axios.get(`./../../api/attributes/genero/${productData[0].id_gen}`),
         axios.get(
           `./../../api/attributes/proveedores/${productData[0].id_prov}`
         ),
       ]);
-
-      const categoryData = categoryRes.data;
-      const genderData = genderRes.data;
-      const supplierData = supplierRes.data;
-
+      dispatch(getProductData(productData));
       dispatch(getCategory(categoryData));
       dispatch(getGender(genderData));
       dispatch(getSupplier(supplierData));
 
       setIsLoading(false);
+      // console.groupEnd();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -47,7 +48,8 @@ const ProductDetail = ({ id }) => {
 
   useEffect(() => {
     fetchProducts();
-  }, [dispatch]);
+  }, []);
+
   return (
     <div className="pb-20">
       <BreadcrumbNav />

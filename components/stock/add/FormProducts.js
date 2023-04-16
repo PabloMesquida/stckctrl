@@ -76,7 +76,7 @@ const FormProducts = () => {
 
   return (
     <div>
-      {showModal && <Modal message={message} closemodal={closeModal} />}
+      {showModal && <Modal message={message} firstBtn={closeModal} />}
 
       <form
         className={stylesGeneral.form}

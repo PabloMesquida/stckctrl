@@ -8,7 +8,7 @@ import {
   MdOutlineFindInPage,
 } from "react-icons/md";
 
-const ItemProducts = ({ product }) => {
+const ItemProducts = ({ product, warningMessage }) => {
   return (
     <div className={stylesGeneral.item_container}>
       <div className="flex grow">
@@ -48,7 +48,7 @@ const ItemProducts = ({ product }) => {
           <MdModeEdit className={stylesGeneral.item_icon} />
         </button>
 
-        <button>
+        <button onClick={warningMessage}>
           <MdDeleteForever className={stylesGeneral.item_icon_del} />
         </button>
       </div>

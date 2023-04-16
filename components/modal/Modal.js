@@ -2,9 +2,8 @@ import stylesGeneral from "@/styles/General.module.css";
 import IconAlert from "../icons/IconAlert.js";
 import { Waveform } from "@uiball/loaders";
 
-const Modal = ({ message, closemodal }) => {
+const Modal = ({ message, firstBtn, secondBtn = null }) => {
   const text = !message.text ? "Cargando..." : message.text;
-  console.log("mensaje", message.text);
 
   return (
     <div
@@ -28,20 +27,22 @@ const Modal = ({ message, closemodal }) => {
               <button
                 data-modal-hide="popup-modal"
                 type="button"
-                className={stylesGeneral.button}
-                onClick={closemodal}
+                className={stylesGeneral.button_sm}
+                onClick={firstBtn}
               >
                 Continuar
               </button>
             )}
-
-            {/* <button
-              data-modal-hide="popup-modal"
-              type="button"
-              className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-            >
-              No, cancel
-            </button> */}
+            {secondBtn && (
+              <button
+                data-modal-hide="popup-modal"
+                type="button"
+                className={stylesGeneral.button_sm_nofill}
+                onClick={secondBtn}
+              >
+                No, cancel
+              </button>
+            )}
           </div>
         </div>
       </div>
