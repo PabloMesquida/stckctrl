@@ -62,7 +62,9 @@ const saveProduct = async (req, res) => {
     c = c.toString();
 
     const result_code = await executeQuery({
-      query: `SELECT * from productos WHERE id_prov = "${id_suppliers}" and id_gen = "${id_genders}" and id_cat = "${id_categories}"`,
+      query:
+        "SELECT * from productos WHERE id_prov = ? and id_gen = ? and id_cat = ?",
+      values: [id_suppliers, id_genders, id_categories],
     });
 
     const count = result_code.length;
@@ -105,12 +107,16 @@ const saveProduct = async (req, res) => {
       // Insertar los colores y tamaños del producto
       for (let i = 0; i < colors.length; i++) {
         const result_color = await executeQuery({
-          query: `INSERT INTO p_colores(id_prod, id_color , activo ) VALUES ("${result_product.insertId}", "${colors[i]}", "1")`,
+          query:
+            "INSERT INTO p_colores(id_prod, id_color , activo ) VALUES (?, ?, 1)",
+          values: [result_product.insertId, colors[i]],
         });
 
         for (let k = 0; k < sizes.length; k++) {
           const result_size = await executeQuery({
-            query: `INSERT INTO p_talles(id_prod_color, id_talle , stock, activo, id_prod ) VALUES ("${result_color.insertId}", "${sizes[k]}", "0", "1","${result_product.insertId}" )`,
+            query:
+              "INSERT INTO p_talles(id_prod_color, id_talle , stock, activo, id_prod ) VALUES (?, ?, 0, 1, ?)",
+            values: [result_color.insertId, sizes[k], result_product.insertId],
           });
         }
       }
