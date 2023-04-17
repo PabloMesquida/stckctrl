@@ -37,6 +37,8 @@ module.exports = {
         "th-error": "var(--error)",
         "th-warning": "var(--warning)",
         "th-success": "var(--success)",
+        "th-skeleton": "var(--skeleton)",
+        "th-skeleton-secondary": "var(--skeleton-secondary)",
       },
     },
   },
