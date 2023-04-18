@@ -11,7 +11,8 @@ export default function productsReducer(state = initialState, action) {
     case "GET_PRODUCTS": {
       return {
         ...state,
-        productsData: action.payload.map((data) => data),
+        productsData: [...state.productsData, ...action.payload],
+        //  productsData: action.payload.map((data) => data),
         loading: false,
       };
     }

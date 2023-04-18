@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getProductsData, deleteProduct } from "@/actions/productsActions";
 import axios from "axios";
-import ItemProducts from "./ItemProducts.js";
 import FilterProducts from "./FilterProducts.js";
 import Modal from "@/components/modal/Modal.js";
+import InfiniteScroll from "react-infinite-scroll-component";
+import ItemProducts from "./ItemProducts.js";
+import stylesGeneral from "@/styles/General.module.css";
 
 const ListProducts = () => {
   const products = useSelector((state) => state?.products.productsData);
   const router = useRouter();
+  const [limit, setLimit] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState(null);
   const [message, setMessage] = useState({
@@ -52,15 +55,16 @@ const ListProducts = () => {
     router.push("/stock");
   };
 
-  const fetchProducts = async () => {
-    await axios.get("./api/stock").then((res) => {
+  const fetchData = () => {
+    console.log("limit", limit);
+    axios.get(`./api/stock/limit/${limit}`).then((res) => {
       dispatch(getProductsData(res.data));
     });
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, [dispatch]);
+    fetchData();
+  }, [limit]);
 
   return (
     <>
@@ -72,18 +76,32 @@ const ListProducts = () => {
         />
       )}
       <FilterProducts />
-      <div className="min-w-full table-auto">
-        {products && products.length > 0 ? (
-          products.map((product) => (
-            <ItemProducts
-              product={product}
-              key={product.id}
-              warningMessage={() => warningMessage(product.nombre, product.id)}
-            />
-          ))
-        ) : (
-          <div>No Data</div>
-        )}
+      <div className="min-w-full">
+        <InfiniteScroll
+          dataLength={products.length}
+          next={() => setLimit((prev) => prev + 7)}
+          hasMore={products.length >= limit}
+          loader={
+            <div className={stylesGeneral.text_loader}>Cargando productos.</div>
+          }
+          endMessage={
+            <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
+              Lo has visto todo.
+            </div>
+          }
+        >
+          <div>
+            {products.map((product) => (
+              <ItemProducts
+                product={product}
+                key={product.id}
+                warningMessage={() =>
+                  warningMessage(product.nombre, product.id)
+                }
+              />
+            ))}
+          </div>
+        </InfiniteScroll>
       </div>
     </>
   );

@@ -9,6 +9,8 @@ import {
 } from "react-icons/md";
 
 const ItemProducts = ({ product, warningMessage }) => {
+  // console.log("prod", product.id);
+
   return (
     <div className={stylesGeneral.item_container}>
       <div className="flex grow">

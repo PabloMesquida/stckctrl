@@ -169,3 +169,9 @@
 .form_icon_image_placeholder_detail {
   @apply w-72 h-72 sm:w-72 sm:h-72 text-th-background-tertiary;
 }
+
+/*////////////////////*/
+
+.text_loader {
+  @apply flex justify-center items-center m-8 text-th-primary-medium text-sm animate-pulse;
+}

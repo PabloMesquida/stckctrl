@@ -1,6 +1,6 @@
 import stylesGeneral from "@/styles/General.module.css";
 import IconAlert from "../icons/IconAlert.js";
-import { Waveform } from "@uiball/loaders";
+import { Ring } from "@uiball/loaders";
 
 const Modal = ({ message, firstBtn, secondBtn = null }) => {
   const text = !message.text ? "Cargando..." : message.text;
@@ -17,7 +17,12 @@ const Modal = ({ message, firstBtn, secondBtn = null }) => {
               {message.text ? (
                 <IconAlert message={message} size={42} />
               ) : (
-                <Waveform size={38} lineWeight={3.5} speed={1} color="white" />
+                <Ring
+                  size={38}
+                  lineWeight={3.5}
+                  speed={1}
+                  color="text-th-primary-dark"
+                />
               )}
             </div>
             <h3 className="my-8 text-lg font-normal text-th-primary-dark">
