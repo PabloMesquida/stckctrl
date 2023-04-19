@@ -17,12 +17,7 @@ const Modal = ({ message, firstBtn, secondBtn = null }) => {
               {message.text ? (
                 <IconAlert message={message} size={42} />
               ) : (
-                <Ring
-                  size={38}
-                  lineWeight={3.5}
-                  speed={1}
-                  color="text-th-primary-dark"
-                />
+                <Ring size={38} lineWeight={3.5} speed={1} color="white" />
               )}
             </div>
             <h3 className="my-8 text-lg font-normal text-th-primary-dark">

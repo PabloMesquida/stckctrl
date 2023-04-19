@@ -25,7 +25,7 @@ const FormProducts = () => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      id_categories: 0,
+      id_categories: "",
       id_genders: "",
       id_suppliers: "",
       prod_name: "",

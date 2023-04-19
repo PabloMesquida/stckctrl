@@ -1,5 +1,6 @@
 import {
   GET_PRODUCTS,
+  GET_ALL_PRODUCTS,
   GET_PRODUCT,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
@@ -17,6 +18,13 @@ import {
 export const getProductsData = (data) => {
   return {
     type: GET_PRODUCTS,
+    payload: data,
+  };
+};
+
+export const getAllProductsData = (data) => {
+  return {
+    type: GET_ALL_PRODUCTS,
     payload: data,
   };
 };

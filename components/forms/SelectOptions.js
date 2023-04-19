@@ -8,7 +8,7 @@ import {
 import axios from "axios";
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectOptions = ({ formik, name, text }) => {
+const SelectOptions = ({ formik, name, text, handlechange = null }) => {
   const options = useSelector((state) => state?.products[name]);
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ const SelectOptions = ({ formik, name, text }) => {
       <select
         name={`id_${name}`}
         {...formik.getFieldProps(`id_${name}`)}
-        onChange={formik.handleChange}
+        onChange={handlechange ? handlechange : formik.handleChange}
         onBlur={formik.handleBlur}
         style={{ display: "block" }}
         className={stylesGeneral.input_text}
@@ -55,7 +55,7 @@ const SelectOptions = ({ formik, name, text }) => {
         </option>
         {options && options.length > 0 ? (
           options.map((el) => (
-            <option value={el.id} key={el.id}>
+            <option value={el.id} key={el.id} name={el.nombre}>
               {el.nombre}
             </option>
           ))

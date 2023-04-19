@@ -12,7 +12,14 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         productsData: [...state.productsData, ...action.payload],
-        //  productsData: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_ALL_PRODUCTS": {
+      return {
+        ...state,
+        allProductsData: action.payload.map((data) => data),
         loading: false,
       };
     }
