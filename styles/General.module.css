@@ -43,7 +43,7 @@
 }
 
 .input_text {
-  @apply w-full py-4 px-6 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none;
+  @apply w-full text-sm sm:text-base py-2 sm:py-4 px-2 sm:px-6 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none;
 }
 
 .input_text + * {
@@ -97,7 +97,7 @@
 }
 
 .filter_container {
-  @apply border h-32 p-4 rounded-md bg-th-background-tertiary border-th-primary-light;
+  @apply border  p-2 sm:p-4 rounded-md bg-th-background-tertiary border-th-primary-light;
 }
 
 .item_container {
@@ -155,7 +155,7 @@
 /* ////////////////////// */
 
 .form {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-2 sm:gap-4;
 }
 
 .form_image_container {

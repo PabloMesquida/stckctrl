@@ -22,6 +22,7 @@ const ListProducts = () => {
     id_categories: null,
     id_genders: null,
     id_suppliers: null,
+    code: null,
   });
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState(null);
@@ -98,6 +99,11 @@ const ListProducts = () => {
       if (filter.id_suppliers) {
         filteredProducts = filteredProducts.filter(
           (product) => product.proveedor === filter.id_suppliers
+        );
+      }
+      if (filter.code) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.codigo === filter.code
         );
       }
     }

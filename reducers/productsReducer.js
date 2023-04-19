@@ -56,6 +56,7 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         productsData: newData,
+        allProductsData: newData,
         loading: false,
       };
     }
