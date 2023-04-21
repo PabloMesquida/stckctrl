@@ -24,6 +24,8 @@ const ListProducts = () => {
     id_suppliers: null,
     code: null,
   });
+  const [hasMore, setHasMore] = useState(true);
+
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState(null);
   const [message, setMessage] = useState({
@@ -67,9 +69,15 @@ const ListProducts = () => {
   };
 
   const fetchData = () => {
-    axios.get(`./api/stock/limit/${limit}`).then((res) => {
-      dispatch(getProductsData(res.data));
-    });
+    axios
+      .get(`./api/stock/limit/${limit}`)
+      .then((res) => {
+        dispatch(getProductsData(res.data));
+        setHasMore(res.data.length > 0);
+      })
+      .catch((err) => {
+        setHasMore(false);
+      });
   };
 
   const fetchAllData = () => {
@@ -82,6 +90,7 @@ const ListProducts = () => {
     let filteredProducts = allProducts || [];
 
     if (!filter) {
+      console.log("No.filter");
       filteredProducts = products;
     } else {
       if (filter.id_categories) {
@@ -128,12 +137,13 @@ const ListProducts = () => {
         />
       )}
       <FilterProducts setFilter={setFilter} />
+
       <div className="min-w-full">
         {Object.values(filter).every((val) => val === null) ? (
           <InfiniteScroll
             dataLength={products.length}
             next={() => setLimit((prev) => prev + 7)}
-            hasMore={products.length >= limit}
+            hasMore={hasMore}
             loader={
               <div className={stylesGeneral.text_loader}>
                 Cargando productos.
@@ -159,6 +169,7 @@ const ListProducts = () => {
           </InfiniteScroll>
         ) : (
           <div>
+            filter
             {filterProd(filter).length === 0 ? (
               <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
                 No se encontraron productos.
