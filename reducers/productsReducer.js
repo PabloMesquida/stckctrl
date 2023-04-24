@@ -9,7 +9,6 @@ const initialState = {
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_PRODUCTS": {
-      console.log("PROD");
       return {
         ...state,
         productsData: [...state.productsData, ...action.payload],
@@ -18,10 +17,18 @@ export default function productsReducer(state = initialState, action) {
     }
 
     case "GET_ALL_PRODUCTS": {
-      console.log("ALL");
       return {
         ...state,
         allProductsData: action.payload.map((data) => data),
+        productsData: [],
+        loading: false,
+      };
+    }
+
+    case "CLEAR_ALL_PRODUCTS": {
+      return {
+        ...state,
+        allProductsData: [],
         productsData: [],
         loading: false,
       };

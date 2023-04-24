@@ -8,11 +8,11 @@ import {
 } from "@/actions/productsActions";
 import axios from "axios";
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
-import ProductDetailData from "@/components/stock/detail/ProductDetailData.js";
-import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
 import ProductDetailSkeleton from "@/components/stock/detail/ProductDetailSkeleton.js";
+import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
+import FormProducts from "@/components/stock/add/FormProducts.js";
 
-const ProductDetail = ({ id }) => {
+const EditProduct = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
   const product = useSelector((state) => state.products.productData);
   const dispatch = useDispatch();
@@ -56,11 +56,11 @@ const ProductDetail = ({ id }) => {
       {!isLoading && product && (
         <>
           <HeadDetiailProduct name={product[0].nombre} />
-          <ProductDetailData />
+          <FormProducts product={product} />
         </>
       )}
     </div>
   );
 };
 
-export default ProductDetail;
+export default EditProduct;

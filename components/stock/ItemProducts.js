@@ -45,11 +45,9 @@ const ItemProducts = ({ product, warningMessage }) => {
         <Link href={`stock/${product.id}`} shallow>
           <MdOutlineFindInPage className={stylesGeneral.item_icon} />
         </Link>
-
-        <button>
+        <Link href={`stock/editar/${product.id}`} shallow>
           <MdModeEdit className={stylesGeneral.item_icon} />
-        </button>
-
+        </Link>
         <button onClick={warningMessage}>
           <MdDeleteForever className={stylesGeneral.item_icon_del} />
         </button>

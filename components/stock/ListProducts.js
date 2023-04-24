@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import {
   getProductsData,
   getAllProductsData,
+  clearAllProductsData,
   deleteProduct,
 } from "@/actions/productsActions";
 import axios from "axios";
@@ -65,6 +66,7 @@ const ListProducts = () => {
   const closeModal = () => {
     setProductId(null);
     setShowModal(false);
+
     router.push("/stock");
   };
 
@@ -121,6 +123,9 @@ const ListProducts = () => {
 
   useEffect(() => {
     fetchAllData();
+    return () => {
+      dispatch(clearAllProductsData());
+    };
   }, []);
 
   useEffect(() => {

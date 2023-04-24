@@ -13,7 +13,7 @@ import axios from "axios";
 import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
 
-const FormProducts = () => {
+const FormProducts = ({ product = null }) => {
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
   const [showModal, setShowModal] = useState(false);
@@ -25,20 +25,22 @@ const FormProducts = () => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      id_categories: "",
-      id_genders: "",
-      id_suppliers: "",
-      prod_name: "",
-      description: "",
-      cost_price: "",
-      price: "",
-      clearance_price: "",
-      sizes: [],
+      id_categories: product ? product[0].id_cat : "",
+      id_genders: product ? product[0].id_gen : "",
+      id_suppliers: product ? product[0].id_prov : "",
+      prod_name: product ? product[0].nombre : "",
+      description: product ? product[0].descripcion : "",
+      cost_price: product ? product[0].costo : "",
+      price: product ? product[0].precio : "",
+      clearance_price: product ? product[0].precio_liq : "",
+      sizes: product ? product.sizes : [],
       colors: [],
     },
     validate: (values) => add_product_validate(values, imageSrc, uploadData),
     onSubmit,
   });
+
+  //console.log("colors: ", product ? product.colors : []);
 
   const openModal = () => {
     setShowModal(true);
@@ -51,22 +53,40 @@ const FormProducts = () => {
   async function onSubmit(values) {
     openModal();
     values.file = imageSrc;
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: values,
     };
 
-    await axios.post("../../api/stock", options).then((res) => {
-      if (res.data.status) {
-        setMessage({
-          status: res.data.status,
-          type: res.data.type,
-          text: res.data.message,
+    if (product) {
+      options.body.id = product.id;
+      await axios
+        .post(`../../api/stock/edit/${product.id}`, options)
+        .then((res) => {
+          if (res.data.status) {
+            setMessage({
+              status: res.data.status,
+              type: res.data.type,
+              text: res.data.message,
+            });
+          }
         });
-      }
-    });
+    } else {
+      await axios.post("../../api/stock", options).then((res) => {
+        if (res.data.status) {
+          setMessage({
+            status: res.data.status,
+            type: res.data.type,
+            text: res.data.message,
+          });
+        }
+      });
+    }
   }
+
+  // console.log(product);
 
   return (
     <div>
@@ -83,7 +103,7 @@ const FormProducts = () => {
               className={stylesGeneral.input_text}
               type="text"
               name="prod_name"
-              placeholder="Nombre"
+              placeholder={product ? "" : "Nombre"}
               {...formik.getFieldProps("prod_name")}
             />
             {formik.errors.prod_name && formik.touched.prod_name && (
