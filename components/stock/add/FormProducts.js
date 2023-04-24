@@ -34,13 +34,16 @@ const FormProducts = ({ product = null }) => {
       price: product ? product[0].precio : "",
       clearance_price: product ? product[0].precio_liq : "",
       sizes: product ? product.sizes : [],
-      colors: [],
+      colors: product ? product.colors.map((color) => color.id_color) : [],
     },
     validate: (values) => add_product_validate(values, imageSrc, uploadData),
     onSubmit,
   });
 
-  //console.log("colors: ", product ? product.colors : []);
+  // console.log(
+  //   "colors: ",
+  //   product ? product.colors.map((color) => color.id_color) : []
+  // );
 
   const openModal = () => {
     setShowModal(true);

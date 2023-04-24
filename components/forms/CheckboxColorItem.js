@@ -3,7 +3,9 @@ import useUncheckedIcon from "@/helpers/useUncheckedIcon.js";
 import useCheckedIcon from "@/helpers/useCheckedIcon.js";
 
 export function CheckboxColorItem({ formik, id, label, hex, size }) {
-  const [isCheckedIcon, setIsCheckedIcon] = useState(false);
+  const [isCheckedIcon, setIsCheckedIcon] = useState(
+    formik.values.colors.includes(id)
+  );
   const getIconUnChecked = useUncheckedIcon(id, hex, size);
   const getIconChecked = useCheckedIcon(id, hex);
 
