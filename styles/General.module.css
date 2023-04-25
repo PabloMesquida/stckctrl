@@ -128,6 +128,10 @@
   @apply w-5 h-5 md:w-6 md:h-6 mx-1 text-th-error hover:text-th-primary-dark;
 }
 
+.item_foto {
+  @apply w-24 h-24;
+}
+
 /* /////////////// */
 
 .breadcrumb_container {

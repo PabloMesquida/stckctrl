@@ -9,14 +9,18 @@ import {
 } from "react-icons/md";
 
 const ItemProducts = ({ product, warningMessage }) => {
-  // console.log("prod", product.id);
-
   return (
     <div className={stylesGeneral.item_container}>
       <div className="flex grow">
         <div>
           <div className="bg-th-background rounded-md mr-4">
-            <MdImage className="w-16 h-16 sm:w-20 sm:h-20 text-th-background-tertiary" />
+            {product.foto === "No Image" ? (
+              <MdImage className="w-16 h-16 sm:w-20 sm:h-20 text-th-background-tertiary" />
+            ) : (
+              <div className="p-2">
+                <img className="w-24 rounded-md" src={product.foto} />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col w-full">
