@@ -104,6 +104,22 @@ const updateProduct = async (req, res) => {
       });
     }
 
+    const result_update_prod_data = await executeQuery({
+      query:
+        "UPDATE productos SET id_cat= ? , id_gen = ?, id_prov = ?, nombre= ?, costo= ? , precio= ? , descripcion = ?, precio_liq = ? WHERE id= ?",
+      values: [
+        id_categories,
+        id_genders,
+        id_suppliers,
+        prod_name,
+        cost_price,
+        price,
+        description,
+        clearance_price,
+        id,
+      ],
+    });
+
     return res.status(SUCCESS).json({
       ...result_info_prod,
     });
