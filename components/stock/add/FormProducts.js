@@ -13,7 +13,7 @@ import axios from "axios";
 import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
 
-const FormProducts = ({ product = null }) => {
+const FormProducts = ({ product = null, id = null }) => {
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
   const [showModal, setShowModal] = useState(false);
@@ -40,11 +40,6 @@ const FormProducts = ({ product = null }) => {
     onSubmit,
   });
 
-  // console.log(
-  //   "colors: ",
-  //   product ? product.colors.map((color) => color.id_color) : []
-  // );
-
   const openModal = () => {
     setShowModal(true);
   };
@@ -63,19 +58,17 @@ const FormProducts = ({ product = null }) => {
       body: values,
     };
 
-    if (product) {
-      options.body.id = product.id;
-      await axios
-        .post(`../../api/stock/edit/${product.id}`, options)
-        .then((res) => {
-          if (res.data.status) {
-            setMessage({
-              status: res.data.status,
-              type: res.data.type,
-              text: res.data.message,
-            });
-          }
-        });
+    if (product && id) {
+      options.body.id = id;
+      await axios.post(`../../api/stock/${id}`, options).then((res) => {
+        if (res.data.status) {
+          setMessage({
+            status: res.data.status,
+            type: res.data.type,
+            text: res.data.message,
+          });
+        }
+      });
     } else {
       await axios.post("../../api/stock", options).then((res) => {
         if (res.data.status) {

@@ -56,7 +56,7 @@ const EditProduct = ({ id }) => {
       {!isLoading && product && (
         <>
           <HeadDetiailProduct name={product[0].nombre} />
-          <FormProducts product={product} />
+          <FormProducts product={product} id={id} />
         </>
       )}
     </div>
