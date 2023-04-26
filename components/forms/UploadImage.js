@@ -1,9 +1,11 @@
 import Message from "../messages/Message.js";
+import { useState } from "react";
 import { MdImage, MdOutlineFileUpload } from "react-icons/md";
 import stylesGeneral from "@/styles/General.module.css";
 
 const UploadImage = ({
-  formik,
+  isChange,
+  setIsChange,
   setImageSrc,
   imageSrc,
   uploadData,
@@ -36,10 +38,12 @@ const UploadImage = ({
   }
 
   function handleOnChange(changeEvent) {
+    setIsChange(true);
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
+
       setUploadData(undefined);
     };
 
@@ -57,7 +61,9 @@ const UploadImage = ({
       </p>
 
       {imageSrc ? (
-        <img src={imageSrc} />
+        <div className={`${stylesGeneral.form_image_container} p-2 sm:p-4 `}>
+          <img className="rounded-md max-h-96" src={imageSrc} />
+        </div>
       ) : (
         <div className={stylesGeneral.form_image_container}>
           <MdImage className={stylesGeneral.form_icon_image_placeholder} />
@@ -65,7 +71,7 @@ const UploadImage = ({
       )}
 
       <div className="flex w-full">
-        {imageSrc && !uploadData && (
+        {imageSrc && !uploadData && isChange && (
           <button onClick={handleOnSubmit} className={stylesGeneral.button_sm}>
             <MdOutlineFileUpload size={24} className="mr-4" /> Upload Files
           </button>

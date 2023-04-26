@@ -51,7 +51,7 @@ export function register_validate(values) {
   return errors;
 }
 
-export function add_product_validate(values, imageSrc, uploadData) {
+export function add_product_validate(values, imageSrc, uploadData, isChange) {
   const errors = {};
   const errorMessages = {
     prod_name: "Falta el nombre del producto.",
@@ -63,7 +63,7 @@ export function add_product_validate(values, imageSrc, uploadData) {
     colors: "Elije al menos un color.",
   };
 
-  if (imageSrc && !uploadData) {
+  if (imageSrc && !uploadData && isChange) {
     errors.file = "Falta subir la imagen seleccionada.";
   }
 

@@ -17,8 +17,8 @@ const ItemProducts = ({ product, warningMessage }) => {
             {product.foto === "No Image" ? (
               <MdImage className="w-16 h-16 sm:w-20 sm:h-20 text-th-background-tertiary" />
             ) : (
-              <div className="p-2">
-                <img className="w-24 rounded-md" src={product.foto} />
+              <div className="p-2 w-16 sm:w-20">
+                <img className="rounded-md" src={product.foto} />
               </div>
             )}
           </div>

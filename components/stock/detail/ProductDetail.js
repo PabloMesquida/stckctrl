@@ -55,7 +55,7 @@ const ProductDetail = ({ id }) => {
       {isLoading && <ProductDetailSkeleton />}
       {!isLoading && product && (
         <>
-          <HeadDetiailProduct name={product[0].nombre} />
+          <HeadDetiailProduct name={product[0].nombre} id={product[0].id} />
           <ProductDetailData />
         </>
       )}

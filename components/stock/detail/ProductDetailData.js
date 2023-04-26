@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import stylesGeneral from "@/styles/General.module.css";
 import ProductDetailDataInfo from "./ProductDetailDataInfo.js";
 import ProductDetailDataPrices from "./ProductDetailDataPrices.js";
 import ProductDetailDataImage from "./ProductDetailDataImage.js";
@@ -15,13 +14,11 @@ const ProductDetailData = () => {
           <ProductDetailDataInfo product={product} />
           <ProductDetailDataPrices product={product} />
         </div>
-        <div className="flex flex-col w-full sm:w-1/2 gap-4 flex-1">
-          <ProductDetailDataImage />
+        <div className="flex flex-col w-full sm:w-1/2 gap-4 flex-1 hidden sm:inline-flex">
+          <ProductDetailDataImage image={product.productData[0].foto} />
         </div>
       </div>
-      <div className={stylesGeneral.panel_card}>
-        <ProductDetailDataStock product={product} />
-      </div>
+      <ProductDetailDataStock product={product} />
     </div>
   );
 };

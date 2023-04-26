@@ -14,8 +14,9 @@ import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
 
 const FormProducts = ({ product = null, id = null }) => {
-  const [imageSrc, setImageSrc] = useState();
+  const [imageSrc, setImageSrc] = useState(product[0].foto);
   const [uploadData, setUploadData] = useState();
+  const [isChange, setIsChange] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState({
     status: false,
@@ -36,7 +37,8 @@ const FormProducts = ({ product = null, id = null }) => {
       sizes: product ? product.sizes : [],
       colors: product ? product.colors.map((color) => color.id_color) : [],
     },
-    validate: (values) => add_product_validate(values, imageSrc, uploadData),
+    validate: (values) =>
+      add_product_validate(values, imageSrc, uploadData, isChange),
     onSubmit,
   });
 
@@ -70,6 +72,7 @@ const FormProducts = ({ product = null, id = null }) => {
         }
       });
     } else {
+      console.log("new");
       await axios.post("../../api/stock", options).then((res) => {
         if (res.data.status) {
           setMessage({
@@ -81,8 +84,6 @@ const FormProducts = ({ product = null, id = null }) => {
       });
     }
   }
-
-  // console.log(product);
 
   return (
     <div>
@@ -166,14 +167,15 @@ const FormProducts = ({ product = null, id = null }) => {
             <div className="flex flex-col gap-4 h-full">
               <div className="flex justify-between">
                 <div>Imagen:</div>
-                {formik.errors.file && imageSrc && !uploadData && (
+                {formik.errors.file && imageSrc && !uploadData && isChange && (
                   <span className="icon flex items-center px-4">
                     <MdWarning size={25} className="text-th-warning" />
                   </span>
                 )}
               </div>
               <UploadImage
-                formik={formik}
+                isChange={isChange}
+                setIsChange={setIsChange}
                 imageSrc={imageSrc}
                 setImageSrc={setImageSrc}
                 uploadData={uploadData}
@@ -221,6 +223,7 @@ const FormProducts = ({ product = null, id = null }) => {
             (field === "file" &&
               formik.errors.file &&
               imageSrc &&
+              isChange &&
               !uploadData) ? (
               <Message
                 key={field}

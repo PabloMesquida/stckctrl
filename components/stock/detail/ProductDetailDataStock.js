@@ -1,6 +1,7 @@
 import { useState } from "react";
 import IconColor from "@/components/icons/IconColor.js";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
+import stylesGeneral from "@/styles/General.module.css";
 
 const ProductDetailDataStock = ({ product }) => {
   const widthNavigator = useWidthNavigator();
@@ -30,33 +31,35 @@ const ProductDetailDataStock = ({ product }) => {
   }
 
   return (
-    <table className="bg-th-background min-w-full rounded-md overflow-hidden sm:text-base text-xs ">
-      <thead>
-        <tr className="mb-4 border-b border-th-background-secondary bg-th-background-tertiary">
-          <th className="flex md:m-4 m-2">STOCK</th>
-          {talles.map((talle) => (
-            <th key={talle}>{talle}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {colorsData.map(({ color, etiqueta, id_color, hex }, rowIndex) => (
-          <tr className="border-b border-th-background-secondary" key={color}>
-            <td className="flex  md:m-4 m-2 gap-2 items-center">
-              <IconColor id={id_color} color={hex} size={16} />
-              {widthNavigator > 640 ? color : etiqueta}
-            </td>
-            {talles.map((talle, colIndex) => (
-              <td className="text-center" key={`${color}-${talle}`}>
-                {stockMatrix &&
-                  stockMatrix[rowIndex] &&
-                  stockMatrix[rowIndex][colIndex]}
-              </td>
+    <div className={stylesGeneral.panel_card}>
+      <table className="bg-th-background min-w-full rounded-md overflow-hidden sm:text-base text-xs ">
+        <thead>
+          <tr className="mb-4 border-b border-th-background-secondary bg-th-background-tertiary">
+            <th className="flex md:m-4 m-2">STOCK</th>
+            {talles.map((talle) => (
+              <th key={talle}>{talle}</th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {colorsData.map(({ color, etiqueta, id_color, hex }, rowIndex) => (
+            <tr className="border-b border-th-background-secondary" key={color}>
+              <td className="flex  md:m-4 m-2 gap-2 items-center">
+                <IconColor id={id_color} color={hex} size={16} />
+                {widthNavigator > 640 ? color : etiqueta}
+              </td>
+              {talles.map((talle, colIndex) => (
+                <td className="text-center" key={`${color}-${talle}`}>
+                  {stockMatrix &&
+                    stockMatrix[rowIndex] &&
+                    stockMatrix[rowIndex][colIndex]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
