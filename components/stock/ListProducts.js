@@ -75,7 +75,7 @@ const ListProducts = () => {
       .get(`./api/stock/limit/${limit}`)
       .then((res) => {
         dispatch(getProductsData(res.data));
-        setHasMore(res.data.length > 0);
+        setHasMore(res.data.length >= 0);
       })
       .catch((err) => {
         setHasMore(false);
@@ -124,7 +124,7 @@ const ListProducts = () => {
   useEffect(() => {
     fetchAllData();
     return () => {
-      dispatch(clearAllProductsData());
+      //  dispatch(clearAllProductsData());
     };
   }, []);
 

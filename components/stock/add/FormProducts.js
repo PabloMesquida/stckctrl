@@ -14,7 +14,7 @@ import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
 
 const FormProducts = ({ product = null, id = null }) => {
-  const [imageSrc, setImageSrc] = useState(product[0].foto);
+  const [imageSrc, setImageSrc] = useState(product ? product[0].foto : "");
   const [uploadData, setUploadData] = useState();
   const [isChange, setIsChange] = useState(false);
   const [showModal, setShowModal] = useState(false);
