@@ -106,7 +106,7 @@ const updateProduct = async (req, res) => {
 
     const result_update_prod_data = await executeQuery({
       query:
-        "UPDATE productos SET id_cat= ? , id_gen = ?, id_prov = ?, nombre= ?, costo= ? , precio= ? , descripcion = ?, precio_liq = ? WHERE id= ?",
+        "UPDATE productos SET id_cat= ? , id_gen = ?, id_prov = ?, nombre= ?, costo= ? , precio= ? , descripcion = ?, precio_liq = ?, foto = ? WHERE id= ?",
       values: [
         id_categories,
         id_genders,
@@ -116,6 +116,7 @@ const updateProduct = async (req, res) => {
         price,
         description,
         clearance_price,
+        file,
         id,
       ],
     });
