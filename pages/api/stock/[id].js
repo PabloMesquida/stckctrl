@@ -183,7 +183,6 @@ const updateProduct = async (req, res) => {
         });
       }
 
-      console.log("FIN");
       if (result_size_to_add.warningStatus === 0) {
         console.log("No se encontraron advertencias");
       } else {
@@ -192,15 +191,16 @@ const updateProduct = async (req, res) => {
       }
     }
 
-    // if (sizesToDel.length > 0) {
-    //   console.log("Los elementos " + sizesToDel + " se van a eliminar");
-    //   for (let i = 0; i < sizesToDel.length; i++) {
-    //     const result_size_to_del = await executeQuery({
-    //       query: "DELETE FROM p_talles WHERE id_prod = ? AND id_talle = ?",
-    //       values: [id, sizesToDel[i]],
-    //     });
-    //   }
-    // }
+    if (sizesToDel.length > 0) {
+      console.log("Los elementos " + sizesToDel + " se van a eliminar");
+      for (let i = 0; i < sizesToDel.length; i++) {
+        console.log(sizesToDel[i]);
+        const result_size_to_del = await executeQuery({
+          query: "DELETE FROM p_talles WHERE id_prod = ? AND id_talle = ?",
+          values: [id, sizesToDel[i]],
+        });
+      }
+    }
 
     return res.status(SUCCESS).json({
       result_info_prod,
