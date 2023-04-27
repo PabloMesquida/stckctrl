@@ -235,7 +235,7 @@ const FormProducts = ({ product = null, id = null }) => {
         </div>
         <div>
           <button type="submit" className={stylesGeneral.button_2xl}>
-            Agregar
+            {id ? "Editar" : "Agregar"}
           </button>
         </div>
       </form>
