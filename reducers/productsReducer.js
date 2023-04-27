@@ -25,15 +25,6 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
-    case "CLEAR_ALL_PRODUCTS": {
-      return {
-        ...state,
-        allProductsData: [],
-        productsData: [],
-        loading: false,
-      };
-    }
-
     case "GET_PRODUCT": {
       return {
         ...state,

@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import {
   getProductsData,
   getAllProductsData,
-  clearAllProductsData,
   deleteProduct,
 } from "@/actions/productsActions";
 import axios from "axios";
@@ -26,7 +25,6 @@ const ListProducts = () => {
     code: null,
   });
   const [hasMore, setHasMore] = useState(true);
-
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState(null);
   const [message, setMessage] = useState({

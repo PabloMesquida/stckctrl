@@ -1,7 +1,6 @@
 import {
   GET_PRODUCTS,
   GET_ALL_PRODUCTS,
-  CLEAR_ALL_PRODUCTS,
   GET_PRODUCT,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
@@ -27,13 +26,6 @@ export const getAllProductsData = (data) => {
   return {
     type: GET_ALL_PRODUCTS,
     payload: data,
-  };
-};
-
-export const clearAllProductsData = () => {
-  return {
-    type: CLEAR_ALL_PRODUCTS,
-    payload: "",
   };
 };
 
