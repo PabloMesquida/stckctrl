@@ -71,11 +71,12 @@ const ListProducts = () => {
   };
 
   const fetchData = () => {
+    console.log("fetchData");
     axios
       .get(`./api/stock/limit/${limit}`)
       .then((res) => {
         dispatch(getProductsData(res.data));
-        setHasMore(res.data.length >= 0);
+        setHasMore(res.data.length <= limit);
       })
       .catch((err) => {
         setHasMore(false);
@@ -92,7 +93,6 @@ const ListProducts = () => {
     let filteredProducts = allProducts || [];
 
     if (!filter) {
-      console.log("No.filter");
       filteredProducts = products;
     } else {
       if (filter.id_categories) {
@@ -122,15 +122,13 @@ const ListProducts = () => {
   };
 
   useEffect(() => {
-    fetchAllData();
-    return () => {
-      //  dispatch(clearAllProductsData());
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [limit]);
+    const isAnyNotNull = Object.values(filter).some((value) => value !== null);
+    if (isAnyNotNull) {
+      fetchAllData();
+    } else {
+      fetchData();
+    }
+  }, [filter, limit]);
 
   return (
     <>
@@ -144,7 +142,7 @@ const ListProducts = () => {
       <FilterProducts setFilter={setFilter} />
 
       <div className="min-w-full">
-        {Object.values(filter).every((val) => val === null) ? (
+        {Object.values(filter).every((value) => value === null) ? (
           <InfiniteScroll
             dataLength={products.length}
             next={() => setLimit((prev) => prev + 7)}
@@ -161,6 +159,7 @@ const ListProducts = () => {
             }
           >
             <div>
+              {products.lenght}
               {products.map((product) => (
                 <ItemProducts
                   product={product}
@@ -174,7 +173,6 @@ const ListProducts = () => {
           </InfiniteScroll>
         ) : (
           <div>
-            filter
             {filterProd(filter).length === 0 ? (
               <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
                 No se encontraron productos.
