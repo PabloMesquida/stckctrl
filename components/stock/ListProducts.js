@@ -124,7 +124,11 @@ const ListProducts = () => {
     if (isAnyNotNull) {
       fetchAllData();
     } else {
-      fetchData();
+      if (products.length === 0 && limit === 0) {
+        fetchData();
+      } else {
+        setHasMore(false);
+      }
     }
   }, [filter, limit]);
 
@@ -157,7 +161,6 @@ const ListProducts = () => {
             }
           >
             <div>
-              {products.lenght}
               {products.map((product) => (
                 <ItemProducts
                   product={product}
