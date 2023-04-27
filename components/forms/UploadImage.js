@@ -1,5 +1,4 @@
 import Message from "../messages/Message.js";
-import { useState } from "react";
 import { MdImage, MdOutlineFileUpload } from "react-icons/md";
 import stylesGeneral from "@/styles/General.module.css";
 
@@ -60,7 +59,7 @@ const UploadImage = ({
         />
       </p>
 
-      {imageSrc ? (
+      {imageSrc !== "No Image" ? (
         <div className={`${stylesGeneral.form_image_container} p-2 sm:p-4 `}>
           <img className="rounded-md max-h-96" src={imageSrc} />
         </div>
