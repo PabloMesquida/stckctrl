@@ -15,7 +15,6 @@ export async function updateProductCode(
   try {
     const result = await getInfoProducto(id);
     let code = result.data.codigo;
-    console.log("code inside: ", code);
     code = code.split("");
     let control = false;
 
@@ -57,7 +56,7 @@ export async function updateProductCode(
       code[7] = d.toString().slice(-1);
       code = code.join("");
 
-      console.log("inside code 2: ", code);
+      console.log("code: ", code);
 
       const result_update_code = await executeQuery({
         query: "UPDATE productos SET codigo = ? WHERE id = ?",
@@ -128,6 +127,102 @@ export async function updateProductData(
   }
 }
 
+export async function updateColors(id, colors) {
+  const result_info_prod_colors = await executeQuery({
+    query: "SELECT id_color FROM p_colores WHERE id_prod = ? ",
+    values: [id],
+  });
+
+  const uniqueColors = [];
+  const prevColors = result_info_prod_colors.map(({ id_color }) => id_color);
+
+  prevColors.forEach((color) => {
+    if (uniqueColors.indexOf(color) === -1) {
+      uniqueColors.push(color);
+    }
+  });
+
+  let colorsToDel = uniqueColors.filter(
+    (elemento) => !colors.includes(elemento)
+  );
+  let colorsToAdd = colors.filter(
+    (elemento) => !uniqueColors.includes(elemento)
+  );
+
+  if (colorsToAdd.length > 0) {
+    console.log("Los colores " + colorsToAdd + " se van a agregar");
+    await addColors(id, colorsToAdd);
+  }
+
+  if (colorsToDel.length > 0) {
+    console.log("Los colores " + colorsToDel + " se van a eliminar");
+    //await delSizes(id, sizesToDel);
+  }
+}
+
+async function addColors(id, colors) {
+  const placeholders_add_colors = colors.map(() => "(?, ?, 1)").join(",");
+
+  let query_add_colors =
+    "INSERT INTO p_colores(id_prod, id_color, activo) VALUES";
+  query_add_colors += placeholders_add_colors;
+
+  const values_add_colors = colors.flatMap((size) => [id, size]);
+
+  const result_colors_to_add = await executeQuery({
+    query: query_add_colors,
+    values: values_add_colors,
+  });
+
+  const numRegistrosInsertados = result_colors_to_add.affectedRows;
+  let primeraIdInsertada = result_colors_to_add.insertId;
+  let autoincrementIds = [];
+
+  autoincrementIds.push(primeraIdInsertada);
+
+  if (numRegistrosInsertados > 1) {
+    for (let i = 1; i < numRegistrosInsertados; i++) {
+      autoincrementIds.push(primeraIdInsertada + i);
+    }
+  }
+
+  const result_prod_sizes = await executeQuery({
+    query: "SELECT id_talle FROM p_talles WHERE id_prod = ?",
+    values: [id],
+  });
+
+  const uniqueSizes = [];
+  const sizes = result_prod_sizes.map(({ id_talle }) => id_talle);
+  sizes.forEach((id_talle) => {
+    if (uniqueSizes.indexOf(id_talle) === -1) {
+      uniqueSizes.push(id_talle);
+    }
+  });
+
+  const combinaciones = uniqueSizes.flatMap((size) =>
+    autoincrementIds.map((color) => ({ size, color }))
+  );
+
+  const promises = combinaciones.map(({ size, color }) => {
+    return executeQuery({
+      query:
+        "INSERT INTO p_talles (id_prod_color, id_talle, stock, activo, id_prod) VALUES (?, ?, 0, 1, ?)",
+      values: [color, size, id],
+    });
+  });
+
+  const results = await Promise.all(promises);
+
+  results.forEach((result) => {
+    if (result.warningStatus === 0) {
+      console.log("No se encontraron advertencias");
+    } else {
+      console.log(`Advertencias: ${result.warningStatus}`);
+      console.log(result.info);
+    }
+  });
+}
+
 export async function updateSizes(id, sizes) {
   const result_info_prod_sizes = await executeQuery({
     query: "SELECT id_talle FROM p_talles WHERE id_prod = ? ",
@@ -135,9 +230,9 @@ export async function updateSizes(id, sizes) {
   });
 
   const uniqueSizes = [];
-  const newSizes = result_info_prod_sizes.map(({ id_talle }) => id_talle);
+  const prevSizes = result_info_prod_sizes.map(({ id_talle }) => id_talle);
 
-  newSizes.forEach((size) => {
+  prevSizes.forEach((size) => {
     if (uniqueSizes.indexOf(size) === -1) {
       uniqueSizes.push(size);
     }
@@ -157,7 +252,7 @@ export async function updateSizes(id, sizes) {
   }
 }
 
-export async function addSizes(id, sizes) {
+async function addSizes(id, sizes) {
   const result_id_prod_colors = await executeQuery({
     query: "SELECT id FROM p_colores WHERE id_prod = ? ",
     values: [id],
@@ -171,11 +266,11 @@ export async function addSizes(id, sizes) {
     }
   });
 
-  for (let i = 0; i < uniqueIdColor.length; i++) {
+  const promises = uniqueIdColor.map((color) => {
     const placeholders_add_sizes = sizes.map(() => "(?, ?, 0, 1, ?)").join(",");
 
     const values_add_sizes = sizes.flatMap((size) => [
-      uniqueIdColor[i],
+      color,
       size,
       parseInt(id),
     ]);
@@ -184,21 +279,25 @@ export async function addSizes(id, sizes) {
       "INSERT INTO p_talles(id_prod_color, id_talle, stock, activo, id_prod) VALUES";
     query_add_sizes += placeholders_add_sizes;
 
-    const result_size_to_add = await executeQuery({
+    return executeQuery({
       query: query_add_sizes,
       values: values_add_sizes,
     });
+  });
 
-    if (result_size_to_add.warningStatus === 0) {
+  const results = await Promise.all(promises);
+
+  results.forEach((result) => {
+    if (result.warningStatus === 0) {
       console.log("No se encontraron advertencias");
     } else {
-      console.log(`Advertencias: ${result_size_to_add.warningStatus}`);
-      console.log(result_size_to_add.info);
+      console.log(`Advertencias: ${result.warningStatus}`);
+      console.log(result.info);
     }
-  }
+  });
 }
 
-export async function delSizes(id, sizes) {
+async function delSizes(id, sizes) {
   const placeholders_del_sizes = sizes.map(() => "?").join(",");
   let query_del_sizes =
     "DELETE FROM p_talles WHERE id_prod = ? AND id_talle IN (";
@@ -214,19 +313,6 @@ export async function delSizes(id, sizes) {
     console.log(`Advertencias: ${result_size_to_del.warningStatus}`);
     console.log(result_size_to_del.info);
   }
-
-  // for (let i = 0; i < sizes.length; i++) {
-  //   const result_size_to_del = await executeQuery({
-  //     query: "DELETE FROM p_talles WHERE id_prod = ? AND id_talle = ?",
-  //     values: [id, sizes[i]],
-  //   });
-  //   if (result_size_to_del.warningStatus === 0) {
-  //     console.log("No se encontraron advertencias");
-  //   } else {
-  //     console.log(`Advertencias: ${result_size_to_del.warningStatus}`);
-  //     console.log(result_size_to_del.info);
-  //   }
-  // }
 }
 
 async function getInfoProducto(id) {

@@ -6,6 +6,7 @@ import {
   SUCCESS,
 } from "@/status";
 import {
+  updateColors,
   updateProductCode,
   updateProductData,
   updateSizes,
@@ -60,6 +61,8 @@ const updateProduct = async (req, res) => {
     );
 
     await updateSizes(id, sizes);
+
+    await updateColors(id, colors);
 
     return res.status(SUCCESS).json({
       message: "Producto editado OK",
