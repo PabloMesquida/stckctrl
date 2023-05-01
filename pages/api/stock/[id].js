@@ -86,6 +86,7 @@ const deleteProduct = async (req, res) => {
       query: "UPDATE productos SET activo = 0 WHERE id = ?",
       values: [id],
     });
+
     return res.status(SUCCESS).json({ result_del_prod });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({ error });

@@ -156,7 +156,7 @@ export async function updateColors(id, colors) {
 
   if (colorsToDel.length > 0) {
     console.log("Los colores " + colorsToDel + " se van a eliminar");
-    //await delSizes(id, sizesToDel);
+    await delColors(id, colorsToDel);
   }
 }
 
@@ -174,17 +174,7 @@ async function addColors(id, colors) {
     values: values_add_colors,
   });
 
-  const numRegistrosInsertados = result_colors_to_add.affectedRows;
-  let primeraIdInsertada = result_colors_to_add.insertId;
-  let autoincrementIds = [];
-
-  autoincrementIds.push(primeraIdInsertada);
-
-  if (numRegistrosInsertados > 1) {
-    for (let i = 1; i < numRegistrosInsertados; i++) {
-      autoincrementIds.push(primeraIdInsertada + i);
-    }
-  }
+  const autoincrementIds = getAutoincrementIds(result_colors_to_add);
 
   const result_prod_sizes = await executeQuery({
     query: "SELECT id_talle FROM p_talles WHERE id_prod = ?",
@@ -221,6 +211,63 @@ async function addColors(id, colors) {
       console.log(result.info);
     }
   });
+}
+
+async function delColors(id, colors) {
+  console.log("COLORES: ", colors);
+  const placeholders_del_colors = colors.map(() => "?").join(",");
+
+  let query_del_colors_id =
+    "SELECT id FROM p_colores WHERE id_prod = ? AND id_color IN (";
+  query_del_colors_id += placeholders_del_colors + ")";
+
+  const result_colors_id_to_del = await executeQuery({
+    query: query_del_colors_id,
+    values: [id, ...colors],
+  });
+
+  const uniqueIdColors = [];
+  const idColors = result_colors_id_to_del.map(({ id }) => id);
+
+  idColors.forEach((color) => {
+    if (uniqueIdColors.indexOf(color) === -1) {
+      uniqueIdColors.push(color);
+    }
+  });
+
+  let query_del_colors_sizes = "DELETE FROM p_talles WHERE id_prod_color IN (";
+  query_del_colors_sizes += placeholders_del_colors + ")";
+
+  console.log(query_del_colors_sizes, [...uniqueIdColors]);
+  const result_colors_sizes_to_del = await executeQuery({
+    query: query_del_colors_sizes,
+    values: [...uniqueIdColors],
+  });
+
+  if (result_colors_sizes_to_del.warningStatus === 0) {
+    console.log("No se encontraron advertencias");
+  } else {
+    console.log(`Advertencias: ${result_colors_sizes_to_del.warningStatus}`);
+    console.log(result_colors_sizes_to_del.info);
+  }
+
+  let query_del_colors =
+    "DELETE FROM p_colores WHERE id_prod = ? AND id_color IN (";
+  query_del_colors += placeholders_del_colors + ")";
+
+  console.log(query_del_colors, [id, ...colors]);
+
+  const result_colors_to_del = await executeQuery({
+    query: query_del_colors,
+    values: [id, ...colors],
+  });
+
+  if (result_colors_to_del.warningStatus === 0) {
+    console.log("No se encontraron advertencias");
+  } else {
+    console.log(`Advertencias: ${result_colors_to_del.warningStatus}`);
+    console.log(result_colors_to_del.info);
+  }
 }
 
 export async function updateSizes(id, sizes) {
@@ -340,4 +387,20 @@ async function getInfoProducto(id) {
       },
     };
   }
+}
+
+function getAutoincrementIds(result) {
+  const numRegistrosInsertados = result.affectedRows;
+  let primeraIdInsertada = result.insertId;
+  let autoincrementIds = [];
+
+  autoincrementIds.push(primeraIdInsertada);
+
+  if (numRegistrosInsertados > 1) {
+    for (let i = 1; i < numRegistrosInsertados; i++) {
+      autoincrementIds.push(primeraIdInsertada + i);
+    }
+  }
+
+  return autoincrementIds;
 }
