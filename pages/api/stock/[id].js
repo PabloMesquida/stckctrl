@@ -65,16 +65,16 @@ const updateProduct = async (req, res) => {
     await updateColors(id, colors);
 
     return res.status(SUCCESS).json({
-      message: "Producto editado OK",
+      status: true,
+      type: "success",
+      message: "¡Listo! El producto ha sido editado correctamente.",
     });
   } catch (error) {
     console.error(error);
     return res.status(INTERNAL_SERVER_ERROR).json({
-      message: "Se produjo un error al editar el producto",
-      error: {
-        type: error.constructor.name,
-        message: error.message,
-      },
+      status: false,
+      type: "error",
+      message: "Lo siento, algo salió mal y el producto no ha sido editado.",
     });
   }
 };

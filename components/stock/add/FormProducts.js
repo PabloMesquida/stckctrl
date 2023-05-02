@@ -72,7 +72,6 @@ const FormProducts = ({ product = null, id = null }) => {
         }
       });
     } else {
-      console.log("new");
       await axios.post("../../api/stock", options).then((res) => {
         if (res.data.status) {
           setMessage({
