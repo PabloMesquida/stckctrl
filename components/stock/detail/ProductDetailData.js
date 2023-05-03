@@ -14,7 +14,13 @@ const ProductDetailData = () => {
           <ProductDetailDataInfo product={product} />
           <ProductDetailDataPrices product={product} />
         </div>
-        <div className="flex flex-col w-full sm:w-1/2 gap-4 flex-1 hidden sm:inline-flex">
+        <div
+          className={`flex flex-col w-full sm:w-1/2 gap-4 flex-1 ${
+            product.productData[0].foto === "No Image"
+              ? "hidden"
+              : "inline-flex"
+          }`}
+        >
           <ProductDetailDataImage image={product.productData[0].foto} />
         </div>
       </div>
