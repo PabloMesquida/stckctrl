@@ -54,6 +54,22 @@
   @apply text-th-accent-medium;
 }
 
+.input_group_stock {
+  @apply flex justify-center items-center border-2 rounded-md relative border-th-primary-light w-10;
+}
+
+.input_text_stock {
+  @apply flex justify-center items-center w-full text-sm sm:text-base py-1 sm:py-2 px-1 sm:px-2 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none text-center w-10;
+}
+
+.input_text_stock + * {
+  @apply text-th-primary-medium;
+}
+
+.input_text_stock:focus + * {
+  @apply text-th-accent-medium;
+}
+
 .input_text:not([name="user"]) ~ span:hover * {
   @apply text-th-accent-dark cursor-pointer;
 }
@@ -79,7 +95,7 @@
 }
 
 .panel_card {
-  @apply border border-th-primary-light rounded-md p-4 bg-th-background-secondary;
+  @apply border border-th-primary-light rounded-md p-2 sm:p-4 bg-th-background-secondary;
 }
 
 /* ////////////////// */

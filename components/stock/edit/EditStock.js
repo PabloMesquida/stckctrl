@@ -1,21 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  getProductData,
-  getCategory,
-  getGender,
-  getSupplier,
-} from "@/actions/productsActions";
+import { getProductData } from "@/actions/productsActions";
 import axios from "axios";
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
 import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
 import ProductDetailDataStock from "@/components/stock/detail/ProductDetailDataStock.js";
+import EditDataStock from "./EditDataStock.js";
 import StockSkeleton from "./StockSkeleton.js";
 
 const EditStock = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
   const product = useSelector((state) => state?.products);
-  // const product = useSelector((state) => state.products.productData);
   const dispatch = useDispatch();
 
   const fetchProducts = async () => {
@@ -46,7 +41,12 @@ const EditStock = ({ id }) => {
             name={product.productData[0].nombre}
             id={product.productData[0].id}
           />
+          <div className="my-4 text-sm sm:text-base">Stock actual:</div>
           <ProductDetailDataStock product={product} />
+          <div className="mb-4 mt-8 text-sm sm:text-base">
+            Agregar al stock:
+          </div>
+          <EditDataStock product={product} />
         </>
       )}
     </div>
