@@ -8,6 +8,7 @@ const HeadDetailProduct = ({ name, id }) => {
   const router = useRouter();
   const widthNavigator = useWidthNavigator();
   const isEditing = router.pathname.includes("/editar");
+  const isEditingStock = router.pathname.includes("/deposito");
 
   return (
     <div className={stylesGeneral.head_container}>
@@ -16,7 +17,11 @@ const HeadDetailProduct = ({ name, id }) => {
         <MdBarChart size={30} className="text-th-accent-dark" />
       </div>
       <div className="flex items-center gap-4">
-        <Link href={isEditing ? `../${id}` : `./`}>
+        <Link
+          href={
+            isEditing ? (isEditingStock ? `../../${id}` : `../${id}`) : `./`
+          }
+        >
           <button className={stylesGeneral.button_sm_nofill}>
             <MdNavigateBefore
               size={24}

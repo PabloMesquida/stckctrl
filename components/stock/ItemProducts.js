@@ -43,7 +43,7 @@ const ItemProducts = ({ product, warningMessage }) => {
       </div>
 
       <div className={stylesGeneral.item_icon_container}>
-        <Link href="#" shallow>
+        <Link href={`stock/editar/deposito/${product.id}`} shallow>
           <MdAppRegistration className={stylesGeneral.item_icon} />
         </Link>
         <Link href={`stock/${product.id}`} shallow>
