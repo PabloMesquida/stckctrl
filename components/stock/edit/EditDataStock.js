@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
-import { createStockMatrix } from "@/helpers/stockMatrix.js";
+import {
+  createStockMatrix,
+  sortColorsData,
+  getOrderSizes,
+  getOrderColors,
+} from "@/helpers/stockMatrix.js";
 import IconColor from "@/components/icons/IconColor.js";
 import stylesGeneral from "@/styles/General.module.css";
 import axios from "axios";
@@ -11,20 +16,9 @@ const EditDataStock = ({ product, id }) => {
   const [stockMatrix, setStockMatrix] = useState([]);
 
   const stock = product.productData.stock;
-  const colorsData = product.productData.colors;
-
-  const talles = Array.from(new Set(stock.map((item) => item.talle)))
-    .map((talle) => {
-      const items = stock.filter((item) => item.talle === talle);
-      const orden = items.reduce(
-        (acc, item) => (item.orden < acc ? item.orden : acc),
-        items[0].orden
-      );
-      return { talle, orden };
-    })
-    .sort((a, b) => a.orden - b.orden)
-    .map(({ talle }) => talle);
-  const colores = Array.from(new Set(stock.map((item) => item.color)));
+  const colorsData = sortColorsData(product.productData.colors);
+  const talles = getOrderSizes(stock);
+  const colores = getOrderColors(stock);
 
   if (!stockMatrix.length) {
     setStockMatrix(createStockMatrix(stock, colores, talles));

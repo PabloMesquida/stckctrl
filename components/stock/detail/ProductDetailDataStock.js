@@ -1,7 +1,12 @@
 import { useState } from "react";
 import IconColor from "@/components/icons/IconColor.js";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
-import { createStockMatrix } from "@/helpers/stockMatrix.js";
+import {
+  createStockMatrix,
+  sortColorsData,
+  getOrderSizes,
+  getOrderColors,
+} from "@/helpers/stockMatrix.js";
 import stylesGeneral from "@/styles/General.module.css";
 
 const ProductDetailDataStock = ({ product }) => {
@@ -9,30 +14,13 @@ const ProductDetailDataStock = ({ product }) => {
   const [stockMatrix, setStockMatrix] = useState([]);
 
   const stock = product.productData.stock;
-  const colorsData = product.productData.colors;
-
-  console.log("stock: ", stock);
-
-  const talles = Array.from(new Set(stock.map((item) => item.talle)))
-    .map((talle) => {
-      const items = stock.filter((item) => item.talle === talle);
-      const orden = items.reduce(
-        (acc, item) => (item.orden < acc ? item.orden : acc),
-        items[0].orden
-      );
-      return { talle, orden };
-    })
-    .sort((a, b) => a.orden - b.orden)
-    .map(({ talle }) => talle);
-  const colores = Array.from(new Set(stock.map((item) => item.color)));
-
-  console.log(talles);
+  const colorsData = sortColorsData(product.productData.colors);
+  const talles = getOrderSizes(stock);
+  const colores = getOrderColors(stock);
 
   if (!stockMatrix.length) {
     setStockMatrix(createStockMatrix(stock, colores, talles));
   }
-
-  console.log("colores: ", colores, "talles", talles);
 
   return (
     <div className={stylesGeneral.panel_card}>
@@ -59,7 +47,6 @@ const ProductDetailDataStock = ({ product }) => {
                   className=" text-center justify-center items-center"
                   key={`${color}-${talle}`}
                 >
-                  {/* {`${color}-${talle}`} */}
                   {stockMatrix &&
                     stockMatrix[rowIndex] &&
                     stockMatrix[rowIndex][colIndex]}
