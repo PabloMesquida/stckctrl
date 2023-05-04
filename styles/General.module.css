@@ -25,7 +25,7 @@
 }
 
 .button_2xl {
-  @apply flex justify-start items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md sm:rounded-md  py-4 px-6  text-center sm:mr-0  w-full;
+  @apply flex justify-start items-center my-2 text-white bg-th-accent-medium hover:bg-th-accent-dark focus:outline-none text-xl rounded-md py-2 sm:py-4 px-4 sm:px-6  text-center sm:mr-0  w-full text-base sm:text-xl;
 }
 
 .button_nofill {
@@ -87,7 +87,7 @@
 /* ///////////////////////// */
 
 .section_container {
-  @apply sm:pl-68 pt-21 sm:pt-26 pb-4 px-4 w-full h-full;
+  @apply sm:pl-68 pt-21 sm:pt-26 pb-4 px-2 sm:px-4 w-full h-full;
 }
 
 .panel_grid {
