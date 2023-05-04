@@ -46,7 +46,7 @@ const EditStock = ({ id }) => {
           <div className="mb-4 mt-8 text-sm sm:text-base">
             Agregar al stock:
           </div>
-          <EditDataStock product={product} />
+          <EditDataStock product={product} id={id} />
         </>
       )}
     </div>

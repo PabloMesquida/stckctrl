@@ -11,12 +11,28 @@ const ProductDetailDataStock = ({ product }) => {
   const stock = product.productData.stock;
   const colorsData = product.productData.colors;
 
-  const talles = Array.from(new Set(stock.map((item) => item.talle)));
+  console.log("stock: ", stock);
+
+  const talles = Array.from(new Set(stock.map((item) => item.talle)))
+    .map((talle) => {
+      const items = stock.filter((item) => item.talle === talle);
+      const orden = items.reduce(
+        (acc, item) => (item.orden < acc ? item.orden : acc),
+        items[0].orden
+      );
+      return { talle, orden };
+    })
+    .sort((a, b) => a.orden - b.orden)
+    .map(({ talle }) => talle);
   const colores = Array.from(new Set(stock.map((item) => item.color)));
+
+  console.log(talles);
 
   if (!stockMatrix.length) {
     setStockMatrix(createStockMatrix(stock, colores, talles));
   }
+
+  console.log("colores: ", colores, "talles", talles);
 
   return (
     <div className={stylesGeneral.panel_card}>
@@ -43,6 +59,7 @@ const ProductDetailDataStock = ({ product }) => {
                   className=" text-center justify-center items-center"
                   key={`${color}-${talle}`}
                 >
+                  {/* {`${color}-${talle}`} */}
                   {stockMatrix &&
                     stockMatrix[rowIndex] &&
                     stockMatrix[rowIndex][colIndex]}

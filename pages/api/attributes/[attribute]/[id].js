@@ -17,8 +17,13 @@ const getAttribute = async (req, res) => {
   const { id } = req.query;
   const { attribute } = req.query;
   try {
+    const orderBy =
+      attribute === "talles" ? "orden" : attribute === "colores" ? "color" : "";
+    const query = `SELECT * FROM ${attribute} WHERE activo = ?${
+      orderBy ? ` ORDER BY ${orderBy} ASC` : ""
+    }`;
     const results = await executeQuery({
-      query: `SELECT * FROM ${attribute} WHERE id = ?`,
+      query,
       values: [id],
     });
     return res.status(SUCCESS).json(results);
