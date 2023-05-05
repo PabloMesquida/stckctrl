@@ -40,7 +40,7 @@ const updateStock = async (req, res) => {
 
       const result_stock = await executeQuery({
         query:
-          "UPDATE p_talles SET stock = ? WHERE id_prod_color = ? AND id_talle = ?",
+          "UPDATE p_talles SET stock = COALESCE(stock, 0) + ? WHERE id_prod_color = ? AND id_talle = ?",
         values: [value, id_color_prod, id_talle],
       });
 
