@@ -19,33 +19,45 @@ const updateStock = async (req, res) => {
   const stock = req.body.body;
   console.log(id, stock);
   try {
-    for (const [key, value] of Object.entries(stock)) {
+    const keys = Object.keys(stock);
+    const colorTalles = keys.map((key) => {
       const [id_color, talle] = key.split("-");
-      console.log(id_color, talle, value);
+      return { id_color, talle };
+    });
 
-      const result_id_color_prod = await executeQuery({
-        query: "SELECT id FROM p_colores WHERE id_prod = ? AND id_color = ?",
-        values: [id, id_color],
-      });
+    const results = await Promise.all(
+      colorTalles.map(async ({ id_color, talle }) => {
+        const [result_id_color_prod, result_id_talle] = await Promise.all([
+          executeQuery({
+            query:
+              "SELECT id FROM p_colores WHERE id_prod = ? AND id_color = ?",
+            values: [id, id_color],
+          }),
+          executeQuery({
+            query: "SELECT id FROM talles WHERE talle = ?",
+            values: [talle],
+          }),
+        ]);
+        return {
+          id_color_prod: result_id_color_prod[0].id,
+          id_talle: result_id_talle[0].id,
+        };
+      })
+    );
 
-      const id_color_prod = result_id_color_prod[0].id;
-      console.log("id_color_prod: ", id_color_prod);
+    await Promise.all(
+      results.map(({ id_color_prod, id_talle }, i) => {
+        const value = Object.values(stock)[i];
+        return executeQuery({
+          query:
+            "UPDATE p_talles SET stock = COALESCE(stock, 0) + ? WHERE id_prod_color = ? AND id_talle = ?",
+          values: [value, id_color_prod, id_talle],
+        });
+      })
+    );
 
-      const result_id_talle = await executeQuery({
-        query: "SELECT id FROM talles WHERE talle = ?",
-        values: [talle],
-      });
-      const id_talle = result_id_talle[0].id;
-      console.log("id_talle: ", id_talle);
-
-      const result_stock = await executeQuery({
-        query:
-          "UPDATE p_talles SET stock = COALESCE(stock, 0) + ? WHERE id_prod_color = ? AND id_talle = ?",
-        values: [value, id_color_prod, id_talle],
-      });
-
-      console.log(result_stock);
-    }
+    console.log("Stock actualizado con éxito");
+    return res.sendStatus(200);
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({ error });
   }
