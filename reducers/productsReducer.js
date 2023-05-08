@@ -56,23 +56,23 @@ export default function productsReducer(state = initialState, action) {
         loading: false,
       };
     }
-    case "UPDATE_STOCK": {
-      console.log("UPDATE_STOCK");
-      return {
-        ...state,
-        loading: false,
-      };
-      // return {
-      //   ...state,
-      //   productData: [
-      //     {
-      //       ...state.productData[0], // spread the existing product object
-      //       stock: action.payload, // update the stock property with new data
-      //     },
-      //   ],
-      //   loading: false,
-      // };
-    }
+    // case "UPDATE_STOCK": {
+    //   console.log("UPDATE_STOCK");
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //   };
+    //   // return {
+    //   //   ...state,
+    //   //   productData: [
+    //   //     {
+    //   //       ...state.productData[0], // spread the existing product object
+    //   //       stock: action.payload, // update the stock property with new data
+    //   //     },
+    //   //   ],
+    //   //   loading: false,
+    //   // };
+    // }
 
     case "DELETE_PRODUCT": {
       console.log("DELETE_PRODUCT");

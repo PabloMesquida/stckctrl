@@ -3,7 +3,6 @@ import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT,
   CREATE_PRODUCT,
-  UPDATE_PRODUCT,
   UPDATE_STOCK,
   DELETE_PRODUCT,
   GET_CATEGORIES,
@@ -44,12 +43,12 @@ export const createProduct = (data) => {
   };
 };
 
-export const updateProduct = (data) => {
-  return {
-    type: UPDATE_PRODUCT,
-    payload: data,
-  };
-};
+// export const updateProduct = (data) => {
+//   return {
+//     type: UPDATE_PRODUCT,
+//     payload: data,
+//   };
+// };
 
 export const updateStock = (stock) => ({
   type: UPDATE_STOCK,

@@ -12,8 +12,6 @@ import IconColor from "@/components/icons/IconColor.js";
 import stylesGeneral from "@/styles/General.module.css";
 import axios from "axios";
 import Modal from "@/components/modal/Modal.js";
-import { updateStock } from "@/actions/productsActions";
-import { useDispatch } from "react-redux";
 
 const EditDataStock = ({ product, id }) => {
   const widthNavigator = useWidthNavigator();
@@ -29,7 +27,6 @@ const EditDataStock = ({ product, id }) => {
   const colorsData = sortColorsData(product.productData.colors);
   const talles = getOrderSizes(stock);
   const colores = getOrderColors(stock);
-  const dispatch = useDispatch();
 
   if (!stockMatrix.length) {
     setStockMatrix(createStockMatrix(stock, colores, talles));
@@ -106,7 +103,7 @@ const EditDataStock = ({ product, id }) => {
                             type="text"
                             name={`${id_color}-${talle}`}
                             placeholder="0"
-                            maxLength="2"
+                            maxLength="3"
                             {...formik.getFieldProps(`${id_color}-${talle}`)}
                             value={formik.values[`${id_color}-${talle}`] || ""}
                           />
