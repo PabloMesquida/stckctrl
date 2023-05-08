@@ -16,7 +16,7 @@ const ProductDetailDataStock = ({ product }) => {
   const router = useRouter();
   const widthNavigator = useWidthNavigator();
   const [stockMatrix, setStockMatrix] = useState([]);
-  const isEditing = router.pathname.includes("/editar");
+  const isEditing = router.pathname.includes("/edit");
   const stock = product.productData.stock;
   const colorsData = sortColorsData(product.productData.colors);
   const talles = getOrderSizes(stock);
@@ -34,7 +34,7 @@ const ProductDetailDataStock = ({ product }) => {
             <td className="flex items-center m-2  w-auto gap-2">
               STOCK
               {!isEditing && (
-                <Link href={`./editar/deposito/${product.productData[0].id}`}>
+                <Link href={`./edit/inventory/${product.productData[0].id}`}>
                   <button className={stylesGeneral.button_xsm}>
                     <MdModeEdit size={widthNavigator > 640 ? "18" : "12"} />
                   </button>

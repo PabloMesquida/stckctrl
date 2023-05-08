@@ -7,8 +7,8 @@ import stylesGeneral from "@/styles/General.module.css";
 const HeadDetailProduct = ({ name, id }) => {
   const router = useRouter();
   const widthNavigator = useWidthNavigator();
-  const isEditing = router.pathname.includes("/editar");
-  const isEditingStock = router.pathname.includes("/deposito");
+  const isEditing = router.pathname.includes("/edit");
+  const isEditingStock = router.pathname.includes("/inventory");
 
   return (
     <div className={stylesGeneral.head_container}>
@@ -31,7 +31,7 @@ const HeadDetailProduct = ({ name, id }) => {
           </button>
         </Link>
         {!isEditing && (
-          <Link href={`./editar/${id}`}>
+          <Link href={`./edit/${id}`}>
             <button className={stylesGeneral.button_sm}>
               <MdModeEdit
                 size={24}

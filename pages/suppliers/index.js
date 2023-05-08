@@ -1,33 +1,33 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/navbar/NavBar.js";
+import Suppliers from "@/components/suppliers/Suppliers.js";
 import stylesGeneral from "@/styles/General.module.css";
-import EditStock from "@/components/stock/edit/EditStock.js";
 
-function Product({ id }) {
+export default function SuppliersSec() {
   return (
     <>
       <Head>
-        <title>stckctrl - stock - depósito</title>
+        <title>stckctrl - proveedores</title>
       </Head>
       <Navbar />
       <section className={stylesGeneral.section_container}>
-        <EditStock id={id} />
+        <Suppliers />
       </section>
     </>
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  let { id } = context.query;
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return { redirect: { destination: "/", permanent: false } };
+  }
 
   return {
     props: {
-      id,
       session,
     },
   };
 }
-
-export default Product;

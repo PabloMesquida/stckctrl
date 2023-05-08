@@ -2,17 +2,17 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/navbar/NavBar.js";
 import stylesGeneral from "@/styles/General.module.css";
-import EditProduct from "@/components/stock/edit/EditProduct.js";
+import EditStock from "@/components/stock/edit/EditStock.js";
 
-function Product({ id }) {
+function ProductInventory({ id }) {
   return (
     <>
       <Head>
-        <title>stckctrl - stock - editar</title>
+        <title>stckctrl - stock - depósito</title>
       </Head>
       <Navbar />
       <section className={stylesGeneral.section_container}>
-        <EditProduct id={id} />
+        <EditStock id={id} />
       </section>
     </>
   );
@@ -30,4 +30,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Product;
+export default ProductInventory;

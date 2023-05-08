@@ -43,13 +43,13 @@ const ItemProducts = ({ product, warningMessage }) => {
       </div>
 
       <div className={stylesGeneral.item_icon_container}>
-        <Link href={`stock/editar/deposito/${product.id}`} shallow>
+        <Link href={`stock/edit/inventory/${product.id}`} shallow>
           <MdAppRegistration className={stylesGeneral.item_icon} />
         </Link>
         <Link href={`stock/${product.id}`} shallow>
           <MdOutlineFindInPage className={stylesGeneral.item_icon} />
         </Link>
-        <Link href={`stock/editar/${product.id}`} shallow>
+        <Link href={`stock/edit/${product.id}`} shallow>
           <MdModeEdit className={stylesGeneral.item_icon} />
         </Link>
         <button onClick={warningMessage}>
