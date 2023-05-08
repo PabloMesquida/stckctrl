@@ -55,10 +55,14 @@ const NavMenu = () => {
           </Link>
         </li>
         <li>
-          <a href="#" className={navStyles.nav_aside_link}>
+          <Link
+            href="/suppliers"
+            className={navStyles.nav_aside_link_featured}
+            shallow
+          >
             <MdGroup size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">Proveedores</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

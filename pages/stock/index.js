@@ -1,8 +1,8 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/navbar/NavBar.js";
-import Products from "@/components/stock/Products.js";
 import stylesGeneral from "@/styles/General.module.css";
+import IndexSection from "@/components/IndexSection.js";
 
 export default function StockSec() {
   return (
@@ -12,7 +12,7 @@ export default function StockSec() {
       </Head>
       <Navbar />
       <section className={stylesGeneral.section_container}>
-        <Products />
+        <IndexSection section="stock" />
       </section>
     </>
   );
