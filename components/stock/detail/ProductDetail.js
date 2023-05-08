@@ -33,6 +33,11 @@ const ProductDetail = ({ id }) => {
           `./../../api/attributes/proveedores/${productData[0].id_prov}`
         ),
       ]);
+      console.log(
+        "categoryData: ",
+        `./../../api/attributes/categoria/${productData[0].id_cat}`,
+        categoryData
+      );
       dispatch(getProductData(productData));
       dispatch(getCategory(categoryData));
       dispatch(getGender(genderData));

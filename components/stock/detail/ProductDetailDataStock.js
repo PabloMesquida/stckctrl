@@ -18,6 +18,8 @@ const ProductDetailDataStock = ({ product }) => {
   const talles = getOrderSizes(stock);
   const colores = getOrderColors(stock);
 
+  console.log("product", product);
+
   if (!stockMatrix.length) {
     setStockMatrix(createStockMatrix(stock, colores, talles));
   }

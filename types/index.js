@@ -5,6 +5,7 @@ export const GET_PRODUCT = "GET_PRODUCT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const UPDATE_STOCK = "UPDATE_STOCK";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const GET_CATEGORY = "GET_CATEGORY";
 export const GET_GENDERS = "GET_GENDERS";

@@ -56,8 +56,19 @@ const updateStock = async (req, res) => {
       })
     );
 
+    const result_info_prod_stock = await executeQuery({
+      query:
+        "SELECT pt.id, pt.id_prod_color, pt.id_talle, pt.stock, c.color, c.etiqueta, t.talle, t.orden, c.id, c.hex AS id_color FROM p_talles AS pt JOIN talles AS t ON t.id = pt.id_talle JOIN p_colores AS pc ON pc.id = pt.id_prod_color JOIN colores AS c ON c.id = pc.id_color WHERE pt.id_prod = ?",
+      values: [id],
+    });
+
     console.log("Stock actualizado con éxito");
-    return res.sendStatus(200);
+    return res.status(SUCCESS).json({
+      stock: result_info_prod_stock,
+      status: true,
+      type: "success",
+      message: "¡Perfecto! El stock ha sido actualizado con éxito.",
+    });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({ error });
   }
