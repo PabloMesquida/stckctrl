@@ -8,11 +8,11 @@ export default function Agregar() {
   return (
     <>
       <Head>
-        <title>stckctrl - stock - agregar</title>
+        <title>stckctrl - proveedores - agregar</title>
       </Head>
       <Navbar />
       <section className={stylesGeneral.section_container}>
-        <IndexAdd section="stock" />
+        <IndexAdd section="suppliers" />
       </section>
     </>
   );
