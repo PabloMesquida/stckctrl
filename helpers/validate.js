@@ -82,3 +82,25 @@ export function add_product_validate(values, imageSrc, uploadData, isChange) {
 
   return errors;
 }
+
+export function add_supplier_validate(values) {
+  const errors = {};
+  const errorMessages = {
+    sup_name: "Falta el nombre.",
+    sup_email: "La dirección de correo no es válida.",
+  };
+
+  if (!values.sup_name) {
+    errors.sup_name = errorMessages.sup_name;
+  }
+
+  // Validar dirección de correo electrónico
+  if (
+    values.sup_email &&
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.sup_email)
+  ) {
+    errors.sup_email = errorMessages.sup_email;
+  }
+
+  return errors;
+}
