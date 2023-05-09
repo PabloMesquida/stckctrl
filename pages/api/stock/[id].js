@@ -60,8 +60,9 @@ const updateProduct = async (req, res) => {
       id
     );
 
+    console.log("sizes: ", sizes);
     await updateSizes(id, sizes);
-
+    console.log("colors: ", colors);
     await updateColors(id, colors);
 
     return res.status(SUCCESS).json({
@@ -97,36 +98,36 @@ const getProduct = async (req, res) => {
   const { id } = req.query;
 
   try {
-    const result_info_prod = await executeQuery({
-      query: "SELECT * FROM productos WHERE id = ?",
-      values: [id],
-    });
+    const [
+      result_info_prod,
+      result_info_prod_colors,
+      result_info_prod_sizes,
+      result_info_prod_stock,
+    ] = await Promise.all([
+      executeQuery({
+        query: "SELECT * FROM productos WHERE id = ?",
+        values: [id],
+      }),
+      executeQuery({
+        query:
+          "SELECT p.id_color, c.color, c.etiqueta, c.hex FROM p_colores AS p JOIN colores AS c ON p.id_color = c.id WHERE id_prod = ? ",
+        values: [id],
+      }),
+      executeQuery({
+        query:
+          "SELECT id_talle FROM p_talles WHERE id_prod = ? ORDER BY id ASC",
+        values: [id],
+      }),
+      executeQuery({
+        query:
+          "SELECT pt.id, pt.id_prod_color, pt.id_talle, pt.stock, c.color, c.etiqueta, t.talle, t.orden, c.id, c.hex AS id_color FROM p_talles AS pt JOIN talles AS t ON t.id = pt.id_talle JOIN p_colores AS pc ON pc.id = pt.id_prod_color JOIN colores AS c ON c.id = pc.id_color WHERE pt.id_prod = ?",
+        values: [id],
+      }),
+    ]);
 
-    const result_info_prod_colors = await executeQuery({
-      query:
-        "SELECT p.id_color, c.color, c.etiqueta, c.hex FROM p_colores AS p JOIN colores AS c ON p.id_color = c.id WHERE id_prod = ? ",
-      values: [id],
-    });
-
-    const result_info_prod_sizes = await executeQuery({
-      query: "SELECT id_talle FROM p_talles WHERE id_prod = ? ORDER BY id ASC",
-      values: [id],
-    });
-
-    const uniqueSizes = [];
-    const sizes = result_info_prod_sizes.map(({ id_talle }) => id_talle);
-
-    sizes.forEach((size) => {
-      if (uniqueSizes.indexOf(size) === -1) {
-        uniqueSizes.push(size);
-      }
-    });
-
-    const result_info_prod_stock = await executeQuery({
-      query:
-        "SELECT pt.id, pt.id_prod_color, pt.id_talle, pt.stock, c.color, c.etiqueta, t.talle, t.orden, c.id, c.hex AS id_color FROM p_talles AS pt JOIN talles AS t ON t.id = pt.id_talle JOIN p_colores AS pc ON pc.id = pt.id_prod_color JOIN colores AS c ON c.id = pc.id_color WHERE pt.id_prod = ?",
-      values: [id],
-    });
+    const uniqueSizes = [
+      ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
+    ];
 
     return res.status(SUCCESS).json({
       ...result_info_prod,

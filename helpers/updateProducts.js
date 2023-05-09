@@ -133,14 +133,8 @@ export async function updateColors(id, colors) {
     values: [id],
   });
 
-  const uniqueColors = [];
   const prevColors = result_info_prod_colors.map(({ id_color }) => id_color);
-
-  prevColors.forEach((color) => {
-    if (uniqueColors.indexOf(color) === -1) {
-      uniqueColors.push(color);
-    }
-  });
+  const uniqueColors = [...new Set(prevColors)];
 
   let colorsToDel = uniqueColors.filter(
     (elemento) => !colors.includes(elemento)
@@ -203,14 +197,16 @@ async function addColors(id, colors) {
 
   const results = await Promise.all(promises);
 
-  results.forEach((result) => {
-    if (result.warningStatus === 0) {
-      console.log("No se encontraron advertencias");
-    } else {
+  const hasWarnings = results.every((result) => result.warningStatus === 0);
+
+  if (hasWarnings) {
+    console.log("No se encontraron advertencias");
+  } else {
+    results.forEach((result) => {
       console.log(`Advertencias: ${result.warningStatus}`);
       console.log(result.info);
-    }
-  });
+    });
+  }
 }
 
 async function delColors(id, colors) {
@@ -276,14 +272,8 @@ export async function updateSizes(id, sizes) {
     values: [id],
   });
 
-  const uniqueSizes = [];
   const prevSizes = result_info_prod_sizes.map(({ id_talle }) => id_talle);
-
-  prevSizes.forEach((size) => {
-    if (uniqueSizes.indexOf(size) === -1) {
-      uniqueSizes.push(size);
-    }
-  });
+  const uniqueSizes = [...new Set(prevSizes)];
 
   let sizesToDel = uniqueSizes.filter((elemento) => !sizes.includes(elemento));
   let sizesToAdd = sizes.filter((elemento) => !uniqueSizes.includes(elemento));
@@ -334,14 +324,16 @@ async function addSizes(id, sizes) {
 
   const results = await Promise.all(promises);
 
-  results.forEach((result) => {
-    if (result.warningStatus === 0) {
-      console.log("No se encontraron advertencias");
-    } else {
+  const hasWarnings = results.every((result) => result.warningStatus === 0);
+
+  if (hasWarnings) {
+    console.log("No se encontraron advertencias");
+  } else {
+    results.forEach((result) => {
       console.log(`Advertencias: ${result.warningStatus}`);
       console.log(result.info);
-    }
-  });
+    });
+  }
 }
 
 async function delSizes(id, sizes) {
@@ -349,17 +341,18 @@ async function delSizes(id, sizes) {
   let query_del_sizes =
     "DELETE FROM p_talles WHERE id_prod = ? AND id_talle IN (";
   query_del_sizes += placeholders_del_sizes + ")";
-  console.log(query_del_sizes);
-  const result_size_to_del = await executeQuery({
+
+  const { warningStatus, info } = await executeQuery({
     query: query_del_sizes,
     values: [id, ...sizes],
   });
-  if (result_size_to_del.warningStatus === 0) {
-    console.log("No se encontraron advertencias");
-  } else {
-    console.log(`Advertencias: ${result_size_to_del.warningStatus}`);
-    console.log(result_size_to_del.info);
-  }
+
+  console.log(
+    warningStatus === 0
+      ? "No se encontraron advertencias"
+      : `Advertencias: ${warningStatus}`
+  );
+  console.log(info);
 }
 
 async function getInfoProducto(id) {
