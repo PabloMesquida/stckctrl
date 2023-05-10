@@ -56,23 +56,6 @@ export default function productsReducer(state = initialState, action) {
         loading: false,
       };
     }
-    // case "UPDATE_STOCK": {
-    //   console.log("UPDATE_STOCK");
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //   };
-    //   // return {
-    //   //   ...state,
-    //   //   productData: [
-    //   //     {
-    //   //       ...state.productData[0], // spread the existing product object
-    //   //       stock: action.payload, // update the stock property with new data
-    //   //     },
-    //   //   ],
-    //   //   loading: false,
-    //   // };
-    // }
 
     case "DELETE_PRODUCT": {
       console.log("DELETE_PRODUCT");
@@ -121,24 +104,6 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
-    case "GET_SUPPLIERS": {
-      console.log("GET_SUPPLIERS");
-      return {
-        ...state,
-        suppliers: action.payload.map((data) => data),
-        loading: false,
-      };
-    }
-
-    case "GET_SUPPLIER": {
-      console.log("GET_SUPPLIER");
-      return {
-        ...state,
-        supplier: action.payload,
-        loading: false,
-      };
-    }
-
     case "GET_SIZES": {
       console.log("GET_SIZES");
       return {
@@ -153,6 +118,30 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         colors: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_SUPPLIERS": {
+      return {
+        ...state,
+        // suppliers: [...state.suppliers, ...action.payload],
+        suppliers: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+    case "GET_ALL_SUPPLIERS": {
+      return {
+        ...state,
+        suppliers: action.payload.map((data) => data),
+        loading: false,
+      };
+    }
+
+    case "GET_SUPPLIER": {
+      return {
+        ...state,
+        suppliers: action.payload,
         loading: false,
       };
     }

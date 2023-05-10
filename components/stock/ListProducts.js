@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -5,8 +6,7 @@ import {
   getProductsData,
   getAllProductsData,
   deleteProduct,
-} from "@/actions/productsActions";
-import axios from "axios";
+} from "@/actions/productsActions.js";
 import FilterProducts from "./FilterProducts.js";
 import Modal from "@/components/modal/Modal.js";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -33,6 +33,7 @@ const ListProducts = () => {
     text: null,
   });
   const dispatch = useDispatch();
+  const [previousData, setPreviousData] = useState(products);
 
   const warningMessage = (name, id) => {
     setProductId(id);
@@ -122,6 +123,7 @@ const ListProducts = () => {
   useEffect(() => {
     const isAnyNotNull = Object.values(filter).some((value) => value !== null);
     if (isAnyNotNull) {
+      console.log("ALL");
       fetchAllData();
     } else {
       if (products.length === 0 && limit === 0) {
@@ -131,6 +133,13 @@ const ListProducts = () => {
       }
     }
   }, [filter, limit]);
+
+  useEffect(() => {
+    if (products !== previousData) {
+      console.log("La parte específica del estado ha cambiado recientemente.");
+      setPreviousData(products);
+    }
+  }, [products, previousData]);
 
   return (
     <>

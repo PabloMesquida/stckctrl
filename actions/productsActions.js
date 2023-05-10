@@ -9,6 +9,7 @@ import {
   GET_CATEGORY,
   GET_GENDERS,
   GET_GENDER,
+  GET_ALL_SUPPLIERS,
   GET_SUPPLIERS,
   GET_SUPPLIER,
   GET_SIZES,
@@ -90,20 +91,6 @@ export const getGender = (data) => {
   };
 };
 
-export const getSuppliers = (data) => {
-  return {
-    type: GET_SUPPLIERS,
-    payload: data,
-  };
-};
-
-export const getSupplier = (data) => {
-  return {
-    type: GET_SUPPLIER,
-    payload: data,
-  };
-};
-
 export const getSizes = (data) => {
   return {
     type: GET_SIZES,
@@ -114,6 +101,27 @@ export const getSizes = (data) => {
 export const getColors = (data) => {
   return {
     type: GET_COLORS,
+    payload: data,
+  };
+};
+
+export const getAllSuppliersData = (data) => {
+  return {
+    type: GET_ALL_SUPPLIERS,
+    payload: data,
+  };
+};
+
+export const getSuppliers = (data) => {
+  return {
+    type: GET_SUPPLIERS,
+    payload: data,
+  };
+};
+
+export const getSupplier = (data) => {
+  return {
+    type: GET_SUPPLIER,
     payload: data,
   };
 };

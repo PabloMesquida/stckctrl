@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getCategories,
   getGenders,
+  getAllSuppliersData,
   getSuppliers,
 } from "@/actions/productsActions.js";
 import axios from "axios";
@@ -24,7 +25,7 @@ const SelectOptions = ({ formik, name, text, handlechange = null }) => {
       const actions = {
         categories: getCategories,
         genders: getGenders,
-        suppliers: getSuppliers,
+        suppliers: getAllSuppliersData,
       };
       dispatch(actions[name](res.data));
     } catch (error) {
