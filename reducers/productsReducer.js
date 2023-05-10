@@ -17,6 +17,15 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
+    case "RESET_PRODUCTS": {
+      console.log("RESET_PRODUCTS");
+      return {
+        ...state,
+        productsData: [],
+        loading: false,
+      };
+    }
+
     case "GET_ALL_PRODUCTS": {
       console.log("GET_ALL_PRODUCTS");
       return {

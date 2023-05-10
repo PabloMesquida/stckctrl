@@ -12,8 +12,11 @@ import { MdWarning } from "react-icons/md";
 import axios from "axios";
 import FormPrice from "./FormPrice.js";
 import Modal from "@/components/modal/Modal.js";
+import { resetProductData } from "@/actions/productsActions.js";
+import { useDispatch } from "react-redux";
 
 const FormProducts = ({ product = null, id = null }) => {
+  const dispatch = useDispatch();
   const [imageSrc, setImageSrc] = useState(product ? product[0].foto : "");
   const [uploadData, setUploadData] = useState();
   const [isChange, setIsChange] = useState(false);
@@ -54,7 +57,7 @@ const FormProducts = ({ product = null, id = null }) => {
     axios
       .get(`./../api/stock/limit/0`)
       .then((res) => {
-        dispatch(getProductsData(res.data));
+        // dispatch(getProductsData(res.data));
         setHasMore(res.data.length <= 0);
       })
       .catch((err) => {
@@ -94,7 +97,9 @@ const FormProducts = ({ product = null, id = null }) => {
         }
       });
     }
-    fetchData();
+    console.log("dispatch");
+    dispatch(resetProductData());
+    //fetchData();
   }
 
   return (

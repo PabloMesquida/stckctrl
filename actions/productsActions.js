@@ -2,6 +2,7 @@ import {
   GET_PRODUCTS,
   GET_ALL_PRODUCTS,
   GET_PRODUCT,
+  RESET_PRODUCTS,
   CREATE_PRODUCT,
   UPDATE_STOCK,
   DELETE_PRODUCT,
@@ -34,6 +35,13 @@ export const getProductData = (data) => {
   return {
     type: GET_PRODUCT,
     payload: data,
+  };
+};
+
+export const resetProductData = () => {
+  console.log("resetProductDAta");
+  return {
+    type: RESET_PRODUCTS,
   };
 };
 

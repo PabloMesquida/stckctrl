@@ -33,7 +33,6 @@ const ListProducts = () => {
     text: null,
   });
   const dispatch = useDispatch();
-  const [previousData, setPreviousData] = useState(products);
 
   const warningMessage = (name, id) => {
     setProductId(id);
@@ -70,12 +69,14 @@ const ListProducts = () => {
   };
 
   const fetchData = () => {
-    console.log("fetchData");
+    console.log("---fetchData---");
+    console.log(`./api/stock/limit/${limit}`);
     axios
       .get(`./api/stock/limit/${limit}`)
       .then((res) => {
         dispatch(getProductsData(res.data));
-        setHasMore(res.data.length <= limit);
+        console.log(res.data.length >= limit);
+        setHasMore(res.data.length >= limit);
       })
       .catch((err) => {
         setHasMore(false);
@@ -121,25 +122,23 @@ const ListProducts = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect");
     const isAnyNotNull = Object.values(filter).some((value) => value !== null);
     if (isAnyNotNull) {
       console.log("ALL");
+      setLimit(0);
       fetchAllData();
     } else {
-      if (products.length === 0 && limit === 0) {
+      // if (products.length === 0 && limit === 0) {
+      console.log(products.length, limit);
+      if (products.length <= limit) {
         fetchData();
       } else {
+        console.log("setMore-false");
         setHasMore(false);
       }
     }
   }, [filter, limit]);
-
-  useEffect(() => {
-    if (products !== previousData) {
-      console.log("La parte específica del estado ha cambiado recientemente.");
-      setPreviousData(products);
-    }
-  }, [products, previousData]);
 
   return (
     <>
@@ -151,7 +150,7 @@ const ListProducts = () => {
         />
       )}
       <FilterProducts setFilter={setFilter} />
-
+      xxx
       <div className="min-w-full">
         {Object.values(filter).every((value) => value === null) ? (
           <InfiniteScroll
