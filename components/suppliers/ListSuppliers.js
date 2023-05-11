@@ -70,7 +70,7 @@ const ListSuppliers = () => {
       filteredSuppliers = suppliers;
     } else {
       filteredSuppliers = filteredSuppliers.filter((supplier) =>
-        supplier.nombre.includes(filter.name)
+        supplier.nombre.toLowerCase().includes(filter.name.toLowerCase())
       );
     }
     return filteredSuppliers;
