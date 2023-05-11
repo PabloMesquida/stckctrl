@@ -60,9 +60,8 @@ const updateProduct = async (req, res) => {
       id
     );
 
-    console.log("sizes: ", sizes);
     await updateSizes(id, sizes);
-    console.log("colors: ", colors);
+
     await updateColors(id, colors);
 
     return res.status(SUCCESS).json({

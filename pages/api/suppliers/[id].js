@@ -21,7 +21,19 @@ export default async function handler(req, res) {
   }
 }
 
-const getSupplier = async (req, res) => {};
+const getSupplier = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const result = await executeQuery({
+      query:
+        "SELECT nombre, direccion, telefono, comentarios, mail, web FROM proveedores WHERE id = ?",
+      values: [id],
+    });
+    return res.status(SUCCESS).json({ ...result });
+  } catch (error) {
+    return res.status(INTERNAL_SERVER_ERROR).json({ error });
+  }
+};
 
 const updateSupplier = async (req, res) => {};
 

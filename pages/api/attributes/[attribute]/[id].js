@@ -28,7 +28,6 @@ const getAttribute = async (req, res) => {
     }`;
     const results = await executeQuery({
       query,
-      //  query: `SELECT * FROM ${attribute} WHERE id = ?`,
       values: [id],
     });
     return res.status(SUCCESS).json(results);

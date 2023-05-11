@@ -138,7 +138,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_SUPPLIER": {
       return {
         ...state,
-        suppliers: action.payload,
+        supplier: action.payload,
         loading: false,
       };
     }

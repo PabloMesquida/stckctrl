@@ -4,7 +4,7 @@ import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import { MdBarChart, MdModeEdit, MdNavigateBefore } from "react-icons/md";
 import stylesGeneral from "@/styles/General.module.css";
 
-const HeadDetailProduct = ({ name, id }) => {
+const HeadDetail = ({ name, id }) => {
   const router = useRouter();
   const widthNavigator = useWidthNavigator();
   const isEditing = router.pathname.includes("/edit");
@@ -46,4 +46,4 @@ const HeadDetailProduct = ({ name, id }) => {
   );
 };
 
-export default HeadDetailProduct;
+export default HeadDetail;

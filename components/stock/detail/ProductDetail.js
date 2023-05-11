@@ -9,8 +9,9 @@ import {
 import axios from "axios";
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
 import ProductDetailData from "@/components/stock/detail/ProductDetailData.js";
-import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
+//import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
 import ProductDetailSkeleton from "@/components/stock/detail/ProductDetailSkeleton.js";
+import HeadDetail from "@/components/head/HeadDetail.js";
 
 const ProductDetail = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +61,7 @@ const ProductDetail = ({ id }) => {
       {isLoading && <ProductDetailSkeleton />}
       {!isLoading && product && (
         <>
-          <HeadDetiailProduct name={product[0].nombre} id={product[0].id} />
+          <HeadDetail name={product[0].nombre} id={product[0].id} />
           <ProductDetailData />
         </>
       )}
