@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
 import ProductDetailSkeleton from "@/components/stock/detail/ProductDetailSkeleton.js";
-import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
+import HeadDetail from "@/components/head/HeadDetail.js";
 import FormProducts from "@/components/stock/add/FormProducts.js";
 
 const EditProduct = ({ id }) => {
@@ -55,7 +55,7 @@ const EditProduct = ({ id }) => {
       {isLoading && <ProductDetailSkeleton />}
       {!isLoading && product && (
         <>
-          <HeadDetiailProduct name={product[0].nombre} id={id} />
+          <HeadDetail name={product[0].nombre} id={id} />
           <FormProducts product={product} id={id} />
         </>
       )}
