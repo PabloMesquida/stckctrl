@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getProductData } from "@/actions/productsActions";
 import axios from "axios";
 import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
-import HeadDetiailProduct from "@/components/stock/detail/HeadDetailProduct.js";
+import HeadDetail from "@/components/head/HeadDetail.js";
 import ProductDetailDataStock from "@/components/stock/detail/ProductDetailDataStock.js";
 import EditDataStock from "./EditDataStock.js";
 import StockSkeleton from "./StockSkeleton.js";
@@ -37,7 +37,7 @@ const EditStock = ({ id }) => {
       {isLoading && <StockSkeleton />}
       {!isLoading && product && (
         <>
-          <HeadDetiailProduct
+          <HeadDetail
             name={product.productData[0].nombre}
             id={product.productData[0].id}
           />
