@@ -58,16 +58,15 @@ const FormSuppliers = ({ supplier = null, id = null }) => {
       //   }
       // });
     } else {
-      console.log("Values: ", values);
-      // await axios.post("../../api/suppliers", options).then((res) => {
-      //   if (res.data.status) {
-      //     setMessage({
-      //       status: res.data.status,
-      //       type: res.data.type,
-      //       text: res.data.message,
-      //     });
-      //   }
-      // });
+      await axios.post("../../api/suppliers", options).then((res) => {
+        if (res.data.status) {
+          setMessage({
+            status: res.data.status,
+            type: res.data.type,
+            text: res.data.message,
+          });
+        }
+      });
     }
   }
 
@@ -145,10 +144,10 @@ const FormSuppliers = ({ supplier = null, id = null }) => {
             <textarea
               className={stylesGeneral.input_text}
               placeholder="Descripción"
-              name="description"
+              name="sup_description"
               rows="10"
               cols="20"
-              {...formik.getFieldProps("description")}
+              {...formik.getFieldProps("sup_description")}
             ></textarea>
           </div>
         </div>

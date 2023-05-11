@@ -1,15 +1,12 @@
 import stylesGeneral from "@/styles/General.module.css";
 import Link from "next/link";
 import {
-  MdImage,
-  MdAppRegistration,
   MdModeEdit,
   MdDeleteForever,
   MdOutlineFindInPage,
 } from "react-icons/md";
 
 const ItemSuppliers = ({ supplier, warningMessage }) => {
-  console.log("SUPPLIER: ", supplier);
   return (
     <div className={stylesGeneral.item_container_sm}>
       <div className="flex grow">
@@ -22,7 +19,6 @@ const ItemSuppliers = ({ supplier, warningMessage }) => {
           </div>
         </div>
       </div>
-
       <div className={stylesGeneral.item_icon_container_sm}>
         <Link href={`suppliers/${supplier.id}`} shallow>
           <MdOutlineFindInPage className={stylesGeneral.item_icon} />

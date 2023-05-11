@@ -97,9 +97,7 @@ const FormProducts = ({ product = null, id = null }) => {
         }
       });
     }
-    console.log("dispatch");
     dispatch(resetProductData());
-    //fetchData();
   }
 
   return (

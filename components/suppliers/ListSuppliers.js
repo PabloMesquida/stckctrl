@@ -11,8 +11,10 @@ const ListSuppliers = () => {
   const suppliers = useSelector((state) => state?.products.suppliers);
   const [filter, setFilter] = useState();
 
+  console.log(suppliers);
+
   const fetchData = () => {
-    axios.get(`./api/attributes/proveedores`).then((res) => {
+    axios.get(`./api/suppliers`).then((res) => {
       dispatch(getSuppliers(res.data));
     });
   };
