@@ -10,7 +10,6 @@ const ListSuppliers = () => {
   const dispatch = useDispatch();
   const suppliers = useSelector((state) => state?.products.suppliers);
   const [filter, setFilter] = useState();
-  console.log(suppliers);
 
   const fetchData = () => {
     axios.get(`./api/attributes/proveedores`).then((res) => {
@@ -19,23 +18,24 @@ const ListSuppliers = () => {
   };
 
   useEffect(() => {
-    console.log("fetch");
     fetchData();
-  }, []);
+  }, [filter]);
 
   const filterSup = (filter) => {
     let filteredSuppliers = suppliers || [];
     if (!filter) {
       filteredSuppliers = suppliers;
     } else {
-      filteredSuppliers = suppliers;
+      filteredSuppliers = filteredSuppliers.filter((supplier) =>
+        supplier.nombre.includes(filter.name)
+      );
     }
     return filteredSuppliers;
   };
 
   return (
     <div>
-      <FilterSuppliers />
+      <FilterSuppliers setFilter={setFilter} />
       <div>
         <div>
           {filterSup(filter).length === 0 ? (

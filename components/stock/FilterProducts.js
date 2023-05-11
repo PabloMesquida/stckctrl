@@ -1,13 +1,12 @@
-import stylesGeneral from "@/styles/General.module.css";
 import { useFormik } from "formik";
 import SelectOptions from "../forms/SelectOptions.js";
+import stylesGeneral from "@/styles/General.module.css";
 
 const FilterProducts = ({ setFilter }) => {
   const formik = useFormik({
     initialValues: {
       code: "",
     },
-    //   validate: (values) => add_product_validate(values, imageSrc, uploadData),
   });
 
   function handleChange(e) {
