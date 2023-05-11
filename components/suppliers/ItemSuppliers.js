@@ -9,10 +9,11 @@ import {
 } from "react-icons/md";
 
 const ItemSuppliers = ({ supplier, warningMessage }) => {
+  console.log("SUPPLIER: ", supplier);
   return (
-    <div className={stylesGeneral.item_container}>
+    <div className={stylesGeneral.item_container_sm}>
       <div className="flex grow">
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full p-2">
           <div>
             <span className={stylesGeneral.item_name}>{supplier.nombre}</span>
           </div>
@@ -22,7 +23,7 @@ const ItemSuppliers = ({ supplier, warningMessage }) => {
         </div>
       </div>
 
-      <div className={stylesGeneral.item_icon_container}>
+      <div className={stylesGeneral.item_icon_container_sm}>
         <Link href={`suppliers/${supplier.id}`} shallow>
           <MdOutlineFindInPage className={stylesGeneral.item_icon} />
         </Link>

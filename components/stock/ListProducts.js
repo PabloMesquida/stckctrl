@@ -69,13 +69,10 @@ const ListProducts = () => {
   };
 
   const fetchData = () => {
-    console.log("---fetchData---");
-    console.log(`./api/stock/limit/${limit}`);
     axios
       .get(`./api/stock/limit/${limit}`)
       .then((res) => {
         dispatch(getProductsData(res.data));
-        console.log(res.data.length >= limit);
         setHasMore(res.data.length >= limit);
       })
       .catch((err) => {
@@ -122,19 +119,14 @@ const ListProducts = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     const isAnyNotNull = Object.values(filter).some((value) => value !== null);
     if (isAnyNotNull) {
-      console.log("ALL");
       setLimit(0);
       fetchAllData();
     } else {
-      // if (products.length === 0 && limit === 0) {
-      console.log(products.length, limit);
       if (products.length <= limit) {
         fetchData();
       } else {
-        console.log("setMore-false");
         setHasMore(false);
       }
     }
@@ -150,7 +142,6 @@ const ListProducts = () => {
         />
       )}
       <FilterProducts setFilter={setFilter} />
-      xxx
       <div className="min-w-full">
         {Object.values(filter).every((value) => value === null) ? (
           <InfiniteScroll

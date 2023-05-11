@@ -124,6 +124,10 @@
   @apply flex flex-col items-start sm:items-center sm:flex-row bg-th-background-secondary my-4 rounded-md p-2;
 }
 
+.item_container_sm {
+  @apply flex items-center flex-row bg-th-background-secondary my-4 rounded-md p-2;
+}
+
 .item_code {
   @apply text-th-accent-dark mr-2 text-sm sm:text-base font-sans font-medium sm:font-bold tracking-normal;
 }
@@ -138,6 +142,10 @@
 
 .item_icon_container {
   @apply flex justify-around sm:justify-between items-center border-t sm:border-l sm:border-t-0 border-th-primary-light h-10 sm:h-full pb-4 pt-5 sm:pt-6 mt-4 sm:mt-0 pl-0 sm:pl-2 md:pl-6 pr-0 sm:pr-4 w-full sm:w-1/3;
+}
+
+.item_icon_container_sm {
+  @apply flex justify-between items-center border-l border-th-primary-light h-full pb-4 pt-4 sm:pt-6 mt-0 pl-4 sm:pl-6 pr-2 sm:pr-4 w-2/5 sm:w-1/3;
 }
 
 .item_icon {
