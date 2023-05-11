@@ -13,6 +13,7 @@ import {
   GET_ALL_SUPPLIERS,
   GET_SUPPLIERS,
   GET_SUPPLIER,
+  DELETE_SUPPLIER,
   GET_SIZES,
   GET_COLORS,
 } from "../types";
@@ -51,13 +52,6 @@ export const createProduct = (data) => {
     payload: data,
   };
 };
-
-// export const updateProduct = (data) => {
-//   return {
-//     type: UPDATE_PRODUCT,
-//     payload: data,
-//   };
-// };
 
 export const updateStock = (stock) => ({
   type: UPDATE_STOCK,
@@ -134,9 +128,9 @@ export const getSupplier = (data) => {
   };
 };
 
-// export const getStock = (data) => {
-//   return {
-//     type: GET_STOCK,
-//     payload: data,
-//   };
-// };
+export const deleteSupplier = (id) => {
+  return {
+    type: DELETE_SUPPLIER,
+    payload: id,
+  };
+};

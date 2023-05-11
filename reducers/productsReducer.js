@@ -143,13 +143,14 @@ export default function productsReducer(state = initialState, action) {
       };
     }
 
-    // case "GET_STOCK": {
-    //   return {
-    //     ...state,
-    //     stock: action.payload.map((data) => data),
-    //     loading: false,
-    //   };
-    // }
+    case "DELETE_SUPPLIER": {
+      let newData = state.suppliers.filter((el) => el.id !== action.payload);
+      return {
+        ...state,
+        suppliers: newData,
+        loading: false,
+      };
+    }
 
     default:
       return state;

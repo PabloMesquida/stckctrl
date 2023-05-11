@@ -22,8 +22,7 @@ const getSuppliers = async (req, res) => {
   try {
     const results = await executeQuery({
       query:
-        "SELECT id, nombre, direccion, telefono, comentarios, mail, web FROM proveedores WHERE activo = ? ORDER BY id DESC",
-      values: [1],
+        "SELECT id, nombre, direccion, telefono, comentarios, mail, web FROM proveedores WHERE activo = 1 ORDER BY id DESC",
     });
     return res.status(SUCCESS).json(results);
   } catch (error) {

@@ -2,21 +2,62 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getSuppliers } from "@/actions/productsActions.js";
+import { getSuppliers, deleteSupplier } from "@/actions/productsActions.js";
+import Modal from "@/components/modal/Modal.js";
 import FilterSuppliers from "./FilterSuppliers.js";
 import ItemSuppliers from "./ItemSuppliers.js";
 
 const ListSuppliers = () => {
   const dispatch = useDispatch();
   const suppliers = useSelector((state) => state?.products.suppliers);
+  const router = useRouter();
+  const [supplierId, setSupplierId] = useState(null);
   const [filter, setFilter] = useState();
-
-  console.log(suppliers);
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState({
+    status: "",
+    type: null,
+    text: null,
+  });
 
   const fetchData = () => {
     axios.get(`./api/suppliers`).then((res) => {
       dispatch(getSuppliers(res.data));
     });
+  };
+
+  const warningMessage = (name, id) => {
+    setSupplierId(id);
+    setMessage({
+      status: "delete",
+      type: "warning",
+      text: (
+        <>
+          ¿Desea continuar y eliminar este proveedor?
+          <br />
+          {name}
+        </>
+      ),
+    });
+    openModal();
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSupplierId(null);
+    setShowModal(false);
+
+    router.push("/suppliers");
+  };
+
+  const deleteSup = async (id) => {
+    await axios.delete(`./api/suppliers/${id}`).then((res) => {
+      dispatch(deleteSupplier(id));
+    });
+    closeModal();
   };
 
   useEffect(() => {
@@ -36,7 +77,14 @@ const ListSuppliers = () => {
   };
 
   return (
-    <div>
+    <>
+      {showModal && (
+        <Modal
+          message={message}
+          firstBtn={() => deleteSup(supplierId)}
+          secondBtn={closeModal}
+        />
+      )}
       <FilterSuppliers setFilter={setFilter} />
       <div>
         <div>
@@ -57,7 +105,7 @@ const ListSuppliers = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
