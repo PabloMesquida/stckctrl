@@ -18,12 +18,12 @@ const FormSuppliers = ({ supplier = null, id = null }) => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      sup_name: "",
-      sup_address: "",
-      sup_phone: "",
-      sup_email: "",
-      sup_web: "",
-      sup_description: "",
+      sup_name: supplier ? supplier[0].nombre : "",
+      sup_address: supplier ? supplier[0].direccion : "",
+      sup_phone: supplier ? supplier[0].telefono : "",
+      sup_email: supplier ? supplier[0].mail : "",
+      sup_web: supplier ? supplier[0].web : "",
+      sup_description: supplier ? supplier[0].comentarios : "",
     },
     validate: (values) => add_supplier_validate(values),
     onSubmit,
@@ -47,16 +47,15 @@ const FormSuppliers = ({ supplier = null, id = null }) => {
     };
 
     if (supplier && id) {
-      // options.body.id = id;
-      // await axios.post(`../../api/suppliers/${id}`, options).then((res) => {
-      //   if (res.data.status) {
-      //     setMessage({
-      //       status: res.data.status,
-      //       type: res.data.type,
-      //       text: res.data.message,
-      //     });
-      //   }
-      // });
+      await axios.post(`../../api/suppliers/${id}`, options).then((res) => {
+        if (res.data.status) {
+          setMessage({
+            status: res.data.status,
+            type: res.data.type,
+            text: res.data.message,
+          });
+        }
+      });
     } else {
       await axios.post("../../api/suppliers", options).then((res) => {
         if (res.data.status) {

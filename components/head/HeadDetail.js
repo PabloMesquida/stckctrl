@@ -8,6 +8,7 @@ const HeadDetail = ({ name, id }) => {
   const router = useRouter();
   const widthNavigator = useWidthNavigator();
   const isEditing = router.pathname.includes("/edit");
+  const isSupplier = router.pathname.includes("/suppliers");
   const isEditingStock = router.pathname.includes("/inventory");
 
   return (
@@ -19,7 +20,13 @@ const HeadDetail = ({ name, id }) => {
       <div className="flex items-center gap-4">
         <Link
           href={
-            isEditing ? (isEditingStock ? `../../${id}` : `../${id}`) : `./`
+            !isSupplier
+              ? isEditing
+                ? isEditingStock
+                  ? `../../${id}`
+                  : `../${id}`
+                : `./`
+              : `./../`
           }
         >
           <button className={stylesGeneral.button_sm_nofill}>

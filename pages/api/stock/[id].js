@@ -70,7 +70,6 @@ const updateProduct = async (req, res) => {
       message: "¡Listo! El producto ha sido editado correctamente.",
     });
   } catch (error) {
-    console.error(error);
     return res.status(INTERNAL_SERVER_ERROR).json({
       status: false,
       type: "error",

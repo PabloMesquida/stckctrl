@@ -4,7 +4,6 @@ import {
   GET_PRODUCT,
   RESET_PRODUCTS,
   CREATE_PRODUCT,
-  UPDATE_STOCK,
   DELETE_PRODUCT,
   GET_CATEGORIES,
   GET_CATEGORY,
@@ -52,11 +51,6 @@ export const createProduct = (data) => {
     payload: data,
   };
 };
-
-export const updateStock = (stock) => ({
-  type: UPDATE_STOCK,
-  payload: stock,
-});
 
 export const deleteProduct = (id) => {
   return {
