@@ -119,10 +119,8 @@ export default function productsReducer(state = initialState, action) {
     }
 
     case "GET_SUPPLIERS": {
-      console.log("GET_SUPPLIERS");
       return {
         ...state,
-        // suppliers: [...state.suppliers, ...action.payload],
         suppliers: action.payload.map((data) => data),
         loading: false,
       };

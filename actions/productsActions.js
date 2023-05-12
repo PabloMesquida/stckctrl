@@ -39,7 +39,6 @@ export const getProductData = (data) => {
 };
 
 export const resetProductData = () => {
-  console.log("resetProductDAta");
   return {
     type: RESET_PRODUCTS,
   };
