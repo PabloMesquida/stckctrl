@@ -6,7 +6,7 @@ const ListProducts = lazy(() => import("@/components/stock/ListProducts.js"));
 const ListSuppliers = lazy(() =>
   import("@/components/suppliers/ListSuppliers.js")
 );
-//const ListSales = lazy(() => import("@/components/sales/ListSales.js"));
+const ListSales = lazy(() => import("@/components/sales/ListSales.js"));
 
 const IndexSection = ({ section }) => {
   let ListComponent;
@@ -16,6 +16,9 @@ const IndexSection = ({ section }) => {
       break;
     case "suppliers":
       ListComponent = ListSuppliers;
+      break;
+    case "sales":
+      ListComponent = ListSales;
       break;
     default:
       ListComponent = ListProducts;

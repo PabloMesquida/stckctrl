@@ -21,7 +21,7 @@ const NavMenu = () => {
           </Link>
         </li>
         <li>
-          <Link href="#" className={navStyles.nav_aside_link_featured}>
+          <Link href="/sales" className={navStyles.nav_aside_link_featured}>
             <MdAttachMoney size={24} className="text-th-accent-dark ml-1" />
             <span className="ml-4">Ventas</span>
           </Link>

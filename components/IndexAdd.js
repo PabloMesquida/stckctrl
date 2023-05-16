@@ -8,7 +8,7 @@ const FormProducts = lazy(() =>
 const FormSuppliers = lazy(() =>
   import("@/components/suppliers/add/FormSuppliers.js")
 );
-//const ListSales = lazy(() => import("@/components/sales/ListSales.js"));
+const FormSales = lazy(() => import("@/components/sales/add/FormSales.js"));
 
 const IndexAdd = ({ section }) => {
   let FormComponent;
@@ -18,6 +18,9 @@ const IndexAdd = ({ section }) => {
       break;
     case "suppliers":
       FormComponent = FormSuppliers;
+      break;
+    case "sales":
+      FormComponent = FormSales;
       break;
     default:
       FormComponent = FormProducts;
