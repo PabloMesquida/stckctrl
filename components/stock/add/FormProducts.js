@@ -50,19 +50,8 @@ const FormProducts = ({ product = null, id = null }) => {
   };
 
   const closeModal = () => {
-    router.push("/stock");
-  };
-
-  const fetchData = () => {
-    axios
-      .get(`./../api/stock/limit/0`)
-      .then((res) => {
-        // dispatch(getProductsData(res.data));
-        setHasMore(res.data.length <= 0);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const path = id ? `/stock/${id}` : "/stock";
+    router.push(path);
   };
 
   async function onSubmit(values) {

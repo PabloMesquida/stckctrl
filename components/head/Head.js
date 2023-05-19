@@ -8,27 +8,31 @@ const Head = ({ section }) => {
   const router = useRouter();
   const isNew = router.pathname.includes("/new");
   const widthNavigator = useWidthNavigator();
-  let title, titleNew, link;
+  let title, titleNew, link, btnNew;
 
   switch (section) {
     case "stock":
       title = "STOCK";
       titleNew = "NUEVO PRODUCTO";
       link = "/stock";
+      btnNew = "Nuevo";
       break;
     case "suppliers":
       title = "PROVEEDORES";
       titleNew = "NUEVO PROVEEDOR";
       link = "/suppliers";
+      btnNew = "Nuevo";
       break;
     case "sales":
       title = "VENTAS";
       titleNew = "NUEVA VENTA";
       link = "/sales";
+      btnNew = "Nueva";
       break;
     default:
       title = "STOCK";
       link = "/stock";
+      btnNew = "Nuevo";
   }
   return (
     <div className={stylesGeneral.head_container}>
@@ -52,7 +56,7 @@ const Head = ({ section }) => {
         ) : (
           <Link href={`${link}/new`}>
             <button className={stylesGeneral.button_sm}>
-              <MdLibraryAdd size={24} className="mr-4" /> Nuevo
+              <MdLibraryAdd size={24} className="mr-4" /> {btnNew}
             </button>
           </Link>
         )}

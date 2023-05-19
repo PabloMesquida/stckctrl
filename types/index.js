@@ -1,4 +1,4 @@
-// CRUD PRODUCTS
+// PRODUCTS
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const RESET_PRODUCTS = "RESET_PRODUCTS";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -16,3 +16,6 @@ export const GET_SUPPLIER = "GET_SUPPLIER";
 export const DELETE_SUPPLIER = "DELETE_SUPPLIER";
 export const GET_SIZES = "GET_SIZES";
 export const GET_COLORS = "GET_COLORS";
+
+// SALES
+export const UPDATE_CURRENT_SALE = "UPDATE_CURRENT_SALE";

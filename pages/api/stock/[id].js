@@ -130,7 +130,7 @@ const getProduct = async (req, res) => {
     return res.status(SUCCESS).json({
       ...result_info_prod,
       colors: result_info_prod_colors,
-      sizes: 0,
+      sizes: uniqueSizes,
       stock: result_info_prod_stock,
     });
   } catch (error) {
