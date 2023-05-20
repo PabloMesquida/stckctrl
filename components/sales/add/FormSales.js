@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import stylesGeneral from "@/styles/General.module.css";
 
 const FormSales = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({
     status: false,
     type: null,
@@ -13,13 +14,17 @@ const FormSales = () => {
     initialValues: {
       code: "",
     },
-    onSubmit,
+    onSubmit: handleSubmit,
   });
 
-  async function onSubmit(values) {
-    await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
-      console.log(res.data.id);
-    });
+  async function handleSubmit(values) {
+    try {
+      await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
+        console.log(res.data);
+      });
+    } catch (error) {
+      console.error("Ocurrió un error: ", error);
+    }
   }
 
   return (

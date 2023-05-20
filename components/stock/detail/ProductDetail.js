@@ -4,7 +4,7 @@ import BreadcrumbNav from "@/components/breadcrum/BreadcrumbNav.js";
 import ProductDetailData from "@/components/stock/detail/ProductDetailData.js";
 import ProductDetailSkeleton from "@/components/stock/detail/ProductDetailSkeleton.js";
 import HeadDetail from "@/components/head/HeadDetail.js";
-import useFetchProduct from "../../../helpers/useFetchProduct";
+import useFetchProduct from "@/helpers/useFetchProduct";
 
 const ProductDetail = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);

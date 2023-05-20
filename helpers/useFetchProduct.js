@@ -5,13 +5,14 @@ import {
   getCategory,
   getGender,
   getSupplier,
-} from "@/actions/productsActions";
+} from "@/actions/productsActions.js";
+import { updateSaleData } from "@/actions/salesAction.js";
 import axios from "axios";
 
 const useFetchProduct = (id, stock) => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-
+  console.log("USE");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +39,8 @@ const useFetchProduct = (id, stock) => {
           dispatch(getGender(genderData));
           dispatch(getSupplier(supplierData));
         } else {
-          // Otras acciones del dispatch si otherVariable tiene otro valor
+          console.log("OK");
+          dispatch(updateSaleData(productData));
         }
 
         setIsLoading(false);
@@ -49,7 +51,7 @@ const useFetchProduct = (id, stock) => {
     };
 
     fetchData();
-  }, [id, stock]); // Dependencias "id" y "otherVariable" para que el efecto se ejecute cuando cualquiera de ellas cambie
+  }, [id, stock]);
 
   return isLoading;
 };

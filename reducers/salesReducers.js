@@ -13,5 +13,7 @@ export default function salesReducer(state = initialState, action) {
         loading: false,
       };
     }
+    default:
+      return state;
   }
 }
