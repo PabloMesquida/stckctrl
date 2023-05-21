@@ -39,10 +39,10 @@ const InputCode = () => {
         encType="multipart/form-data"
       >
         <div
-          className={`${stylesGeneral.panel_card} flex gap-4 items-center flex-col md:flex-row`}
+          className={`${stylesGeneral.panel_card} flex gap-4 items-start flex-col lg:flex-row`}
         >
           <div
-            className={`${stylesGeneral.input_group} min-w-full md:min-w-48 h-16`}
+            className={`${stylesGeneral.input_group} min-w-full lg:min-w-48 h-16`}
           >
             <input
               className={stylesGeneral.input_text}
@@ -56,18 +56,20 @@ const InputCode = () => {
               }}
             />
           </div>
-          <div className="w-full md:w-40">
-            <button type="submit" className={stylesGeneral.button_xl}>
-              OK
-            </button>
-          </div>
-          <div className="flex items-center w-full">
-            {formik.errors.code && formik.touched.code ? (
-              <Message
-                message={{ type: "warning", text: formik.errors.code }}
-              />
-            ) : null}
-            {message.status && <Message message={message} />}
+          <div className="flex flex-col-reverse lg:flex-row lg:items-start w-full gap-4">
+            <div className="w-full lg:w-40">
+              <button type="submit" className={stylesGeneral.button_xl}>
+                OK
+              </button>
+            </div>
+            <div className="flex items-center w-full">
+              {formik.errors.code && formik.touched.code ? (
+                <Message
+                  message={{ type: "warning", text: formik.errors.code }}
+                />
+              ) : null}
+              {message.status && <Message message={message} />}
+            </div>
           </div>
         </div>
       </form>
