@@ -104,3 +104,21 @@ export function add_supplier_validate(values) {
 
   return errors;
 }
+
+export function add_product_sale_validate(values) {
+  const { code } = values;
+  const errors = {};
+  const errorMessage = "Formato de código incorrecto";
+
+  if (
+    !code ||
+    code.length < 8 ||
+    code.length > 12 ||
+    !/^\d{8}/.test(code) ||
+    !/^[a-zA-Z0-9]+$/.test(code)
+  ) {
+    errors.code = errorMessage;
+  }
+
+  return errors;
+}

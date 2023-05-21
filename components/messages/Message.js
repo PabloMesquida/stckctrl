@@ -1,5 +1,5 @@
 import stylesGeneral from "@/styles/General.module.css";
-import IconAlert from "../icons/IconAlert.js";
+import IconAlert from "@/components/icons/IconAlert.js";
 
 const Message = ({ message }) => {
   const borderClass =

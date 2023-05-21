@@ -212,7 +212,7 @@ const FormProducts = ({ product = null, id = null }) => {
             <CheckColors formik={formik} />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-2 sm:gap-4">
           {[
             "prod_name",
             "id_categories",
