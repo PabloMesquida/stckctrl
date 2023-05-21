@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
 const getProductByCode = async (req, res) => {
   const { code } = req.query;
-  console.log("SELECT id FROM productos WHERE codigo = ?: ", code);
+
   try {
     const result_id_prod = await executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ?",
@@ -25,8 +25,12 @@ const getProductByCode = async (req, res) => {
 
     const id = result_id_prod[0].id;
 
-    const [result_info_prod, result_info_prod_colors, result_info_prod_sizes] =
-      await Promise.all([
+    try {
+      const [
+        result_info_prod,
+        result_info_prod_colors,
+        result_info_prod_sizes,
+      ] = await Promise.all([
         executeQuery({
           query: "SELECT * FROM productos WHERE id = ?",
           values: [id],
@@ -43,18 +47,27 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-    const uniqueSizes = [
-      ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
-    ];
+      const uniqueSizes = [
+        ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
+      ];
 
-    return res.status(SUCCESS).json({
-      ...result_info_prod,
-      colors: result_info_prod_colors,
-      sizes: result_info_prod_sizes,
-    });
+      return res.status(SUCCESS).json({
+        ...result_info_prod,
+        colors: result_info_prod_colors,
+        sizes: result_info_prod_sizes,
+      });
+    } catch (error) {
+      return res.status(INTERNAL_SERVER_ERROR).json({
+        message: "Se produjo un error al obtener el producto.",
+        error: {
+          type: error.constructor.name,
+          message: error.message,
+        },
+      });
+    }
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({
-      message: "Se produjo un error al obtener el producto",
+      message: "Lo siento, no hay productos disponibles con ese código.",
       error: {
         type: error.constructor.name,
         message: error.message,

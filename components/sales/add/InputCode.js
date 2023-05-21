@@ -22,12 +22,26 @@ const InputCode = () => {
   });
 
   async function handleSubmit(values) {
+    setMessage({});
     try {
       await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
-        console.log(res.data);
+        console.log("RES_DATA: ", res.data);
+        if (res.data.status) {
+          console.log("RES", res.data);
+          setMessage({
+            status: res.data.status,
+            type: res.data.type,
+            text: res.data.message,
+          });
+        }
       });
     } catch (error) {
-      console.error("Ocurrió un error: ", error);
+      console.log("ERRO-FRON", error.response.status);
+      setMessage({
+        status: error.response.status,
+        type: "error",
+        text: error.response.data.message,
+      });
     }
   }
 
@@ -62,14 +76,15 @@ const InputCode = () => {
                 OK
               </button>
             </div>
-            <div className="flex items-center w-full">
-              {formik.errors.code && formik.touched.code ? (
+
+            {formik.errors.code && formik.touched.code ? (
+              <div className="flex items-center w-full">
                 <Message
                   message={{ type: "warning", text: formik.errors.code }}
                 />
-              ) : null}
-              {message.status && <Message message={message} />}
-            </div>
+              </div>
+            ) : null}
+            {message.status && <Message message={message} />}
           </div>
         </div>
       </form>
