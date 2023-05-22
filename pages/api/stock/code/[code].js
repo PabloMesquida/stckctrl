@@ -19,7 +19,7 @@ const getProductByCode = async (req, res) => {
 
   try {
     const result_id_prod = await executeQuery({
-      query: "SELECT id FROM productos WHERE codigo = ?",
+      query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1",
       values: [code],
     });
 
@@ -47,12 +47,12 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-      const uniqueSizes = [
-        ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
-      ];
+      // const uniqueSizes = [
+      //   ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
+      // ];
 
       return res.status(SUCCESS).json({
-        ...result_info_prod,
+        data: result_info_prod[0],
         colors: result_info_prod_colors,
         sizes: result_info_prod_sizes,
       });

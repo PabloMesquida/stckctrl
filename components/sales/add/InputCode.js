@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { updateSaleData } from "@/actions/salesAction.js";
 import { add_product_sale_validate } from "@/helpers/validate.js";
+import { useDispatch, useSelector } from "react-redux";
 import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 
 const InputCode = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({
     status: false,
@@ -25,23 +27,22 @@ const InputCode = () => {
     setMessage({});
     try {
       await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
-        console.log("RES_DATA: ", res.data);
-        if (res.data.status) {
-          console.log("RES", res.data);
-          setMessage({
-            status: res.data.status,
-            type: res.data.type,
-            text: res.data.message,
-          });
-        }
+        dispatch(updateSaleData(res.data));
       });
     } catch (error) {
-      console.log("ERRO-FRON", error.response.status);
-      setMessage({
-        status: error.response.status,
-        type: "error",
-        text: error.response.data.message,
-      });
+      if (error.response) {
+        setMessage({
+          status: error.response.status,
+          type: "error",
+          text: error.response.data.message,
+        });
+      } else {
+        setMessage({
+          status: null,
+          type: "error",
+          text: "Error de conexión al servidor",
+        });
+      }
     }
   }
 

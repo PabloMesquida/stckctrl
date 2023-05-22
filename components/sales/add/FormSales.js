@@ -1,6 +1,6 @@
 import InputCode from "./InputCode";
-import ListNewSale from "./ListNewSale.js";
 import stylesGeneral from "@/styles/General.module.css";
+import ListNewSale from "./ListNewSale";
 
 const FormSales = () => {
   return (
