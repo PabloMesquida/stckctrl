@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { updateSaleData } from "@/actions/salesAction.js";
 import { add_product_sale_validate } from "@/helpers/validate.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 
@@ -54,7 +54,7 @@ const InputCode = () => {
         encType="multipart/form-data"
       >
         <div
-          className={`${stylesGeneral.panel_card} flex gap-4 items-start flex-col lg:flex-row`}
+          className={`${stylesGeneral.filter_container} flex gap-4 items-start flex-col lg:flex-row`}
         >
           <div
             className={`${stylesGeneral.input_group} min-w-full lg:min-w-48 h-16`}

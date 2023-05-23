@@ -1,12 +1,12 @@
 import InputCode from "./InputCode";
 import stylesGeneral from "@/styles/General.module.css";
-import ListNewSale from "./ListNewSale";
+import ListCurrentSale from "./ListCurrentSale.js";
 
 const FormSales = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-2 sm:gap-4">
       <InputCode />
-      <ListNewSale />
+      <ListCurrentSale />
     </div>
   );
 };

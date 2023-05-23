@@ -32,7 +32,8 @@ const getProductByCode = async (req, res) => {
         result_info_prod_sizes,
       ] = await Promise.all([
         executeQuery({
-          query: "SELECT * FROM productos WHERE id = ?",
+          query:
+            "SELECT p.*, c.nombre AS nombre_cat, prov.nombre AS nombre_prov, g.nombre AS nombre_gen FROM productos AS p JOIN categoria AS c ON p.id_cat = c.id JOIN proveedores AS prov ON prov.id = p.id_prov JOIN genero AS g ON g.id = p.id_gen WHERE p.id = ?",
           values: [id],
         }),
         executeQuery({
