@@ -38,24 +38,27 @@ const getProductByCode = async (req, res) => {
         }),
         executeQuery({
           query:
-            "SELECT p.id_color, c.color, c.etiqueta, c.hex FROM p_colores AS p JOIN colores AS c ON p.id_color = c.id WHERE id_prod = ? ",
+            "SELECT p.id_color AS id, c.color AS nombre, c.etiqueta, c.hex FROM p_colores AS p JOIN colores AS c ON p.id_color = c.id WHERE id_prod = ? ",
           values: [id],
         }),
         executeQuery({
           query:
-            "SELECT p.id_talle, t.talle FROM p_talles AS p JOIN talles AS t ON p.id_talle = t.id WHERE p.id_prod = ? ORDER BY t.orden ASC",
+            "SELECT p.id_talle AS id, t.talle AS nombre FROM p_talles AS p JOIN talles AS t ON p.id_talle = t.id WHERE p.id_prod = ? ORDER BY t.orden ASC",
           values: [id],
         }),
       ]);
 
-      // const uniqueSizes = [
-      //   ...new Set(result_info_prod_sizes.map(({ id_talle }) => id_talle)),
-      // ];
+      const uniqueSizes = Object.values(
+        result_info_prod_sizes.reduce((accumulator, current) => {
+          accumulator[current.id] = current;
+          return accumulator;
+        }, {})
+      );
 
       return res.status(SUCCESS).json({
         data: result_info_prod[0],
         colors: result_info_prod_colors,
-        sizes: result_info_prod_sizes,
+        sizes: uniqueSizes,
       });
     } catch (error) {
       return res.status(INTERNAL_SERVER_ERROR).json({

@@ -4,7 +4,6 @@ import {
   getCategories,
   getGenders,
   getAllSuppliersData,
-  getSuppliers,
 } from "@/actions/productsActions.js";
 import axios from "axios";
 import stylesGeneral from "@/styles/General.module.css";

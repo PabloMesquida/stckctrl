@@ -1,3 +1,4 @@
+import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 
 const ItemCurrentSale = ({ product }) => {
@@ -9,6 +10,12 @@ const ItemCurrentSale = ({ product }) => {
       <div>{product.data.nombre}</div>
       <div>{product.data.nombre_prov}</div>
       <div>{product.data.nombre_gen}</div>
+      <div>
+        <SelectProdOptions options={product.colors} />
+      </div>
+      <div>
+        <SelectProdOptions options={product.sizes} />
+      </div>
     </div>
   );
 };
