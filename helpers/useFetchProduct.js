@@ -12,7 +12,7 @@ import axios from "axios";
 const useFetchProduct = (id, stock) => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  console.log("USE");
+
   useEffect(() => {
     const fetchData = async () => {
       try {

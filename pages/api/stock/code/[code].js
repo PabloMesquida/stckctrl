@@ -18,19 +18,21 @@ const getProductByCode = async (req, res) => {
   const { code } = req.query;
 
   try {
-    const result_id_prod = await executeQuery({
-      query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1",
+    const [result_id_prod] = await executeQuery({
+      query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
       values: [code],
     });
 
-    const id = result_id_prod[0].id;
+    if (!result_id_prod) {
+      return res.status(INTERNAL_SERVER_ERROR).json({
+        message: "Lo siento, no hay productos disponibles con ese código.",
+      });
+    }
 
-    try {
-      const [
-        result_info_prod,
-        result_info_prod_colors,
-        result_info_prod_sizes,
-      ] = await Promise.all([
+    const id = result_id_prod.id;
+
+    const [result_info_prod, result_info_prod_colors, result_info_prod_sizes] =
+      await Promise.all([
         executeQuery({
           query:
             "SELECT p.*, c.nombre AS nombre_cat, prov.nombre AS nombre_prov, g.nombre AS nombre_gen FROM productos AS p JOIN categoria AS c ON p.id_cat = c.id JOIN proveedores AS prov ON prov.id = p.id_prov JOIN genero AS g ON g.id = p.id_gen WHERE p.id = ?",
@@ -48,30 +50,24 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-      const uniqueSizes = Object.values(
-        result_info_prod_sizes.reduce((accumulator, current) => {
+    const uniqueSizes = result_info_prod_sizes.reduce(
+      (accumulator, current) => {
+        if (!accumulator[current.id]) {
           accumulator[current.id] = current;
-          return accumulator;
-        }, {})
-      );
+        }
+        return accumulator;
+      },
+      {}
+    );
 
-      return res.status(SUCCESS).json({
-        data: result_info_prod[0],
-        colors: result_info_prod_colors,
-        sizes: uniqueSizes,
-      });
-    } catch (error) {
-      return res.status(INTERNAL_SERVER_ERROR).json({
-        message: "Se produjo un error al obtener el producto.",
-        error: {
-          type: error.constructor.name,
-          message: error.message,
-        },
-      });
-    }
+    return res.status(SUCCESS).json({
+      data: result_info_prod[0],
+      colors: result_info_prod_colors,
+      sizes: Object.values(uniqueSizes),
+    });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({
-      message: "Lo siento, no hay productos disponibles con ese código.",
+      message: "Se produjo un error al obtener el producto.",
       error: {
         type: error.constructor.name,
         message: error.message,
