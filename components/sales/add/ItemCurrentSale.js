@@ -1,8 +1,19 @@
+import { useState } from "react";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 
 const ItemCurrentSale = ({ product }) => {
+  const [showLiquidPrice, setShowLiquidPrice] = useState(false);
   console.log(product);
+
+  const handleCheckboxChange = () => {
+    setShowLiquidPrice(!showLiquidPrice);
+  };
+
+  const priceToShow = showLiquidPrice
+    ? product.data.precio_liq
+    : product.data.precio;
+
   return (
     <div className="border-b pb-2">
       <div>{product.data.codigo}</div>
@@ -16,6 +27,17 @@ const ItemCurrentSale = ({ product }) => {
       <div>
         <SelectProdOptions options={product.sizes} />
       </div>
+      <div>
+        <label>
+          LI:
+          <input
+            type="checkbox"
+            checked={showLiquidPrice}
+            onChange={handleCheckboxChange}
+          />
+        </label>
+      </div>
+      <div>{priceToShow}</div>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { executeQuery } from "@/config/db";
 import {
   HTTP_METHOD_NOT_ALLOWED,
   INTERNAL_SERVER_ERROR,
-  NO_CONTENT,
   SUCCESS,
 } from "@/status";
 
