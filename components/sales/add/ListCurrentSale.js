@@ -25,12 +25,8 @@ const ListCurrentSale = () => {
         </div>
       ) : (
         <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
-          {newSale.map((product) => (
-            <ItemCurrentSale
-              product={product}
-              delItem={delItem}
-              key={product.data.id}
-            />
+          {newSale.map((product, index) => (
+            <ItemCurrentSale product={product} delItem={delItem} key={index} />
           ))}
         </div>
       )}

@@ -31,12 +31,12 @@ const ItemProducts = ({ product, warningMessage }) => {
           </div>
           <div>
             <span className={stylesGeneral.item_name}>
-              {`${product.categoria} ${product.nombre}`}
+              {product.categoria} {product.nombre}
             </span>
           </div>
           <div className="flex flex-row w-full">
             <span className={stylesGeneral.item_sub}>
-              {`${product.proveedor} - ${product.genero}`}
+              {product.proveedor} - {product.genero}
             </span>
           </div>
         </div>

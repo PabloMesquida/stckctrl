@@ -46,8 +46,16 @@
   @apply flex border-2 rounded-md relative border-th-primary-light;
 }
 
+.input_group_sm {
+  @apply flex border-2 rounded-md relative border-th-primary-light my-4 w-1/2 h-10;
+}
+
 .input_text {
-  @apply w-full text-sm sm:text-base py-2 sm:py-4 px-2 sm:px-6 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none;
+  @apply w-full py-2 sm:py-4 px-2 sm:px-6 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none;
+}
+
+.input_text_sm {
+  @apply w-full text-xs sm:text-sm p-2 border-2 rounded-md bg-th-background text-th-primary-dark focus:outline-none border-none resize-none;
 }
 
 .input_text + * {
