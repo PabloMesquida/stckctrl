@@ -16,7 +16,7 @@ const ItemCurrentSale = ({ product, delItem }) => {
     : product.data.precio;
 
   return (
-    <div className="border-b border-dashed flex flex-col border-th-primary-light">
+    <div className="border-b border-dashed flex flex-col border-th-primary-light pb-4">
       <div className="flex">
         <div className={`${stylesGeneral.item_code} grow`}>
           {`[ ${product.data.codigo} ]`}
@@ -31,31 +31,33 @@ const ItemCurrentSale = ({ product, delItem }) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row md:gap-2 items-start md:items-center">
-        <div className={stylesGeneral.item_name}>
-          {product.data.nombre_cat} {product.data.nombre}
-        </div>
-        <div className={stylesGeneral.item_sub}>
-          {product.data.nombre_prov} - {product.data.nombre_gen}
-        </div>
-      </div>
-      <div className="flex gap-4">
-        <div className="flex gap-4 grow">
-          <SelectProdOptions options={product.colors} />
-          <SelectProdOptions options={product.sizes} />
-        </div>
-        <div className="flex gap-4 min-w-32 items-center justify-between">
-          <div className="flex flex-row gap-4">
-            <label>
-              <span className={`${stylesGeneral.item_name} mr-4`}>LI:</span>
-              <input
-                type="checkbox"
-                checked={showLiquidPrice}
-                onChange={handleCheckboxChange}
-              />
-            </label>
+      <div className="flex flex-col lg:flex-row w-full gap-4">
+        <div className="flex flex-col md:flex-row md:gap-2 items-start md:items-center grow">
+          <div className={stylesGeneral.item_name}>
+            {product.data.nombre_cat} {product.data.nombre}
           </div>
-          <div>${priceToShow}</div>
+          <div className={stylesGeneral.item_sub}>
+            {product.data.nombre_prov} - {product.data.nombre_gen}
+          </div>
+        </div>
+        <div className="flex gap-4 md:gap-8">
+          <div className="flex gap-2 md:gap-4 md:grow">
+            <SelectProdOptions options={product.colors} size="base" />
+            <SelectProdOptions options={product.sizes} size="sm" />
+          </div>
+          <div className="flex gap-4 w-full md:w-32 items-center justify-between">
+            <div className="flex flex-row gap-4">
+              <label>
+                <span className={`${stylesGeneral.item_name} mr-4`}>Liq:</span>
+                <input
+                  type="checkbox"
+                  checked={showLiquidPrice}
+                  onChange={handleCheckboxChange}
+                />
+              </label>
+            </div>
+            <div>${priceToShow}</div>
+          </div>
         </div>
       </div>
     </div>
