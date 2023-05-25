@@ -21,7 +21,11 @@ const SelectProdOptions = ({ options, size, optionSelected = null }) => {
       >
         {options && options.length > 0 ? (
           options.map((el) => (
-            <option value={el.id} key={el.id} name={el.nombre}>
+            <option
+              value={el.id}
+              key={`${el.id}-${el.nombre}`}
+              name={el.nombre}
+            >
               {el.nombre}
             </option>
           ))

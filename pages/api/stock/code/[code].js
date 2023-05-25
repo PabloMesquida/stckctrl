@@ -16,6 +16,9 @@ export default async function handler(req, res) {
 const getProductByCode = async (req, res) => {
   const { code } = req.query;
 
+  let color,
+    size = {};
+
   try {
     const [result_id_prod] = await executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
@@ -49,19 +52,28 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-    const uniqueSizesSet = new Set(
-      result_info_prod_sizes.map((size) => ({
-        id: size.id,
-        nombre: size.nombre,
-      }))
-    );
-    const uniqueSizes = Array.from(uniqueSizesSet);
+    function filtrarPorIdUnico(arr) {
+      const uniqueSet = new Set();
 
-    return res.status(SUCCESS).json({
-      data: result_info_prod[0],
-      colors: result_info_prod_colors,
-      sizes: uniqueSizes,
-    });
+      return arr.filter((item) => {
+        if (!uniqueSet.has(item.id)) {
+          uniqueSet.add(item.id);
+          return true;
+        }
+        return false;
+      });
+    }
+
+    const uniqueSizes = filtrarPorIdUnico(result_info_prod_sizes);
+
+    if (code)
+      return res.status(SUCCESS).json({
+        data: result_info_prod[0],
+        color,
+        size,
+        colors: result_info_prod_colors,
+        sizes: uniqueSizes,
+      });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({
       message: "Se produjo un error al obtener el producto.",
