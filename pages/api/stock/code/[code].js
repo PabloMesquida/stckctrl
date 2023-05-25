@@ -1,4 +1,5 @@
 import { executeQuery } from "@/config/db";
+import { filterById, splitCode } from "@/helpers/utils";
 import {
   HTTP_METHOD_NOT_ALLOWED,
   INTERNAL_SERVER_ERROR,
@@ -16,13 +17,12 @@ export default async function handler(req, res) {
 const getProductByCode = async (req, res) => {
   const { code } = req.query;
 
-  let color,
-    size = {};
+  const [productCode, colorCode, sizeCode] = splitCode(code);
 
   try {
     const [result_id_prod] = await executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
-      values: [code],
+      values: [productCode],
     });
 
     if (!result_id_prod) {
@@ -52,25 +52,11 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-    function filtrarPorIdUnico(arr) {
-      const uniqueSet = new Set();
+    const uniqueSizes = filterById(result_info_prod_sizes);
 
-      return arr.filter((item) => {
-        if (!uniqueSet.has(item.id)) {
-          uniqueSet.add(item.id);
-          return true;
-        }
-        return false;
-      });
-    }
-
-    const uniqueSizes = filtrarPorIdUnico(result_info_prod_sizes);
-
-    if (code)
+    if (productCode)
       return res.status(SUCCESS).json({
         data: result_info_prod[0],
-        color,
-        size,
         colors: result_info_prod_colors,
         sizes: uniqueSizes,
       });
