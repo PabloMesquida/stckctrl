@@ -46,6 +46,11 @@ const InputCode = () => {
     }
   }
 
+  const handleInputChange = (e) => {
+    const value = e.target.value.trim(); // Eliminar espacios en blanco
+    formik.setFieldValue("code", value);
+  };
+
   return (
     <div>
       <form
@@ -66,6 +71,7 @@ const InputCode = () => {
               placeholder="Código"
               maxLength={12}
               {...formik.getFieldProps("code")}
+              onChange={handleInputChange}
               onKeyUp={(e) => {
                 e.target.value = e.target.value.toUpperCase();
               }}

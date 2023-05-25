@@ -1,6 +1,6 @@
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectProdOptions = ({ options, size }) => {
+const SelectProdOptions = ({ options, size, optionSelected = null }) => {
   const isSmallSize = size === "sm";
   const isBaseSize = size === "base";
   const minWClass = isSmallSize
@@ -9,7 +9,6 @@ const SelectProdOptions = ({ options, size }) => {
     ? "w-32 md:min-w-32 md:w-full"
     : "w-full";
 
-  console.log(options);
   return (
     <div className={`${stylesGeneral.input_group_sm} ${minWClass}`}>
       <select
