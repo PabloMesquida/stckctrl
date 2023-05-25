@@ -8,6 +8,8 @@ const SelectProdOptions = ({ options, size }) => {
     : isBaseSize
     ? "w-32 md:min-w-32 md:w-full"
     : "w-full";
+
+  console.log(options);
   return (
     <div className={`${stylesGeneral.input_group_sm} ${minWClass}`}>
       <select

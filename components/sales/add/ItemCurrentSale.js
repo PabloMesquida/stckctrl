@@ -56,7 +56,9 @@ const ItemCurrentSale = ({ product, delItem }) => {
                 />
               </label>
             </div>
-            <div>${priceToShow}</div>
+            <div>
+              $<span className="text-xl">{priceToShow}</span>
+            </div>
           </div>
         </div>
       </div>

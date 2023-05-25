@@ -49,20 +49,18 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-    const uniqueSizes = result_info_prod_sizes.reduce(
-      (accumulator, current) => {
-        if (!accumulator[current.id]) {
-          accumulator[current.id] = current;
-        }
-        return accumulator;
-      },
-      {}
+    const uniqueSizesSet = new Set(
+      result_info_prod_sizes.map((size) => ({
+        id: size.id,
+        nombre: size.nombre,
+      }))
     );
+    const uniqueSizes = Array.from(uniqueSizesSet);
 
     return res.status(SUCCESS).json({
       data: result_info_prod[0],
       colors: result_info_prod_colors,
-      sizes: Object.values(uniqueSizes),
+      sizes: uniqueSizes,
     });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({

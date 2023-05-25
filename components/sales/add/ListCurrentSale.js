@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteProductCurrentSale } from "@/actions/salesAction.js";
+import SummaryCurrentSale from "./SummaryCurrentSale.js";
 import ItemCurrentSale from "./ItemCurrentSale.js";
 import stylesGeneral from "@/styles/General.module.css";
 
@@ -28,6 +29,7 @@ const ListCurrentSale = () => {
           {newSale.map((product, index) => (
             <ItemCurrentSale product={product} delItem={delItem} key={index} />
           ))}
+          <SummaryCurrentSale />
         </div>
       )}
     </>
