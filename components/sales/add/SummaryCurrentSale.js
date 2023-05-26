@@ -22,10 +22,13 @@ const SummaryCurrentSale = () => {
   return (
     <div>
       <div>
-        <div>Forma de pago:</div>
         <div>
           {!isLoading && (
-            <SelectProdOptions options={paymentMethods} size="base" />
+            <SelectProdOptions
+              name="Forma de pago"
+              options={paymentMethods}
+              size="base"
+            />
           )}
         </div>
       </div>

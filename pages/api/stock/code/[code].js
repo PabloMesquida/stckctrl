@@ -19,10 +19,6 @@ const getProductByCode = async (req, res) => {
 
   const [productCode, colorCode, sizeCode] = splitCode(code);
 
-  console.log("CODE: ", productCode);
-  if (colorCode) console.log("COLOR: ", colorCode);
-  if (sizeCode) console.log("SIZE: ", sizeCode);
-
   try {
     const [result_id_prod] = await executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
@@ -35,8 +31,30 @@ const getProductByCode = async (req, res) => {
       });
     }
 
+    let result_color,
+      result_size = null;
+
+    if (colorCode) {
+      const color_query =
+        "SELECT id, color as nombre FROM colores WHERE etiqueta = ? LIMIT 1";
+
+      result_color = await executeQuery({
+        query: color_query,
+        values: [colorCode],
+      });
+    }
+
+    if (sizeCode) {
+      const size_query =
+        "SELECT id, talle as nombre FROM talles WHERE etiqueta = ? LIMIT 1";
+
+      result_size = await executeQuery({
+        query: size_query,
+        values: [sizeCode],
+      });
+    }
+
     const id = result_id_prod.id;
-    console.log("ID: ", id);
 
     const [result_info_prod, result_info_prod_colors, result_info_prod_sizes] =
       await Promise.all([
@@ -64,6 +82,8 @@ const getProductByCode = async (req, res) => {
         data: result_info_prod[0],
         colors: result_info_prod_colors,
         sizes: uniqueSizes,
+        color: result_color ? result_color[0] : null,
+        size: result_size ? result_size[0] : null,
       });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({

@@ -1,6 +1,6 @@
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectProdOptions = ({ options, size, optionSelected = null }) => {
+const SelectProdOptions = ({ name, options, size, optionSelected = null }) => {
   const isSmallSize = size === "sm";
   const isBaseSize = size === "base";
   const minWClass = isSmallSize
@@ -20,15 +20,31 @@ const SelectProdOptions = ({ options, size, optionSelected = null }) => {
         className={`${stylesGeneral.input_text_sm}`}
       >
         {options && options.length > 0 ? (
-          options.map((el) => (
-            <option
-              value={el.id}
-              key={`${el.id}-${el.nombre}`}
-              name={el.nombre}
-            >
-              {el.nombre}
-            </option>
-          ))
+          <>
+            {optionSelected ? (
+              <option
+                value={optionSelected.id}
+                key="0"
+                name={optionSelected.nombre}
+              >
+                {optionSelected.nombre}
+              </option>
+            ) : (
+              <option value="" key="0" name={name}>
+                {name}
+              </option>
+            )}
+
+            {options.map((el) => (
+              <option
+                value={el.id}
+                key={`${el.id}-${el.nombre}`}
+                name={el.nombre}
+              >
+                {el.nombre}
+              </option>
+            ))}
+          </>
         ) : (
           <option>No Data</option>
         )}

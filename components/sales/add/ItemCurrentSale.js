@@ -15,6 +15,21 @@ const ItemCurrentSale = ({ product, delItem }) => {
     ? product.data.precio_liq
     : product.data.precio;
 
+  let selectedColor,
+    selectedSize = null;
+
+  if (product.color) {
+    selectedColor = product.colors.find(
+      (color) => color.id === product.color.id
+    );
+  }
+
+  if (product.size) {
+    selectedSize = product.sizes.find((size) => size.id === product.size.id);
+  }
+
+  console.log(selectedColor);
+
   return (
     <div className="border-b border-dashed flex flex-col border-th-primary-light pb-4">
       <div className="flex">
@@ -42,8 +57,18 @@ const ItemCurrentSale = ({ product, delItem }) => {
         </div>
         <div className="flex gap-4 md:gap-8">
           <div className="flex gap-2 md:gap-4 md:grow">
-            <SelectProdOptions options={product.colors} size="base" />
-            <SelectProdOptions options={product.sizes} size="sm" />
+            <SelectProdOptions
+              name="Colores"
+              options={product.colors}
+              size="base"
+              optionSelected={selectedColor}
+            />
+            <SelectProdOptions
+              name="Talles"
+              options={product.sizes}
+              size="sm"
+              optionSelected={selectedSize}
+            />
           </div>
           <div className="flex gap-4 w-full md:w-32 items-center justify-between">
             <div className="flex flex-row gap-4">
