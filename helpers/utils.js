@@ -4,8 +4,8 @@ export function splitCode(code) {
   }
 
   let productCode = code.slice(0, 8);
-  let colorCode = code.length > 8 ? code.slice(8, code.length - 2) : "";
-  let sizeCode = code.slice(-2);
+  let colorCode = code.length > 8 ? code.slice(8, 10) : "";
+  let sizeCode = code.length > 10 ? code.slice(10, code.length) : "";
 
   return [productCode, colorCode, sizeCode];
 }

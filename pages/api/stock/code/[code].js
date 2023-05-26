@@ -19,6 +19,10 @@ const getProductByCode = async (req, res) => {
 
   const [productCode, colorCode, sizeCode] = splitCode(code);
 
+  console.log("CODE: ", productCode);
+  if (colorCode) console.log("COLOR: ", colorCode);
+  if (sizeCode) console.log("SIZE: ", sizeCode);
+
   try {
     const [result_id_prod] = await executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
@@ -32,6 +36,7 @@ const getProductByCode = async (req, res) => {
     }
 
     const id = result_id_prod.id;
+    console.log("ID: ", id);
 
     const [result_info_prod, result_info_prod_colors, result_info_prod_sizes] =
       await Promise.all([
