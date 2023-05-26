@@ -21,3 +21,10 @@ export function filterById(arr) {
     return false;
   });
 }
+
+export function generateUniqueId() {
+  const timestamp = Date.now().toString(16); // Obtener la marca de tiempo actual en formato hexadecimal
+  const random = Math.random().toString(16).slice(2); // Obtener un número aleatorio en formato hexadecimal
+
+  return `${timestamp}-${random}`;
+}

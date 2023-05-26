@@ -14,9 +14,7 @@ export default function salesReducer(state = initialStateSales, action) {
       };
     }
     case "DELETE_PRODUCT_CURRENT_SALE": {
-      let newData = state.currentSale.filter(
-        (el) => el.data.id !== action.payload
-      );
+      let newData = state.currentSale.filter((el) => el.id !== action.payload);
       return {
         ...state,
         currentSale: newData,

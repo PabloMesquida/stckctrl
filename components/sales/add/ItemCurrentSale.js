@@ -24,7 +24,7 @@ const ItemCurrentSale = ({ product, delItem }) => {
         <div>
           <button
             onClick={() => {
-              delItem(product.data.id);
+              delItem(product.id);
             }}
           >
             <MdDeleteForever className={stylesGeneral.item_icon_del} />

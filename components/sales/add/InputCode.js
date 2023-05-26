@@ -6,6 +6,7 @@ import { add_product_sale_validate } from "@/helpers/validate.js";
 import { useDispatch } from "react-redux";
 import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
+import { generateUniqueId } from "@/helpers/utils";
 
 const InputCode = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,11 @@ const InputCode = () => {
     setMessage({});
     try {
       await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
-        dispatch(updateSaleData(res.data));
+        const updatedSaleData = {
+          ...res.data,
+          id: generateUniqueId(),
+        };
+        dispatch(updateSaleData(updatedSaleData));
       });
     } catch (error) {
       if (error.response) {
