@@ -10,7 +10,6 @@ const ListCurrentSale = () => {
   const dispatch = useDispatch();
 
   const delItem = (id) => {
-    console.log("del" + id);
     dispatch(deleteProductCurrentSale(id));
   };
 
@@ -20,13 +19,13 @@ const ListCurrentSale = () => {
 
   return (
     <>
-      {newSale.length === 0 ? (
+      {newSale.products.length === 0 ? (
         <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
           No se encontraron productos.
         </div>
       ) : (
         <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
-          {newSale.map((product, index) => (
+          {newSale.products.map((product, index) => (
             <ItemCurrentSale product={product} delItem={delItem} key={index} />
           ))}
           <SummaryCurrentSale />

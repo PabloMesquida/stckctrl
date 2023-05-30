@@ -1,8 +1,11 @@
-import { UPDATE_CURRENT_SALE, DELETE_PRODUCT_CURRENT_SALE } from "../types";
+import {
+  ADD_PRODCUT_CURRENT_SALE,
+  DELETE_PRODUCT_CURRENT_SALE,
+} from "../types";
 
-export const updateSaleData = (data) => {
+export const addProductSaleData = (data) => {
   return {
-    type: UPDATE_CURRENT_SALE,
+    type: ADD_PRODCUT_CURRENT_SALE,
     payload: data,
   };
 };
