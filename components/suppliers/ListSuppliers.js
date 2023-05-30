@@ -90,7 +90,7 @@ const ListSuppliers = () => {
         <div>
           {filterSup(filter).length === 0 ? (
             <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
-              No se encontraron productos.
+              No se encontraron proveedores.
             </div>
           ) : (
             filterSup(filter).map((supplier) => (
