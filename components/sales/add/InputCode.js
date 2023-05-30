@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { addProductSaleData } from "@/actions/salesAction.js";
+import { addProductSale } from "@/actions/salesAction.js";
 import { add_product_sale_validate } from "@/helpers/validate.js";
 import { useDispatch } from "react-redux";
 import Message from "@/components/messages/Message.js";
@@ -28,11 +28,11 @@ const InputCode = () => {
     setMessage({});
     try {
       await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
-        const AddProductSaleData = {
+        const addProductSaleData = {
           ...res.data,
           id: generateUniqueId(),
         };
-        dispatch(addProductSaleData(AddProductSaleData));
+        dispatch(addProductSale(addProductSaleData));
       });
     } catch (error) {
       if (error.response) {

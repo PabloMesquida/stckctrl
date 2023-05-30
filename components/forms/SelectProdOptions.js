@@ -1,6 +1,12 @@
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectProdOptions = ({ name, options, size, optionSelected = null }) => {
+const SelectProdOptions = ({
+  name,
+  options,
+  size,
+  optionSelected = null,
+  handleSelectChange,
+}) => {
   const isSmallSize = size === "sm";
   const isBaseSize = size === "base";
   const minWClass = isSmallSize
@@ -12,9 +18,9 @@ const SelectProdOptions = ({ name, options, size, optionSelected = null }) => {
   return (
     <div className={`${stylesGeneral.input_group_sm} ${minWClass}`}>
       <select
-        name={options.nombre}
+        name={name}
         // {...formik.getFieldProps(`id_${name}`)}
-        // onChange={handlechange ? handlechange : formik.handleChange}
+        onChange={handleSelectChange}
         // onBlur={formik.handleBlur}
         // style={{ display: "block" }}
         className={`${stylesGeneral.input_text_sm}`}
@@ -22,24 +28,19 @@ const SelectProdOptions = ({ name, options, size, optionSelected = null }) => {
         {options && options.length > 0 ? (
           <>
             {optionSelected ? (
-              <option
-                value={optionSelected.id}
-                key="0"
-                name={optionSelected.nombre}
-              >
+              <option value={optionSelected.id} key="0">
                 {optionSelected.nombre}
               </option>
             ) : (
-              <option value="" key="0" name={name}>
+              <option value="" key="0">
                 {name}
               </option>
             )}
 
             {options.map((el) => (
               <option
-                value={el.id}
+                value={`${el.id}-${el.nombre}`}
                 key={`${el.id}-${el.nombre}`}
-                name={el.nombre}
               >
                 {el.nombre}
               </option>

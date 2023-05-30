@@ -82,8 +82,8 @@ const getProductByCode = async (req, res) => {
         data: result_info_prod[0],
         colors: result_info_prod_colors,
         sizes: uniqueSizes,
-        color: result_color ? result_color[0] : null,
-        size: result_size ? result_size[0] : null,
+        color: result_color ? result_color[0] : { id: null, nombre: null },
+        size: result_size ? result_size[0] : { id: null, nombre: null },
       });
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({

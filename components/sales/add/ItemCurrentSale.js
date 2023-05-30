@@ -1,14 +1,23 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProductColorCurrentSale } from "@/actions/salesAction.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdDeleteForever } from "react-icons/md";
 
 const ItemCurrentSale = ({ product, delItem }) => {
   const [showLiquidPrice, setShowLiquidPrice] = useState(false);
-  console.log(product);
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {
     setShowLiquidPrice(!showLiquidPrice);
+  };
+
+  const handleSelectChange = (e) => {
+    const [id, name] = e.target.value.split("-");
+    console.log("event", id, name, product.id, e.target.name);
+    if (e.target.name === "Colores")
+      dispatch(updateProductColorCurrentSale(product.id, id, name));
   };
 
   const priceToShow = showLiquidPrice
@@ -62,12 +71,14 @@ const ItemCurrentSale = ({ product, delItem }) => {
               options={product.colors}
               size="base"
               optionSelected={selectedColor}
+              handleSelectChange={handleSelectChange}
             />
             <SelectProdOptions
               name="Talles"
               options={product.sizes}
               size="sm"
               optionSelected={selectedSize}
+              handleSelectChange={handleSelectChange}
             />
           </div>
           <div className="flex gap-4 w-full md:w-32 items-center justify-between">
