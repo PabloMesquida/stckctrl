@@ -20,10 +20,13 @@ const getProductByCode = async (req, res) => {
   const [productCode, colorCode, sizeCode] = splitCode(code);
 
   try {
-    const [result_id_prod] = await executeQuery({
+    // Almacenar la promesa en una variable
+    const idQueryPromise = executeQuery({
       query: "SELECT id FROM productos WHERE codigo = ? AND activo = 1 LIMIT 1",
       values: [productCode],
     });
+
+    const [result_id_prod] = await idQueryPromise;
 
     if (!result_id_prod) {
       return res.status(INTERNAL_SERVER_ERROR).json({
@@ -35,7 +38,6 @@ const getProductByCode = async (req, res) => {
       result_size = null;
 
     if (colorCode) {
-      console.log("COLORCODE");
       const color_query =
         "SELECT id, color as nombre FROM colores WHERE etiqueta = ? LIMIT 1";
 
@@ -55,30 +57,27 @@ const getProductByCode = async (req, res) => {
       });
     }
 
-    const id = result_id_prod.id;
-
+    // Esperar ambas promesas en una sola llamada a Promise.all
     const [result_info_prod, result_info_prod_colors, result_info_prod_sizes] =
       await Promise.all([
         executeQuery({
           query:
             "SELECT p.*, c.nombre AS nombre_cat, prov.nombre AS nombre_prov, g.nombre AS nombre_gen FROM productos AS p JOIN categoria AS c ON p.id_cat = c.id JOIN proveedores AS prov ON prov.id = p.id_prov JOIN genero AS g ON g.id = p.id_gen WHERE p.id = ?",
-          values: [id],
+          values: [result_id_prod.id],
         }),
         executeQuery({
           query:
             "SELECT p.id_color AS id, c.color AS nombre, c.etiqueta, c.hex FROM p_colores AS p JOIN colores AS c ON p.id_color = c.id WHERE id_prod = ? ",
-          values: [id],
+          values: [result_id_prod.id],
         }),
         executeQuery({
           query:
             "SELECT p.id_talle AS id, t.talle AS nombre FROM p_talles AS p JOIN talles AS t ON p.id_talle = t.id WHERE p.id_prod = ? ORDER BY t.orden ASC",
-          values: [id],
+          values: [result_id_prod.id],
         }),
       ]);
 
-    const uniqueSizes = result_info_prod_sizes
-      ? filterById(result_info_prod_sizes)
-      : [];
+    const uniqueSizes = filterById(result_info_prod_sizes);
 
     if (productCode)
       return res.status(SUCCESS).json({
