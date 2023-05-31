@@ -39,19 +39,26 @@ const ListCurrentSale = ({ isLoading }) => {
           No se encontraron productos.
         </div>
       ) : (
-        <form onSubmit={formik.handleSubmit}>
-          <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
-            {newSale.products.map((product, index) => (
-              <ItemCurrentSale
-                product={product}
-                delItem={delItem}
-                key={index}
-              />
-            ))}
-            {isLoading && <ItemCurrentSaleSkeleton />}
-            <SummaryCurrentSale />
-          </div>
-        </form>
+        <>
+          {isLoading && newSale.products.length === 0 && (
+            <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
+              <ItemCurrentSaleSkeleton />
+            </div>
+          )}
+          <form onSubmit={formik.handleSubmit}>
+            <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
+              {newSale.products.map((product, index) => (
+                <ItemCurrentSale
+                  product={product}
+                  delItem={delItem}
+                  key={index}
+                />
+              ))}
+              {isLoading && <ItemCurrentSaleSkeleton />}
+              <SummaryCurrentSale />
+            </div>
+          </form>
+        </>
       )}
     </>
   );
