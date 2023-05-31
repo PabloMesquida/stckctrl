@@ -44,7 +44,6 @@ export default function salesReducer(state = initialStateSales, action) {
 
 const updateProduct = (state, action, updateFn) => {
   const { productId, updateId, updateName } = action.payload;
-  console.log("NAME", updateName);
   const productIndex = state.currentSale.products.findIndex(
     (product) => product.id === productId
   );

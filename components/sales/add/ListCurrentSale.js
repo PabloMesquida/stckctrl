@@ -5,8 +5,9 @@ import { deleteProductCurrentSale } from "@/actions/salesAction.js";
 import SummaryCurrentSale from "./SummaryCurrentSale.js";
 import ItemCurrentSale from "./ItemCurrentSale.js";
 import stylesGeneral from "@/styles/General.module.css";
+import ItemCurrentSaleSkeleton from "./ItemCurrentSaleSkeleton.js";
 
-const ListCurrentSale = () => {
+const ListCurrentSale = ({ isLoading }) => {
   const newSale = useSelector((state) => state?.sales.currentSale);
   const dispatch = useDispatch();
 
@@ -38,8 +39,8 @@ const ListCurrentSale = () => {
           No se encontraron productos.
         </div>
       ) : (
-        <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
-          <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
+          <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
             {newSale.products.map((product, index) => (
               <ItemCurrentSale
                 product={product}
@@ -47,9 +48,10 @@ const ListCurrentSale = () => {
                 key={index}
               />
             ))}
+            {isLoading && <ItemCurrentSaleSkeleton />}
             <SummaryCurrentSale />
-          </form>
-        </div>
+          </div>
+        </form>
       )}
     </>
   );

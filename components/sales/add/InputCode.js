@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { addProductSale } from "@/actions/salesAction.js";
 import { add_product_sale_validate } from "@/helpers/validate.js";
@@ -8,9 +8,9 @@ import Message from "@/components/messages/Message.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { generateUniqueId } from "@/helpers/utils";
 
-const InputCode = () => {
+const InputCode = ({ setIsLoading }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+
   const [message, setMessage] = useState({
     status: false,
     type: null,
@@ -26,6 +26,7 @@ const InputCode = () => {
 
   async function handleSubmit(values) {
     setMessage({});
+    setIsLoading(true);
     try {
       await axios.get(`../../api/stock/code/${values.code}`).then((res) => {
         const addProductSaleData = {
@@ -33,8 +34,10 @@ const InputCode = () => {
           id: generateUniqueId(),
         };
         dispatch(addProductSale(addProductSaleData));
+        setIsLoading(false);
       });
     } catch (error) {
+      setIsLoading(false);
       if (error.response) {
         setMessage({
           status: error.response.status,

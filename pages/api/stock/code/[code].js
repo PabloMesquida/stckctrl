@@ -17,6 +17,7 @@ export default async function handler(req, res) {
 const getProductByCode = async (req, res) => {
   const { code } = req.query;
 
+  console.log("CODE:", code);
   const [productCode, colorCode, sizeCode] = splitCode(code);
 
   try {

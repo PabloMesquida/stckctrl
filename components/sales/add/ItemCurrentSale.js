@@ -43,8 +43,6 @@ const ItemCurrentSale = ({ product, delItem }) => {
     selectedSize = product.sizes.find((size) => size.id === product.size.id);
   }
 
-  console.log(selectedColor);
-
   return (
     <div className="border-b border-dashed flex flex-col border-th-primary-light pb-4">
       <div className="flex">
