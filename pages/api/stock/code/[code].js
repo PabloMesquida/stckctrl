@@ -17,7 +17,6 @@ export default async function handler(req, res) {
 const getProductByCode = async (req, res) => {
   const { code } = req.query;
 
-  console.log("CODE:", code);
   const [productCode, colorCode, sizeCode] = splitCode(code);
 
   try {
@@ -36,6 +35,7 @@ const getProductByCode = async (req, res) => {
       result_size = null;
 
     if (colorCode) {
+      console.log("COLORCODE");
       const color_query =
         "SELECT id, color as nombre FROM colores WHERE etiqueta = ? LIMIT 1";
 
@@ -76,7 +76,9 @@ const getProductByCode = async (req, res) => {
         }),
       ]);
 
-    const uniqueSizes = filterById(result_info_prod_sizes);
+    const uniqueSizes = result_info_prod_sizes
+      ? filterById(result_info_prod_sizes)
+      : [];
 
     if (productCode)
       return res.status(SUCCESS).json({
