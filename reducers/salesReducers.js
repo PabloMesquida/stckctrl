@@ -17,34 +17,11 @@ export default function salesReducer(state = initialStateSales, action) {
       };
     }
     case "UPDATE_PRODUCT_COLOR_CURRENT_SALE": {
-      const { productId, colorId, colorName } = action.payload;
-      const productIndex = state.currentSale.products.findIndex(
-        (product) => product.id === productId
-      );
+      return updateProduct(state, action, "color");
+    }
 
-      if (productIndex !== -1) {
-        const updatedProduct = {
-          ...state.currentSale.products[productIndex],
-          color: { id: colorId, nombre: colorName },
-        };
-
-        const updatedProducts = [
-          ...state.currentSale.products.slice(0, productIndex),
-          updatedProduct,
-          ...state.currentSale.products.slice(productIndex + 1),
-        ];
-
-        return {
-          ...state,
-          currentSale: {
-            ...state.currentSale,
-            products: updatedProducts,
-          },
-          loading: false,
-        };
-      }
-
-      return state;
+    case "UPDATE_PRODUCT_SIZE_CURRENT_SALE": {
+      return updateProduct(state, action, "size");
     }
 
     case "DELETE_PRODUCT_CURRENT_SALE": {
@@ -64,3 +41,35 @@ export default function salesReducer(state = initialStateSales, action) {
       return state;
   }
 }
+
+const updateProduct = (state, action, updateFn) => {
+  const { productId, updateId, updateName } = action.payload;
+  console.log("NAME", updateName);
+  const productIndex = state.currentSale.products.findIndex(
+    (product) => product.id === productId
+  );
+
+  if (productIndex !== -1) {
+    const updatedProduct = {
+      ...state.currentSale.products[productIndex],
+      [updateFn]: { id: updateId, nombre: updateName },
+    };
+
+    const updatedProducts = [
+      ...state.currentSale.products.slice(0, productIndex),
+      updatedProduct,
+      ...state.currentSale.products.slice(productIndex + 1),
+    ];
+
+    return {
+      ...state,
+      currentSale: {
+        ...state.currentSale,
+        products: updatedProducts,
+      },
+      loading: false,
+    };
+  }
+
+  return state;
+};

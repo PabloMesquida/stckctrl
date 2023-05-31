@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateProductColorCurrentSale } from "@/actions/salesAction.js";
+import {
+  updateProductColorCurrentSale,
+  updateProductSizeCurrentSale,
+} from "@/actions/salesAction.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdDeleteForever } from "react-icons/md";
@@ -16,8 +19,11 @@ const ItemCurrentSale = ({ product, delItem }) => {
   const handleSelectChange = (e) => {
     const [id, name] = e.target.value.split("-");
     console.log("event", id, name, product.id, e.target.name);
-    if (e.target.name === "Colores")
+    if (e.target.name === "Colores") {
       dispatch(updateProductColorCurrentSale(product.id, id, name));
+    } else if (e.target.name === "Talles") {
+      dispatch(updateProductSizeCurrentSale(product.id, id, name));
+    }
   };
 
   const priceToShow = showLiquidPrice
