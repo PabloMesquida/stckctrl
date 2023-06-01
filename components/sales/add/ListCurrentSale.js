@@ -28,23 +28,20 @@ const ListCurrentSale = ({ isLoading }) => {
     dispatch(deleteProductCurrentSale(id));
   };
 
-  useEffect(() => {
-    console.log("Sales state updated:", newSale);
-  }, [newSale]);
-
   return (
     <>
       {newSale.products.length === 0 ? (
-        <div className="flex justify-center items-center m-8 text-th-primary-medium text-sm">
-          No se encontraron productos.
-        </div>
+        isLoading ? (
+          <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
+            <ItemCurrentSaleSkeleton />
+          </div>
+        ) : (
+          <div className="flex justify-center mt-4">
+            Ingrese el código de producto.
+          </div>
+        )
       ) : (
         <>
-          {isLoading && newSale.products.length === 0 && (
-            <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
-              <ItemCurrentSaleSkeleton />
-            </div>
-          )}
           <form onSubmit={formik.handleSubmit}>
             <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
               {newSale.products.map((product, index) => (
