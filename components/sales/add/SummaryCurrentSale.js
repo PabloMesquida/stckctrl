@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SelectProdOptions from "@/components/forms/SelectProdOptions";
 
-const SummaryCurrentSale = () => {
+const SummaryCurrentSale = ({ sale }) => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log(sale);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,15 +24,16 @@ const SummaryCurrentSale = () => {
   return (
     <div>
       <div>
-        <div>
-          {!isLoading && (
+        {!isLoading && (
+          <div>
             <SelectProdOptions
               name="Forma de pago"
               options={paymentMethods}
               size="base"
             />
-          )}
-        </div>
+            <div>Total:</div>
+          </div>
+        )}
       </div>
     </div>
   );

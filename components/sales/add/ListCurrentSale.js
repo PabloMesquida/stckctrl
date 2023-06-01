@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteProductCurrentSale } from "@/actions/salesAction.js";
@@ -52,7 +51,7 @@ const ListCurrentSale = ({ isLoading }) => {
                 />
               ))}
               {isLoading && <ItemCurrentSaleSkeleton />}
-              <SummaryCurrentSale />
+              <SummaryCurrentSale sale={newSale} />
             </div>
           </form>
         </>

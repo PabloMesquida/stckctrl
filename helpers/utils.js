@@ -1,11 +1,11 @@
 export function splitCode(code) {
   if (code.length < 8 || code.length > 12) {
-    return null; // El código no cumple con los requisitos de longitud
+    return [null, null, null];
   }
 
   let productCode = code.slice(0, 8);
-  let colorCode = code.length > 8 ? code.slice(8, 10) : "";
-  let sizeCode = code.length > 10 ? code.slice(10, code.length) : "";
+  let colorCode = code.length > 8 ? code.slice(8, 10) : null;
+  let sizeCode = code.length > 10 ? code.slice(10, code.length) : null;
 
   return [productCode, colorCode, sizeCode];
 }
