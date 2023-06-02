@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   updateProductColorCurrentSale,
   updateProductSizeCurrentSale,
+  updateProductClearanceCurrentSale,
 } from "@/actions/salesAction.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
@@ -14,6 +15,7 @@ const ItemCurrentSale = ({ product, delItem }) => {
 
   const handleCheckboxChange = () => {
     setShowLiquidPrice(!showLiquidPrice);
+    dispatch(updateProductClearanceCurrentSale(product.id));
   };
 
   const handleSelectChange = (e) => {

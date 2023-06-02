@@ -10,11 +10,16 @@ const initialStateSales = {
 export default function salesReducer(state = initialStateSales, action) {
   switch (action.type) {
     case "ADD_PRODUCT_CURRENT_SALE": {
+      const newProduct = {
+        ...action.payload,
+        clearance: false,
+      };
+
       return {
         ...state,
         currentSale: {
           ...state.currentSale,
-          products: [...state.currentSale.products, action.payload],
+          products: [...state.currentSale.products, newProduct],
         },
         loading: false,
       };
@@ -25,6 +30,28 @@ export default function salesReducer(state = initialStateSales, action) {
 
     case "UPDATE_PRODUCT_SIZE_CURRENT_SALE": {
       return updateProduct(state, action, "size");
+    }
+
+    case "UPDATE_CLEARANCE_PRODUCT_CURRENT_SALE": {
+      const productId = action.payload;
+
+      const updatedProducts = state.currentSale.products.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            clearance: !product.clearance,
+          };
+        }
+        return product;
+      });
+
+      return {
+        ...state,
+        currentSale: {
+          ...state.currentSale,
+          products: updatedProducts,
+        },
+      };
     }
 
     case "DELETE_PRODUCT_CURRENT_SALE": {

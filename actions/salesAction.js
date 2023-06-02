@@ -4,6 +4,7 @@ import {
   UPDATE_PRODUCT_SIZE_CURRENT_SALE,
   DELETE_PRODUCT_CURRENT_SALE,
   UPDATE_PAYMENT_CURRENT_SALE,
+  UPDATE_CLEARANCE_PRODUCT_CURRENT_SALE,
 } from "../types";
 
 export const addProductSale = (data) => {
@@ -32,6 +33,13 @@ export const updateProductSizeCurrentSale = (
   return {
     type: UPDATE_PRODUCT_SIZE_CURRENT_SALE,
     payload: { productId, updateId, updateName },
+  };
+};
+
+export const updateProductClearanceCurrentSale = (id) => {
+  return {
+    type: UPDATE_CLEARANCE_PRODUCT_CURRENT_SALE,
+    payload: id,
   };
 };
 
