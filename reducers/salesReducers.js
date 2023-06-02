@@ -1,5 +1,8 @@
 const initialStateSales = {
-  currentSale: { products: [], summary: { payment: 1, discount: 0 } },
+  currentSale: {
+    products: [],
+    summary: { payment: { id: 1, nombre: "Efectivo" }, discount: 0 },
+  },
   daySales: [],
   loading: true,
 };
@@ -37,6 +40,20 @@ export default function salesReducer(state = initialStateSales, action) {
         loading: false,
       };
     }
+
+    case "UPDATE_PAYMENT_CURRENT_SALE": {
+      return {
+        ...state,
+        currentSale: {
+          ...state.currentSale,
+          summary: {
+            ...state.currentSale.summary,
+            payment: action.payload,
+          },
+        },
+      };
+    }
+
     default:
       return state;
   }

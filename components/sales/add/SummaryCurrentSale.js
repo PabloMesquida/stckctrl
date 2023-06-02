@@ -1,15 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SelectProdOptions from "@/components/forms/SelectProdOptions";
+import { useDispatch } from "react-redux";
+import { updatePaymentCurrentSale } from "@/actions/salesAction.js";
+import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 
 const SummaryCurrentSale = ({ sale }) => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  const paymentId = sale.summary.payment;
+  const paymentId = sale.summary.payment.id;
   const paymentSelected = paymentMethods.find(
     (method) => method.id === paymentId
   );
+
+  const handleSelectChange = (e) => {
+    const [id, name] = e.target.value.split("-");
+    dispatch(updatePaymentCurrentSale({ id: parseInt(id), nombre: name }));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +42,7 @@ const SummaryCurrentSale = ({ sale }) => {
               options={paymentMethods}
               optionSelected={paymentSelected}
               size="base"
+              handleSelectChange={handleSelectChange}
             />
             <div>Total:</div>
           </div>

@@ -18,11 +18,10 @@ const ItemCurrentSale = ({ product, delItem }) => {
 
   const handleSelectChange = (e) => {
     const [id, name] = e.target.value.split("-");
-    console.log("event", id, name, product.id, e.target.name);
     if (e.target.name === "Colores") {
-      dispatch(updateProductColorCurrentSale(product.id, id, name));
+      dispatch(updateProductColorCurrentSale(product.id, parseInt(id), name));
     } else if (e.target.name === "Talles") {
-      dispatch(updateProductSizeCurrentSale(product.id, id, name));
+      dispatch(updateProductSizeCurrentSale(product.id, parseInt(id), name));
     }
   };
 

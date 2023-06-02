@@ -15,14 +15,15 @@ const SelectProdOptions = ({
     ? "w-32 md:min-w-32 md:w-full"
     : "w-full";
 
+  const filteredOptions = options.filter(
+    (el) => !optionSelected || el.id !== optionSelected.id
+  );
+
   return (
     <div className={`${stylesGeneral.input_group_sm} ${minWClass}`}>
       <select
         name={name}
-        // {...formik.getFieldProps(`id_${name}`)}
         onChange={handleSelectChange}
-        // onBlur={formik.handleBlur}
-        // style={{ display: "block" }}
         className={`${stylesGeneral.input_text_sm}`}
       >
         {options && options.length > 0 ? (
@@ -37,7 +38,7 @@ const SelectProdOptions = ({
               </option>
             )}
 
-            {options.map((el) => (
+            {filteredOptions.map((el) => (
               <option
                 value={`${el.id}-${el.nombre}`}
                 key={`${el.id}-${el.nombre}`}
