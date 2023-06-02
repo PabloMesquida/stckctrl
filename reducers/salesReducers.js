@@ -1,5 +1,5 @@
 const initialStateSales = {
-  currentSale: { products: [], summary: [] },
+  currentSale: { products: [], summary: { payment: 1, discount: 0 } },
   daySales: [],
   loading: true,
 };

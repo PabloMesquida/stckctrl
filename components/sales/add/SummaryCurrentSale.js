@@ -6,7 +6,10 @@ const SummaryCurrentSale = ({ sale }) => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(sale);
+  const paymentId = sale.summary.payment;
+  const paymentSelected = paymentMethods.find(
+    (method) => method.id === paymentId
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +32,7 @@ const SummaryCurrentSale = ({ sale }) => {
             <SelectProdOptions
               name="Forma de pago"
               options={paymentMethods}
+              optionSelected={paymentSelected}
               size="base"
             />
             <div>Total:</div>
