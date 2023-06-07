@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { addProductSale } from "@/actions/salesAction.js";
+import {
+  addProductSale,
+  updateAmountCurrentSale,
+} from "@/actions/salesAction.js";
 import { add_product_sale_validate } from "@/helpers/validate.js";
 import { useDispatch } from "react-redux";
 import Message from "@/components/messages/Message.js";
@@ -34,6 +37,7 @@ const InputCode = ({ setIsLoading }) => {
           id: generateUniqueId(),
         };
         dispatch(addProductSale(addProductSaleData));
+        dispatch(updateAmountCurrentSale(res.data.data.precio));
         setIsLoading(false);
       });
     } catch (error) {

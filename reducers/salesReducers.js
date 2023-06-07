@@ -1,7 +1,7 @@
 const initialStateSales = {
   currentSale: {
     products: [],
-    summary: { payment: { id: 1, nombre: "Efectivo" }, discount: 0 },
+    summary: { payment: { id: 1, nombre: "Efectivo" }, discount: 0, amount: 0 },
   },
   daySales: [],
   loading: true,
@@ -13,6 +13,7 @@ export default function salesReducer(state = initialStateSales, action) {
       const newProduct = {
         ...action.payload,
         clearance: false,
+        amount: action.payload.data.precio,
       };
 
       return {
@@ -40,6 +41,9 @@ export default function salesReducer(state = initialStateSales, action) {
           return {
             ...product,
             clearance: !product.clearance,
+            amount: product.clearance
+              ? product.data.precio
+              : product.data.precio_liq,
           };
         }
         return product;
@@ -76,6 +80,19 @@ export default function salesReducer(state = initialStateSales, action) {
           summary: {
             ...state.currentSale.summary,
             payment: action.payload,
+          },
+        },
+      };
+    }
+
+    case "UPDATE_AMOUNT_CURRENT_SALE": {
+      return {
+        ...state,
+        currentSale: {
+          ...state.currentSale,
+          summary: {
+            ...state.currentSale.summary,
+            amount: action.payload,
           },
         },
       };
