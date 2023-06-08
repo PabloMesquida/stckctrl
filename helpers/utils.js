@@ -28,3 +28,12 @@ export function generateUniqueId() {
 
   return `${timestamp}-${random}`;
 }
+
+export function calculatePercentage(num, percentage) {
+  var calculatedPercentage = Math.round((percentage / 100) * num);
+  var subtraction = num - calculatedPercentage;
+  return {
+    percentage: calculatedPercentage,
+    subtraction: subtraction,
+  };
+}

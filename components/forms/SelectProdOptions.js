@@ -1,12 +1,6 @@
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectProdOptions = ({
-  name,
-  options,
-  size,
-  optionSelected = null,
-  handleSelectChange,
-}) => {
+const SelectProdOptions = ({ name, options, size, optionSelected = null, handleSelectChange }) => {
   const isSmallSize = size === "sm";
   const isBaseSize = size === "base";
   const minWClass = isSmallSize
@@ -15,9 +9,7 @@ const SelectProdOptions = ({
     ? "w-32 md:min-w-32 md:w-full"
     : "w-full";
 
-  const filteredOptions = options.filter(
-    (el) => !optionSelected || el.id !== optionSelected.id
-  );
+  const filteredOptions = options.filter((el) => !optionSelected || el.id !== optionSelected.id);
 
   return (
     <div className={`${stylesGeneral.input_group_sm} ${minWClass}`}>
@@ -39,10 +31,7 @@ const SelectProdOptions = ({
             )}
 
             {filteredOptions.map((el) => (
-              <option
-                value={`${el.id}-${el.nombre}`}
-                key={`${el.id}-${el.nombre}`}
-              >
+              <option value={`${el.id}-${el.nombre}`} key={`${el.id}-${el.nombre}`}>
                 {el.nombre}
               </option>
             ))}

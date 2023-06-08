@@ -41,9 +41,7 @@ export default function salesReducer(state = initialStateSales, action) {
           return {
             ...product,
             clearance: !product.clearance,
-            amount: product.clearance
-              ? product.data.precio
-              : product.data.precio_liq,
+            amount: product.clearance ? product.data.precio : product.data.precio_liq,
           };
         }
         return product;
@@ -59,9 +57,7 @@ export default function salesReducer(state = initialStateSales, action) {
     }
 
     case "DELETE_PRODUCT_CURRENT_SALE": {
-      let newData = state.currentSale.products.filter(
-        (el) => el.id !== action.payload
-      );
+      let newData = state.currentSale.products.filter((el) => el.id !== action.payload);
       return {
         ...state,
         currentSale: {
@@ -98,6 +94,16 @@ export default function salesReducer(state = initialStateSales, action) {
       };
     }
 
+    case "UPDATE_DISCOUNT_CURRENT_SALE": {
+      return {
+        ...state,
+        currentSale: {
+          ...state.currentSale,
+          summary: { ...state.currentSale.summary, discount: action.payload },
+        },
+      };
+    }
+
     default:
       return state;
   }
@@ -105,9 +111,7 @@ export default function salesReducer(state = initialStateSales, action) {
 
 const updateProduct = (state, action, updateFn) => {
   const { productId, updateId, updateName } = action.payload;
-  const productIndex = state.currentSale.products.findIndex(
-    (product) => product.id === productId
-  );
+  const productIndex = state.currentSale.products.findIndex((product) => product.id === productId);
 
   if (productIndex !== -1) {
     const updatedProduct = {
