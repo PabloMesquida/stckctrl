@@ -68,12 +68,7 @@ export function add_product_validate(values, imageSrc, uploadData, isChange) {
   }
 
   for (const [key, value] of Object.entries(values)) {
-    if (
-      !value &&
-      key !== "description" &&
-      key !== "clearance_price" &&
-      key !== "cost_price"
-    ) {
+    if (!value && key !== "description" && key !== "clearance_price" && key !== "cost_price") {
       errors[key] = errorMessages[key];
     } else if (Array.isArray(value) && value.length === 0) {
       errors[key] = errorMessages[key];
@@ -95,10 +90,7 @@ export function add_supplier_validate(values) {
   }
 
   // Validar dirección de correo electrónico
-  if (
-    values.sup_email &&
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.sup_email)
-  ) {
+  if (values.sup_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.sup_email)) {
     errors.sup_email = errorMessages.sup_email;
   }
 
@@ -121,4 +113,12 @@ export function add_product_sale_validate(values) {
   }
 
   return errors;
+}
+
+export function add_sale_validate(values) {
+  const errors = {};
+  const errorMessages = {
+    data_prod: "Faltan datos.",
+    payment: "Falta seleccionar forma de pago.",
+  };
 }

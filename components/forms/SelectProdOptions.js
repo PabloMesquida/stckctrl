@@ -1,6 +1,13 @@
 import stylesGeneral from "@/styles/General.module.css";
 
-const SelectProdOptions = ({ name, options, size, optionSelected = null, handleSelectChange }) => {
+const SelectProdOptions = ({
+  name,
+  options,
+  size,
+  optionSelected = null,
+  handleSelectChange,
+  formik,
+}) => {
   const isSmallSize = size === "sm";
   const isBaseSize = size === "base";
   const minWClass = isSmallSize
@@ -17,6 +24,7 @@ const SelectProdOptions = ({ name, options, size, optionSelected = null, handleS
         name={name}
         onChange={handleSelectChange}
         className={`${stylesGeneral.input_text_sm}`}
+        {...formik.getFieldProps(name)}
       >
         {options && options.length > 0 ? (
           <>

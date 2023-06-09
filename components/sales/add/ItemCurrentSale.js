@@ -9,7 +9,7 @@ import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdDeleteForever } from "react-icons/md";
 
-const ItemCurrentSale = ({ product, delItem }) => {
+const ItemCurrentSale = ({ product, delItem, formik }) => {
   const [showLiquidPrice, setShowLiquidPrice] = useState(false);
   const dispatch = useDispatch();
 
@@ -27,17 +27,13 @@ const ItemCurrentSale = ({ product, delItem }) => {
     }
   };
 
-  const priceToShow = showLiquidPrice
-    ? product.data.precio_liq
-    : product.data.precio;
+  const priceToShow = showLiquidPrice ? product.data.precio_liq : product.data.precio;
 
   let selectedColor,
     selectedSize = null;
 
   if (product.color) {
-    selectedColor = product.colors.find(
-      (color) => color.id === product.color.id
-    );
+    selectedColor = product.colors.find((color) => color.id === product.color.id);
   }
 
   if (product.size) {
@@ -47,9 +43,7 @@ const ItemCurrentSale = ({ product, delItem }) => {
   return (
     <div className="border-b border-dashed flex flex-col border-th-primary-light pb-4">
       <div className="flex">
-        <div className={`${stylesGeneral.item_code} grow`}>
-          {`[ ${product.data.codigo} ]`}
-        </div>
+        <div className={`${stylesGeneral.item_code} grow`}>{`[ ${product.data.codigo} ]`}</div>
         <div>
           <button
             onClick={() => {
@@ -77,6 +71,7 @@ const ItemCurrentSale = ({ product, delItem }) => {
               size="base"
               optionSelected={selectedColor}
               handleSelectChange={handleSelectChange}
+              formik={formik}
             />
             <SelectProdOptions
               name="Talles"
@@ -84,17 +79,14 @@ const ItemCurrentSale = ({ product, delItem }) => {
               size="sm"
               optionSelected={selectedSize}
               handleSelectChange={handleSelectChange}
+              formik={formik}
             />
           </div>
           <div className="flex gap-4 w-full md:w-32 items-center justify-between">
             <div className="flex flex-row gap-4">
               <label>
                 <span className={`${stylesGeneral.item_name} mr-4`}>Liq:</span>
-                <input
-                  type="checkbox"
-                  checked={showLiquidPrice}
-                  onChange={handleCheckboxChange}
-                />
+                <input type="checkbox" checked={showLiquidPrice} onChange={handleCheckboxChange} />
               </label>
             </div>
             <div>

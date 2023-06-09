@@ -10,7 +10,7 @@ import { calculatePercentage } from "@/helpers/utils.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 
-const SummaryCurrentSale = ({ sale }) => {
+const SummaryCurrentSale = ({ sale, formik }) => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [isCashDiscuount, setIsCashDiscuount] = useState(false);
   const [discount, setDiscount] = useState();
@@ -40,9 +40,14 @@ const SummaryCurrentSale = ({ sale }) => {
   }
 
   useEffect(() => {
-    updateAmountCurrentSale(sumarAmount(sale.products));
-    setSaleAmount(sumarAmount(sale.products));
-    console.log("SALE: ", sale);
+    const sumAmount = sumarAmount(sale.products);
+    updateAmountCurrentSale(sumAmount);
+    setSaleAmount(sumAmount);
+    formik.setValues({
+      products: sale.products,
+      summary: { amount: sumAmount },
+    });
+    console.log("SALE: ", sumAmount);
   }, [sale]);
 
   const paymentId = sale.summary.payment.id;
@@ -77,6 +82,7 @@ const SummaryCurrentSale = ({ sale }) => {
               optionSelected={paymentSelected}
               size="sm"
               handleSelectChange={handleSelectChange}
+              formik={formik}
             />
             <div>
               <label>
