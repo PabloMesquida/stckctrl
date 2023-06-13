@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import Message from "../messages/Message.js";
-import { MdImage, MdOutlineFileUpload, MdRefresh } from "react-icons/md";
+import { MdImage, MdOutlineFileUpload } from "react-icons/md";
 import { Ring } from "@uiball/loaders";
 import stylesGeneral from "@/styles/General.module.css";
 
@@ -25,12 +25,12 @@ const UploadImage = ({
       formData.append("file", file);
     }
 
-    formData.append("upload_preset", "stckctrl-uploads");
+    formData.append("upload_preset", process.env.UPLOAD_PRESET);
 
     setIsUploading(true);
 
     const data = await fetch(
-      "https://api.cloudinary.com/v1_1/dq2hljnad/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
       {
         method: "POST",
         body: formData,
@@ -92,9 +92,7 @@ const UploadImage = ({
           </button>
         )}
         {shouldShowUploadingIcon && (
-          <div
-            className={`${stylesGeneral.button_sm} flex justify-center items-center`}
-          >
+          <div className={`${stylesGeneral.button_sm} flex justify-center items-center`}>
             <Ring size={28} lineWeight={3.5} speed={1} color="white" />
           </div>
         )}
