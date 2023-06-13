@@ -76,25 +76,58 @@ const SummaryCurrentSale = ({ sale, formik }) => {
       <div>
         {!isLoading && (
           <div className="flex justify-between">
-            <SelectProdOptions
-              name="Forma de pago"
-              options={paymentMethods}
-              optionSelected={paymentSelected}
-              size="sm"
-              handleSelectChange={handleSelectChange}
-              formik={formik}
-            />
-            <div>
-              <label>
-                <span className={`${stylesGeneral.item_name} mr-4`}>Descuento 15%:</span>
-                <input type="checkbox" checked={isCashDiscuount} onChange={handleCheckboxChange} />
-              </label>
-              {!isCashDiscuount && "Otro:"}
+            <div className="grow">
+              <SelectProdOptions
+                name="Forma de pago"
+                options={paymentMethods}
+                optionSelected={paymentSelected}
+                size="sm"
+                handleSelectChange={handleSelectChange}
+                formik={formik}
+              />
             </div>
-            <div>
-              {discount > 0
-                ? `${saleAmount} - ${discount} = ${saleAmount - discount}`
-                : `Total:${saleAmount}`}
+            <div className=" px-4 lg:px-8">
+              <div>
+                <label>
+                  <span className={`${stylesGeneral.item_name} mr-4`}>Descuento 15%:</span>
+                  <input
+                    type="checkbox"
+                    checked={isCashDiscuount}
+                    onChange={handleCheckboxChange}
+                  />
+                </label>
+              </div>
+              <div className="flex w-28 items-center">
+                {!isCashDiscuount && (
+                  <>
+                    <span className={`${stylesGeneral.item_name} mr-2`}>Otro:</span>
+                    <input
+                      className={stylesGeneral.input_text_sm}
+                      type="text"
+                      name="discount"
+                      maxLength={3}
+                    />
+                    <span className={`${stylesGeneral.item_name} ml-2`}>%</span>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="">
+              {discount > 0 ? (
+                <div className="flex-row">
+                  <div className="flex justify-end">
+                    $ {saleAmount}.-
+                    <br /> - $ {discount}.-
+                  </div>
+                  <div>
+                    Total: $ <span className="text-xl">{saleAmount - discount}.-</span>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  Total: $<span className="text-xl">{saleAmount}.-</span>
+                </>
+              )}
             </div>
           </div>
         )}
