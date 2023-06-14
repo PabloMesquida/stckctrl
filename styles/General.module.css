@@ -219,6 +219,10 @@
 
 /*////////////////////*/
 
+.border_result {
+  @apply rounded-md p-2 bg-th-background-tertiary;
+}
+
 .text_loader {
   @apply flex justify-center items-center m-8 text-th-primary-medium text-sm animate-pulse;
 }

@@ -89,11 +89,12 @@ const SummaryCurrentSale = ({ sale, formik }) => {
             <div className=" px-4 lg:px-8">
               <div>
                 <label>
-                  <span className={`${stylesGeneral.item_name} mr-4`}>Descuento 15%:</span>
+                  <span className={`${stylesGeneral.item_name} mr-4 `}>Descuento 15%:</span>
                   <input
                     type="checkbox"
                     checked={isCashDiscuount}
                     onChange={handleCheckboxChange}
+                    className="text-th-accent-dark"
                   />
                 </label>
               </div>
@@ -115,18 +116,18 @@ const SummaryCurrentSale = ({ sale, formik }) => {
             <div className="">
               {discount > 0 ? (
                 <div className="flex-row">
-                  <div className="flex justify-end">
-                    $ {saleAmount}.-
-                    <br /> - $ {discount}.-
+                  <div className="flex flex-col pl-2 pb-2 items-end">
+                    <div> $ {saleAmount}.-</div>
+                    <div className="text-th-accent-dark font-bold"> - $ {discount}.-</div>
                   </div>
-                  <div>
+                  <div className={stylesGeneral.border_result}>
                     Total: $ <span className="text-xl">{saleAmount - discount}.-</span>
                   </div>
                 </div>
               ) : (
-                <>
+                <div className={stylesGeneral.border_result}>
                   Total: $<span className="text-xl">{saleAmount}.-</span>
-                </>
+                </div>
               )}
             </div>
           </div>
