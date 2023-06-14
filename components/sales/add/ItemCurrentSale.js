@@ -63,7 +63,7 @@ const ItemCurrentSale = ({ product, delItem, formik }) => {
             {product.data.nombre_prov} - {product.data.nombre_gen}
           </div>
         </div>
-        <div className="flex gap-4 md:gap-8">
+        <div className="flex gap-2 md:gap-8">
           <div className="flex gap-2 md:gap-4 md:grow">
             <SelectProdOptions
               name="Colores"
@@ -82,15 +82,16 @@ const ItemCurrentSale = ({ product, delItem, formik }) => {
               formik={formik}
             />
           </div>
-          <div className="flex gap-4 w-full md:w-32 items-center justify-between">
-            <div className="flex flex-row gap-4">
+          <div className="flex gap-2 sm:gap-4 w-full md:w-32 items-center justify-between">
+            <div className="flex flex-row gap-2 sm:gap-4">
               <label>
-                <span className={`${stylesGeneral.item_name} mr-4`}>Liq:</span>
+                <span className={`${stylesGeneral.item_name} mr-2 sm:mr-4`}>Liq:</span>
                 <input type="checkbox" checked={showLiquidPrice} onChange={handleCheckboxChange} />
               </label>
             </div>
             <div>
-              $<span className="text-xl">{priceToShow}</span>
+              <span className="text-xs md:text-sm pr-1">$</span>
+              <span className="text-sm md:text-md pr-2">{priceToShow}.-</span>
             </div>
           </div>
         </div>

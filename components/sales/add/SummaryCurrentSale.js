@@ -7,6 +7,7 @@ import {
   updateDiscountCurrentSale,
 } from "@/actions/salesAction.js";
 import { calculatePercentage } from "@/helpers/utils.js";
+import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 
@@ -16,6 +17,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
   const [discount, setDiscount] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [saleAmount, setSaleAmount] = useState(sale.summary.amount);
+  const widthNavigator = useWidthNavigator();
   const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {
@@ -75,8 +77,8 @@ const SummaryCurrentSale = ({ sale, formik }) => {
     <div>
       <div>
         {!isLoading && (
-          <div className="flex justify-between">
-            <div className="grow">
+          <div className="flex justify-between ">
+            <div className="grow-0 sm:grow">
               <SelectProdOptions
                 name="Forma de pago"
                 options={paymentMethods}
@@ -86,10 +88,12 @@ const SummaryCurrentSale = ({ sale, formik }) => {
                 formik={formik}
               />
             </div>
-            <div className=" px-4 lg:px-8">
+            <div className="px-2 lg:px-8">
               <div>
                 <label>
-                  <span className={`${stylesGeneral.item_name} mr-4 `}>Descuento 15%:</span>
+                  <span className={`${stylesGeneral.item_name} mr-4 `}>
+                    {widthNavigator > 720 ? "Descuento 15%:" : "Desc 15%:"}
+                  </span>
                   <input
                     type="checkbox"
                     checked={isCashDiscuount}
@@ -113,7 +117,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
                 )}
               </div>
             </div>
-            <div className="">
+            <div>
               {discount > 0 ? (
                 <div className="flex-row">
                   <div className="flex flex-col pl-2 pb-2 items-end">
