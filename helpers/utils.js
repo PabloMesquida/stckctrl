@@ -37,3 +37,11 @@ export function calculatePercentage(num, percentage) {
     subtraction: subtraction,
   };
 }
+
+export function sumarAmount(products) {
+  let totalAmount = 0;
+  for (let i = 0; i < products.length; i++) {
+    totalAmount += products[i].amount;
+  }
+  return totalAmount;
+}

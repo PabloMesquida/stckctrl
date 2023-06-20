@@ -6,7 +6,7 @@ import {
   updateAmountCurrentSale,
   updateDiscountCurrentSale,
 } from "@/actions/salesAction.js";
-import { calculatePercentage } from "@/helpers/utils.js";
+import { calculatePercentage, sumarAmount } from "@/helpers/utils.js";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
@@ -20,6 +20,19 @@ const SummaryCurrentSale = ({ sale, formik }) => {
   const widthNavigator = useWidthNavigator();
   const dispatch = useDispatch();
 
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    let dis = 0;
+
+    if (!isCashDiscuount) {
+      const result = calculatePercentage(saleAmount, inputValue);
+      dis = result.percentage;
+    }
+
+    setDiscount(dis);
+    dispatch(updateDiscountCurrentSale(dis));
+  };
+
   const handleCheckboxChange = () => {
     let dis = 0;
 
@@ -32,14 +45,6 @@ const SummaryCurrentSale = ({ sale, formik }) => {
     setIsCashDiscuount(!isCashDiscuount);
     dispatch(updateDiscountCurrentSale(dis));
   };
-
-  function sumarAmount(products) {
-    let totalAmount = 0;
-    for (let i = 0; i < products.length; i++) {
-      totalAmount += products[i].amount;
-    }
-    return totalAmount;
-  }
 
   useEffect(() => {
     const sumAmount = sumarAmount(sale.products);
@@ -111,6 +116,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
                       type="text"
                       name="discount"
                       maxLength={3}
+                      onChange={handleInputChange}
                     />
                     <span className={`${stylesGeneral.item_name} ml-2`}>%</span>
                   </>
