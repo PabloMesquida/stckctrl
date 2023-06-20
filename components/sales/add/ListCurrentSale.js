@@ -6,7 +6,6 @@ import SummaryCurrentSale from "./SummaryCurrentSale.js";
 import ItemCurrentSale from "./ItemCurrentSale.js";
 import stylesGeneral from "@/styles/General.module.css";
 import ItemCurrentSaleSkeleton from "./ItemCurrentSaleSkeleton.js";
-import { useEffect } from "react";
 
 const ListCurrentSale = ({ isLoading }) => {
   const newSale = useSelector((state) => state?.sales.currentSale);
@@ -25,6 +24,16 @@ const ListCurrentSale = ({ isLoading }) => {
 
   async function handleSubmit(values) {
     console.log("VALUES: ", values);
+    const errors = await formik.validateForm(values);
+    console.log("ERRORS: ", errors);
+    console.log("ERRORS_2: ", formik);
+    if (Object.keys(errors).length === 0) {
+      // No hay errores, realizar la lógica de envío del formulario
+      console.log("VALUES: ", values);
+      // Aquí puedes agregar la lógica adicional para enviar los datos al servidor, por ejemplo.
+    } else {
+      // Hay errores, puedes mostrar mensajes de error o realizar otras acciones
+    }
   }
 
   const delItem = (id) => {
@@ -50,6 +59,7 @@ const ListCurrentSale = ({ isLoading }) => {
               ))}
               {isLoading && <ItemCurrentSaleSkeleton />}
               <SummaryCurrentSale sale={newSale} formik={formik} />
+              {formik.errors && formik.errors.color_prod}
               <button type="submit" className={stylesGeneral.button_2xl}>
                 Guardar
               </button>

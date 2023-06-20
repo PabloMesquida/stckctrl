@@ -121,4 +121,26 @@ export function add_sale_validate(values) {
     data_prod: "Faltan datos.",
     payment: "Falta seleccionar forma de pago.",
   };
+
+  console.log("VALIDATE");
+  // Validar si values.products es un arreglo y contener elementos
+  if (Array.isArray(values.products) && values.products.length > 0) {
+    console.log("VALIDATE PRODUCTS");
+    // Iterar sobre cada producto
+    values.products.forEach((product, index) => {
+      // Validar si el color.id es nulo
+      console.log("INDEX", index, product.color.id);
+      if (!product.color.id) {
+        console.log("El color es requerido.", product.color);
+        errors.color_prod = "El color es requerido.";
+      }
+    });
+  }
+
+  // Validar forma de pago
+  if (!values.payment) {
+    errors.payment = errorMessages.payment;
+  }
+
+  return errors;
 }

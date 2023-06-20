@@ -40,8 +40,7 @@ const FormProducts = ({ product = null, id = null }) => {
       sizes: product ? product.sizes : [],
       colors: product ? product.colors.map((color) => color.id_color) : [],
     },
-    validate: (values) =>
-      add_product_validate(values, imageSrc, uploadData, isChange),
+    validate: (values) => add_product_validate(values, imageSrc, uploadData, isChange),
     onSubmit,
   });
 
@@ -118,17 +117,12 @@ const FormProducts = ({ product = null, id = null }) => {
           <div className="flex flex-col w-full sm:w-1/2 gap-4">
             <div className={`${stylesGeneral.panel_card} flex flex-col w-full`}>
               <div className="flex w-full">
-                <SelectOptions
-                  formik={formik}
-                  name="categories"
-                  text="Categoría"
-                />
-                {formik.errors.id_categories &&
-                  formik.touched.id_categories && (
-                    <span className=" flex items-center px-4 pb-4 ">
-                      <MdWarning size={25} className="text-th-warning" />
-                    </span>
-                  )}
+                <SelectOptions formik={formik} name="categories" text="Categoría" />
+                {formik.errors.id_categories && formik.touched.id_categories && (
+                  <span className=" flex items-center px-4 pb-4 ">
+                    <MdWarning size={25} className="text-th-warning" />
+                  </span>
+                )}
               </div>
               <div className="flex w-full">
                 <SelectOptions formik={formik} name="genders" text="Género" />
@@ -139,11 +133,7 @@ const FormProducts = ({ product = null, id = null }) => {
                 )}
               </div>
               <div className="flex w-full">
-                <SelectOptions
-                  formik={formik}
-                  name="suppliers"
-                  text="Proveerdor"
-                />
+                <SelectOptions formik={formik} name="suppliers" text="Proveerdor" />
                 {formik.errors.id_suppliers && formik.touched.id_suppliers && (
                   <span className=" flex items-center px-4 pb-4 ">
                     <MdWarning size={25} className="text-th-warning" />
@@ -165,9 +155,7 @@ const FormProducts = ({ product = null, id = null }) => {
               ></textarea>
             </div>
           </div>
-          <div
-            className={`${stylesGeneral.panel_card}  flex flex-col w-full sm:w-1/2`}
-          >
+          <div className={`${stylesGeneral.panel_card}  flex flex-col w-full sm:w-1/2`}>
             <div className="flex flex-col gap-4 h-full">
               <div className="flex justify-between">
                 <div>Imagen:</div>
@@ -224,15 +212,8 @@ const FormProducts = ({ product = null, id = null }) => {
             "file",
           ].map((field) =>
             (formik.errors[field] && formik.touched[field]) ||
-            (field === "file" &&
-              formik.errors.file &&
-              imageSrc &&
-              isChange &&
-              !uploadData) ? (
-              <Message
-                key={field}
-                message={{ type: "warning", text: formik.errors[field] }}
-              />
+            (field === "file" && formik.errors.file && imageSrc && isChange && !uploadData) ? (
+              <Message key={field} message={{ type: "warning", text: formik.errors[field] }} />
             ) : null
           )}
           {message.status && <Message message={message} />}

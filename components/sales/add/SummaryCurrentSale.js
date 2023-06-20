@@ -48,7 +48,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
 
   useEffect(() => {
     const sumAmount = sumarAmount(sale.products);
-    updateAmountCurrentSale(sumAmount);
+    // updateAmountCurrentSale(sumAmount);x|
     setSaleAmount(sumAmount);
     formik.setValues({
       products: sale.products,
