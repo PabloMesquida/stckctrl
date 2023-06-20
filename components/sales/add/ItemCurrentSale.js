@@ -8,21 +8,27 @@ import {
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
 import { MdDeleteForever } from "react-icons/md";
+import { getName } from "@/helpers/utils";
 
 const ItemCurrentSale = ({ product, delItem, formik }) => {
   const [showLiquidPrice, setShowLiquidPrice] = useState(false);
   const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {
+    console.log("CHANGE-CHCK");
     setShowLiquidPrice(!showLiquidPrice);
     dispatch(updateProductClearanceCurrentSale(product.id));
   };
 
   const handleSelectChange = (e) => {
+    console.log("CHANGE", e.target.name);
+
     const [id, name] = e.target.value.split("-");
-    if (e.target.name === "Colores") {
+    if (getName(e.target.name) === "Colores") {
+      console.log("COLORES");
       dispatch(updateProductColorCurrentSale(product.id, parseInt(id), name));
-    } else if (e.target.name === "Talles") {
+    } else if (getName(e.target.name) === "Talles") {
+      console.log("TALLES");
       dispatch(updateProductSizeCurrentSale(product.id, parseInt(id), name));
     }
   };
@@ -66,7 +72,7 @@ const ItemCurrentSale = ({ product, delItem, formik }) => {
         <div className="flex gap-2 md:gap-8">
           <div className="flex gap-2 md:gap-4 md:grow">
             <SelectProdOptions
-              name="Colores"
+              name={`${product.id}-Colores`}
               options={product.colors}
               size="base"
               optionSelected={selectedColor}
@@ -74,7 +80,7 @@ const ItemCurrentSale = ({ product, delItem, formik }) => {
               formik={formik}
             />
             <SelectProdOptions
-              name="Talles"
+              name={`${product.id}-Talles`}
               options={product.sizes}
               size="sm"
               optionSelected={selectedSize}

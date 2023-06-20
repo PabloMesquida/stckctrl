@@ -1,3 +1,4 @@
+import { getName } from "@/helpers/utils";
 import stylesGeneral from "@/styles/General.module.css";
 
 const SelectProdOptions = ({
@@ -24,7 +25,7 @@ const SelectProdOptions = ({
         name={name}
         onChange={handleSelectChange}
         className={`${stylesGeneral.input_text_sm}`}
-        {...formik.getFieldProps(name)}
+        // {...formik.getFieldProps(name)}
       >
         {options && options.length > 0 ? (
           <>
@@ -34,7 +35,7 @@ const SelectProdOptions = ({
               </option>
             ) : (
               <option value="" key="0">
-                {name}
+                {getName(name)}
               </option>
             )}
 

@@ -23,13 +23,10 @@ const ListCurrentSale = ({ isLoading }) => {
   });
 
   async function handleSubmit(values) {
-    console.log("VALUES: ", values);
     const errors = await formik.validateForm(values);
-    console.log("ERRORS: ", errors);
-    console.log("ERRORS_2: ", formik);
+
     if (Object.keys(errors).length === 0) {
       // No hay errores, realizar la lógica de envío del formulario
-      console.log("VALUES: ", values);
       // Aquí puedes agregar la lógica adicional para enviar los datos al servidor, por ejemplo.
     } else {
       // Hay errores, puedes mostrar mensajes de error o realizar otras acciones

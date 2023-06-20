@@ -45,3 +45,8 @@ export function sumarAmount(products) {
   }
   return totalAmount;
 }
+
+export function getName(cadena) {
+  const palabras = cadena.split("-");
+  return palabras[palabras.length - 1];
+}
