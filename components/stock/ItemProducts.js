@@ -6,6 +6,7 @@ import {
   MdModeEdit,
   MdDeleteForever,
   MdOutlineFindInPage,
+  MdWarning,
 } from "react-icons/md";
 
 const ItemProducts = ({ product, warningMessage }) => {
@@ -25,9 +26,7 @@ const ItemProducts = ({ product, warningMessage }) => {
         </div>
         <div className="flex flex-col w-full">
           <div>
-            <span className={stylesGeneral.item_code}>
-              {`[ ${product.codigo} ]`}
-            </span>
+            <span className={stylesGeneral.item_code}>{`[ ${product.codigo} ]`}</span>
           </div>
           <div>
             <span className={stylesGeneral.item_name}>

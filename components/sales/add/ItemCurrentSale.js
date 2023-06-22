@@ -7,10 +7,10 @@ import {
 } from "@/actions/salesAction.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdWarning } from "react-icons/md";
 import { getName } from "@/helpers/utils";
 
-const ItemCurrentSale = ({ product, delItem, formik }) => {
+const ItemCurrentSale = ({ product, delItem, formik, index }) => {
   const [showLiquidPrice, setShowLiquidPrice] = useState(false);
   const dispatch = useDispatch();
 
@@ -49,7 +49,12 @@ const ItemCurrentSale = ({ product, delItem, formik }) => {
   return (
     <div className="border-b border-dashed flex flex-col border-th-primary-light pb-4">
       <div className="flex">
-        <div className={`${stylesGeneral.item_code} grow`}>{`[ ${product.data.codigo} ]`}</div>
+        <div className={`${stylesGeneral.item_code} grow flex gap-2 items-center`}>
+          {`[ ${product.data.codigo} ]`}
+          {formik.errors.color_prod && formik.errors.color_prod[product.id] && (
+            <MdWarning size={18} className="text-th-warning mt-1" />
+          )}
+        </div>
         <div>
           <button
             onClick={() => {

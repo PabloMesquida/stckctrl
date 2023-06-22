@@ -1,11 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  updatePaymentCurrentSale,
-  updateAmountCurrentSale,
-  updateDiscountCurrentSale,
-} from "@/actions/salesAction.js";
+import { updatePaymentCurrentSale, updateDiscountCurrentSale } from "@/actions/salesAction.js";
 import { calculatePercentage, sumarAmount } from "@/helpers/utils.js";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
@@ -48,7 +44,6 @@ const SummaryCurrentSale = ({ sale, formik }) => {
 
   useEffect(() => {
     const sumAmount = sumarAmount(sale.products);
-    // updateAmountCurrentSale(sumAmount);x|
     setSaleAmount(sumAmount);
     formik.setValues({
       products: sale.products,

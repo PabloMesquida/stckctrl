@@ -6,6 +6,7 @@ import SummaryCurrentSale from "./SummaryCurrentSale.js";
 import ItemCurrentSale from "./ItemCurrentSale.js";
 import stylesGeneral from "@/styles/General.module.css";
 import ItemCurrentSaleSkeleton from "./ItemCurrentSaleSkeleton.js";
+import Message from "@/components/messages/Message.js";
 
 const ListCurrentSale = ({ isLoading }) => {
   const newSale = useSelector((state) => state?.sales.currentSale);
@@ -52,11 +53,24 @@ const ListCurrentSale = ({ isLoading }) => {
           <form onSubmit={formik.handleSubmit}>
             <div className={`${stylesGeneral.panel_card} flex flex-col gap-4`}>
               {newSale.products.map((product, index) => (
-                <ItemCurrentSale product={product} delItem={delItem} key={index} formik={formik} />
+                <ItemCurrentSale
+                  product={product}
+                  delItem={delItem}
+                  formik={formik}
+                  key={index}
+                  index={index}
+                />
               ))}
               {isLoading && <ItemCurrentSaleSkeleton />}
               <SummaryCurrentSale sale={newSale} formik={formik} />
-              {formik.errors && formik.errors.color_prod}
+              {formik.errors.color_prod && Object.keys(formik.errors.color_prod).length > 0 && (
+                <Message
+                  message={{
+                    type: "warning",
+                    text: formik.errors.color_prod[Object.keys(formik.errors.color_prod)[0]],
+                  }}
+                />
+              )}
               <button type="submit" className={stylesGeneral.button_2xl}>
                 Guardar
               </button>
