@@ -51,7 +51,8 @@ const ItemCurrentSale = ({ product, delItem, formik, index }) => {
       <div className="flex">
         <div className={`${stylesGeneral.item_code} grow flex gap-2 items-center`}>
           {`[ ${product.data.codigo} ]`}
-          {formik.errors.color_prod && formik.errors.color_prod[product.id] && (
+          {((formik.errors.color_prod && formik.errors.color_prod[product.id]) ||
+            (formik.errors.size_prod && formik.errors.size_prod[product.id])) && (
             <MdWarning size={18} className="text-th-warning mt-1" />
           )}
         </div>

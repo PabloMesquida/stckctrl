@@ -71,6 +71,14 @@ const ListCurrentSale = ({ isLoading }) => {
                   }}
                 />
               )}
+              {formik.errors.size_prod && Object.keys(formik.errors.size_prod).length > 0 && (
+                <Message
+                  message={{
+                    type: "warning",
+                    text: formik.errors.size_prod[Object.keys(formik.errors.size_prod)[0]],
+                  }}
+                />
+              )}
               <button type="submit" className={stylesGeneral.button_2xl}>
                 Guardar
               </button>

@@ -118,6 +118,7 @@ export function add_product_sale_validate(values) {
 export function add_sale_validate(values) {
   const errors = {
     color_prod: {},
+    size_prod: {},
     payment: null,
   };
 
@@ -125,12 +126,16 @@ export function add_sale_validate(values) {
     data_prod: "Faltan datos.",
     payment: "Falta seleccionar forma de pago.",
     color_prod: "El color es requerido.",
+    size_prod: "El talle es requerido",
   };
 
   if (Array.isArray(values.products) && values.products.length > 0) {
     values.products.forEach((product) => {
       if (!product.color.id) {
         errors.color_prod[product.id] = errorMessages.color_prod;
+      }
+      if (!product.size.id) {
+        errors.size_prod[product.id] = errorMessages.size_prod;
       }
     });
   }
