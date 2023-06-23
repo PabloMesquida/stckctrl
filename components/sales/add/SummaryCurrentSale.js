@@ -6,10 +6,12 @@ import { calculatePercentage, sumarAmount } from "@/helpers/utils.js";
 import { useWidthNavigator } from "@/helpers/useWidthNavigator.js";
 import SelectProdOptions from "@/components/forms/SelectProdOptions.js";
 import stylesGeneral from "@/styles/General.module.css";
+import CashDiscount from "./CashDiscount";
 
 const SummaryCurrentSale = ({ sale, formik }) => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [isCashDiscuount, setIsCashDiscuount] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState();
   const [discount, setDiscount] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [saleAmount, setSaleAmount] = useState(sale.summary.amount);
@@ -42,6 +44,13 @@ const SummaryCurrentSale = ({ sale, formik }) => {
     dispatch(updateDiscountCurrentSale(dis));
   };
 
+  const handleSelectChange = (e) => {
+    const [id, name] = e.target.value.split("-");
+    const parsedId = parseInt(id);
+    dispatch(updatePaymentCurrentSale({ id: parsedId, nombre: name }));
+    setPaymentMethod(parsedId);
+  };
+
   useEffect(() => {
     const sumAmount = sumarAmount(sale.products);
     setSaleAmount(sumAmount);
@@ -49,16 +58,10 @@ const SummaryCurrentSale = ({ sale, formik }) => {
       products: sale.products,
       summary: { amount: sumAmount },
     });
-    console.log("SALE: ", sumAmount);
   }, [sale]);
 
   const paymentId = sale.summary.payment.id;
   const paymentSelected = paymentMethods.find((method) => method.id === paymentId);
-
-  const handleSelectChange = (e) => {
-    const [id, name] = e.target.value.split("-");
-    dispatch(updatePaymentCurrentSale({ id: parseInt(id), nombre: name }));
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,6 +91,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
                 formik={formik}
               />
             </div>
+            {paymentMethod}
             <div className="px-2 lg:px-8">
               <div>
                 <label>
@@ -103,19 +107,7 @@ const SummaryCurrentSale = ({ sale, formik }) => {
                 </label>
               </div>
               <div className="flex w-28 items-center">
-                {!isCashDiscuount && (
-                  <>
-                    <span className={`${stylesGeneral.item_name} mr-2`}>Otro:</span>
-                    <input
-                      className={stylesGeneral.input_text_sm}
-                      type="text"
-                      name="discount"
-                      maxLength={3}
-                      onChange={handleInputChange}
-                    />
-                    <span className={`${stylesGeneral.item_name} ml-2`}>%</span>
-                  </>
-                )}
+                {!isCashDiscuount && <CashDiscount handleInputChange={handleInputChange} />}
               </div>
             </div>
             <div>

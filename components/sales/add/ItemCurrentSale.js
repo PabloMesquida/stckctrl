@@ -15,14 +15,11 @@ const ItemCurrentSale = ({ product, delItem, formik, index }) => {
   const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {
-    console.log("CHANGE-CHCK");
     setShowLiquidPrice(!showLiquidPrice);
     dispatch(updateProductClearanceCurrentSale(product.id));
   };
 
   const handleSelectChange = (e) => {
-    console.log("CHANGE", e.target.name);
-
     const [id, name] = e.target.value.split("-");
     if (getName(e.target.name) === "Colores") {
       console.log("COLORES");
